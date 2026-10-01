@@ -1,0 +1,1537 @@
+{
+  "generated": "2026-10-01",
+  "thresholds": {
+    "merge": 0.95,
+    "report": 0.72
+  },
+  "summary": {
+    "releases": 80,
+    "candidates_parsed": 815,
+    "issues": 456,
+    "pending": 119,
+    "fixed": 337,
+    "fuzzy_merges": 34,
+    "near_misses_not_merged": 172,
+    "issues_with_reworded_variants": 39
+  },
+  "fuzzy_merges": [
+    {
+      "version": "22.6.1",
+      "incoming": "Performance drop may be experienced while playing Fortnite with Multithreaded Rendering and DirectX 11 API on some AMD Graphics Products such as the Radeon RX 6900 XT.",
+      "matched": "Performance drop may be experienced while playing Fortnite with Multithreaded Rendering and DirectX 11 API on some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+      "similarity": 0.974
+    },
+    {
+      "version": "22.6.1",
+      "incoming": "Higher than expected CPU usage when Instant Replay is enabled on some AMD Graphics Products such as the Radeon RX 6900 XT.",
+      "matched": "Higher than expected CPU usage when Instant Replay is enabled on some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+      "similarity": 0.964
+    },
+    {
+      "version": "22.6.1",
+      "incoming": "Stuttering may be experienced while playing Call of Duty: Warzone on the Caldera map with some AMD Graphics Products such as the Radeon RX 6900 XT.",
+      "matched": "Stuttering may be experienced while playing Call of Duty: Warzone on the Caldera map with some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+      "similarity": 0.97
+    },
+    {
+      "version": "22.8.2",
+      "incoming": "VCE presets may be missing in VEGAS Pro with some AMD Graphics Products such as the Radeon RX 6600 Graphics.",
+      "matched": "VCE presets may be in mixing in VEGAS Pro with some AMD Graphics Products such as the Radeon RX 6600 Graphics.",
+      "similarity": 0.972
+    },
+    {
+      "version": "22.8.2",
+      "incoming": "While playing Lost Ark, flickering may be intermittently experienced after changing display settings or checking character info with some AMD Graphics Products such as the Radeon RX 6800 Graphics.",
+      "matched": "While playing Lost Ark, flickering may be intermittently experienced after changing displaying settings or checking character info with some AMD Graphics Products such as the Radeon RX 6800 Graphics.",
+      "similarity": 0.992
+    },
+    {
+      "version": "22.11.1",
+      "incoming": "Stuttering may occur during video playback using hardware acceleration with Firefox on some AMD Graphics Products such as the Radeon RX 6900 XT.",
+      "matched": "Stuttering may occur during video playback using hardware acceleration with Firefox on some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+      "similarity": 0.969
+    },
+    {
+      "version": "23.4.2",
+      "incoming": "Video stuttering or performance drops may be observed during gameplay and video playback with some extended display configurations on Radeon RX 7000 series GPUs.",
+      "matched": "Video stuttering or performance drop may be observed during gameplay plus video playback with some extended display configurations on Radeon RX 7000 series GPUs.",
+      "similarity": 0.975
+    },
+    {
+      "version": "23.4.2",
+      "incoming": "Some virtual reality games or applications may experience lower-than-expected performance on Radeon RX 7000 series GPUs.",
+      "matched": "Some virtual reality games or apps may experience lower-than-expected performance on Radeon RX 7000 series GPUs.",
+      "similarity": 0.965
+    },
+    {
+      "version": "23.4.3",
+      "incoming": "Video stuttering or performance drops may be observed during gameplay and video playback with some extended display configurations on Radeon RX 7000 series GPUs.",
+      "matched": "Video stuttering or performance drop may be observed during gameplay plus video playback with some extended display configurations on Radeon RX 7000 series GPUs.",
+      "similarity": 0.975
+    },
+    {
+      "version": "23.4.3",
+      "incoming": "Some virtual reality games or applications may experience lower-than-expected performance on Radeon RX 7000 series GPUs.",
+      "matched": "Some virtual reality games or apps may experience lower-than-expected performance on Radeon RX 7000 series GPUs.",
+      "similarity": 0.965
+    },
+    {
+      "version": "23.5.1",
+      "incoming": "Video stuttering or performance drops may be observed during gameplay and video playback with some extended display configurations on Radeon RX 7000 series GPUs.",
+      "matched": "Video stuttering or performance drop may be observed during gameplay plus video playback with some extended display configurations on Radeon RX 7000 series GPUs.",
+      "similarity": 0.975
+    },
+    {
+      "version": "23.5.1",
+      "incoming": "Some virtual reality games or applications may experience lower-than-expected performance on Radeon RX 7000 series GPUs.",
+      "matched": "Some virtual reality games or apps may experience lower-than-expected performance on Radeon RX 7000 series GPUs.",
+      "similarity": 0.965
+    },
+    {
+      "version": "23.7.1",
+      "incoming": "Intermittent corruption may be observed after switching windows while playing Nioh 2 on some AMD Graphics Products, such as the Radeon RX 6800 XT.",
+      "matched": "Intermittent corruption may be observed after switching windows while play Nioh 2 on some AMD Graphics Products, such as the Radeon RX 6800 XT.",
+      "similarity": 0.989
+    },
+    {
+      "version": "23.9.2",
+      "incoming": "Application crash or driver timeout may be observed while playing SMITE on some AMD Graphics Products, such as the Radeon RX 7900 XTX.",
+      "matched": "Application crash or driver timeout may be observed while playing SMITE on some AMD Graphics Products, such as the Radeon RX 7900 XT.",
+      "similarity": 0.996
+    },
+    {
+      "version": "23.11.1",
+      "incoming": "Intermittent flickering may be observed in Total War: Pharaoh's menus after changing graphics settings.",
+      "matched": "Intermittent flickering may be briefly observed in Total War: Pharaoh's menus after changing graphics settings.",
+      "similarity": 0.962
+    },
+    {
+      "version": "24.1.1",
+      "incoming": "Performance drop may be observed in some DirectML workloads.",
+      "matched": "Performance drop may be observed in some light DirectML workloads.",
+      "similarity": 0.952
+    },
+    {
+      "version": "24.4.1",
+      "incoming": "Intermittent application crash or driver timeout may be observed while playing Overwatch 2 with Radeon Boost enabled on Radeon RX 6000 and above series graphics products.",
+      "matched": "Intermittent application crash or driver timeout may be observed while playing Overwatch 2 with Radeon Boost enabled on Radeon RX 6000 and above series GPUs. Users experiencing this issue are recommended to disable Radeon Boost as a temporary workaround.",
+      "similarity": 0.954
+    },
+    {
+      "version": "24.7.1",
+      "incoming": "Audio and video may intermittently become out of sync while recording using the AV1 codec in AMD Software. [Resolution targeted for 24.9.1]",
+      "matched": "Audio and video may intermittently become out of sync while recording using the AV1 codec in AMD Software. [Resolution targeted for Q3]",
+      "similarity": 0.97
+    },
+    {
+      "version": "24.8.1",
+      "incoming": "Audio and video may intermittently become out of sync while recording using the AV1 codec in AMD Software. [Resolution targeted for 24.9.2]",
+      "matched": "Audio and video may intermittently become out of sync while recording using the AV1 codec in AMD Software. [Resolution targeted for Q3]",
+      "similarity": 0.97
+    },
+    {
+      "version": "24.10.1",
+      "incoming": "Intermittent performance impact when entering certain areas while playing DayZ.",
+      "matched": "Intermittent performance when entering certain areas while playing DayZ",
+      "similarity": 0.953
+    },
+    {
+      "version": "24.12.1",
+      "incoming": "HEVC encoding may not work as expected while using OBS Studio with Twitch Enhanced Broadcasting.",
+      "matched": "H.264 encoding may not work as expected while using OBS Studio with Twitch Enhanced Broadcasting.",
+      "similarity": 0.963
+    },
+    {
+      "version": "25.1.1",
+      "incoming": "HEVC encoding may not work as expected while using OBS Studio with Twitch Enhanced Broadcasting.",
+      "matched": "H.264 encoding may not work as expected while using OBS Studio with Twitch Enhanced Broadcasting.",
+      "similarity": 0.963
+    },
+    {
+      "version": "25.2.1",
+      "incoming": "HEVC encoding may not work as expected while using OBS Studio with Twitch Enhanced Broadcasting.",
+      "matched": "H.264 encoding may not work as expected while using OBS Studio with Twitch Enhanced Broadcasting.",
+      "similarity": 0.963
+    },
+    {
+      "version": "25.3.1",
+      "incoming": "HEVC encoding may not work as expected while using OBS Studio with Twitch Enhanced Broadcasting.",
+      "matched": "H.264 encoding may not work as expected while using OBS Studio with Twitch Enhanced Broadcasting.",
+      "similarity": 0.963
+    },
+    {
+      "version": "25.6.2",
+      "incoming": "Intermittent application crash or driver timeout may be observed while playing Marvel's Spider-Man 2 with Ray Tracing enabled on Radeon RX 9060 XT.",
+      "matched": "Intermittent application crash or driver timeout may be observed while playing Marvel Spiderman 2 with Ray Tracing enabled on Radeon RX 9060 XT.",
+      "similarity": 0.993
+    },
+    {
+      "version": "25.6.2",
+      "incoming": "Intermittent application crash may be observed when first launching The Last of Us Part I on Radeon RX 9060 XT graphics products.",
+      "matched": "Intermittent application crash may be observed when first launching The Last of Us Part 1 on Radeon RX 9060 XT graphics products.",
+      "similarity": 0.992
+    },
+    {
+      "version": "25.6.2",
+      "incoming": "Stutter and lower than expected performance may be observed while playing 4K resolution YouTube videos in Chrome. Users experiencing this issue are recommended to play videos in full screen as a temporary workaround.",
+      "matched": "Stutter and lower than expected performance may be observed while playing 4K resolution YouTube videos in Chromium. Users experiencing this issue are recommended to play videos in full screen as a temporary workaround.",
+      "similarity": 0.982
+    },
+    {
+      "version": "25.6.3",
+      "incoming": "Stutter and lower than expected performance may be observed while playing 4K resolution YouTube videos in Chrome. Users experiencing this issue are recommended to play videos in full screen as a temporary workaround.",
+      "matched": "Stutter and lower than expected performance may be observed while playing 4K resolution YouTube videos in Chromium. Users experiencing this issue are recommended to play videos in full screen as a temporary workaround.",
+      "similarity": 0.982
+    },
+    {
+      "version": "25.8.1",
+      "incoming": "Stutter and lower than expected performance may be observed while playing 4K resolution YouTube videos in Chrome.",
+      "matched": "Stutter and lower than expected performance may be observed while playing 4K resolution YouTube videos in Chromium. Users experiencing this issue are recommended to play videos in full screen as a temporary workaround.",
+      "similarity": 0.982
+    },
+    {
+      "version": "25.9.2",
+      "incoming": "Intermittent application crash may be observed while playing FBC: Firebreak on some AMD Ryzen processors such as the Ryzen AI 300 series and the Ryzen 8000 series.",
+      "matched": "Intermittent application crash may be observed while playing FBC: Firebreak on some AMD Ryzen processors such as the Ryzen AI 300 series and the Ryzen 7000 series.",
+      "similarity": 0.994
+    },
+    {
+      "version": "25.10.2",
+      "incoming": "Intermittent application crash may be observed while playing FBC: Firebreak on some AMD Ryzen processors such as the Ryzen AI 300 series and the Ryzen 8000 series.",
+      "matched": "Intermittent application crash may be observed while playing FBC: Firebreak on some AMD Ryzen processors such as the Ryzen AI 300 series and the Ryzen 7000 series.",
+      "similarity": 0.994
+    },
+    {
+      "version": "26.6.2",
+      "incoming": "Intermittent application crash or driver timeout may be observed while playing RoadCraft on Radeon RX 7000 series products.",
+      "matched": "Intermittent application crash or driver timeout may be observed while playing RoadCraft on Radeon RX 9000 series products.",
+      "similarity": 0.992
+    },
+    {
+      "version": "26.6.4",
+      "incoming": "Intermittent application crash may be observed on some models while running Blender on Radeon RX 7000 series and above graphics products. Users experiencing this issue are recommended to install AMD Software 26.3.1.",
+      "matched": "Intermittent application crash may be observed on some models while running Blender on Radeon RX 7000 and above graphics products. Users experiencing this issue are recommended to install AMD Software 26.3.1.",
+      "similarity": 0.974
+    },
+    {
+      "version": "26.7.1",
+      "incoming": "Intermittent application crash may be observed on some models while running Blender on Radeon RX 7000 series and above graphics products.",
+      "matched": "Intermittent application crash may be observed on some models while running Blender on Radeon RX 7000 and above graphics products. Users experiencing this issue are recommended to install AMD Software 26.3.1.",
+      "similarity": 0.974
+    }
+  ],
+  "near_misses_not_merged": [
+    {
+      "new": "Visual artifacts in Horizon Zero Dawn may be observed during gameplay on some AMD Graphics products such as Radeon RX 6800 XT.",
+      "closest": "Visual artifacts may be observed while playing It Takes Two on some AMD Graphics Products such as Radeon RX 6900 XT Graphics.",
+      "similarity": 0.755,
+      "version": "22.4.1"
+    },
+    {
+      "new": "Display may flicker black during video playback plus gameplay on some AMD Graphics Products such as the Radeon RX 6700 XT.",
+      "closest": "Display may flicker black while switching tabs between video playback and gameplay on some AMD Graphics Products such as the Radeon RX 6700 XT.",
+      "similarity": 0.867,
+      "version": "22.5.1"
+    },
+    {
+      "new": "Stuttering may be experienced while playing Call of Duty: Warzone on the Caldera map with some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+      "closest": "Stuttering or lower than expected FPS values may be experienced by some users while playing God of War on some AMD Graphics Products such as Radeon RX 6900 XT Graphics.",
+      "similarity": 0.723,
+      "version": "22.5.2"
+    },
+    {
+      "new": "Stuttering may be experienced while playing Overwatch with some AMD Graphics Products such as the Radeon RX 6700 XT.",
+      "closest": "Stuttering may be experienced while playing Call of Duty: Warzone on the Caldera map with some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+      "similarity": 0.81,
+      "version": "22.6.1"
+    },
+    {
+      "new": "Virtual Reality headsets may flicker with some AMD Graphics Products such as the Radeon RX 6800 XT Graphics.",
+      "closest": "Video upscaling in browsers appears blurry with some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+      "similarity": 0.745,
+      "version": "22.7.1"
+    },
+    {
+      "new": "Display may flicker black when switching between video playback and gameplay windows on some AMD Graphics Products such as the Radeon RX 6700 XT.",
+      "closest": "Display may flicker black while switching tabs between video playback and gameplay on some AMD Graphics Products such as the Radeon RX 6700 XT.",
+      "similarity": 0.944,
+      "version": "22.8.1"
+    },
+    {
+      "new": "Mixed Reality Headsets may flicker black or experience jitter during movement with some AMD Graphics Products such as the Radeon RX 6800 XT Graphics.",
+      "closest": "Virtual Reality headsets may flicker with some AMD Graphics Products such as the Radeon RX 6800 XT Graphics.",
+      "similarity": 0.792,
+      "version": "22.8.1"
+    },
+    {
+      "new": "Enhanced Sync may cause a system crash during gameplay with video playback on extended monitors.",
+      "closest": "Enhanced Sync may cause games to lock to 15FPS with video playback on extended monitors.",
+      "similarity": 0.769,
+      "version": "22.8.1"
+    },
+    {
+      "new": "Some stuttering may be experienced while playing Fortnite with DirectX 11 API when game is first launched on some AMD Graphics Products such as the Radeon RX 6950 XT.",
+      "closest": "Stuttering may be experienced while playing Overwatch with some AMD Graphics Products such as the Radeon RX 6700 XT.",
+      "similarity": 0.764,
+      "version": "22.8.1"
+    },
+    {
+      "new": "VCE presets may be in mixing in VEGAS Pro with some AMD Graphics Products such as the Radeon RX 6600 Graphics.",
+      "closest": "Virtual Reality headsets may flicker with some AMD Graphics Products such as the Radeon RX 6800 XT Graphics.",
+      "similarity": 0.759,
+      "version": "22.8.1"
+    },
+    {
+      "new": "DaVinci Resolve Studio 17 may crash using AMD encoder on some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+      "closest": "VCE presets may be in mixing in VEGAS Pro with some AMD Graphics Products such as the Radeon RX 6600 Graphics.",
+      "similarity": 0.727,
+      "version": "22.8.1"
+    },
+    {
+      "new": "Some stuttering may be experienced while playing Fortnite with DirectX 11 API on some AMD Graphics Products such as the Radeon RX 6950 XT.",
+      "closest": "Some stuttering may be experienced while playing Fortnite with DirectX 11 API when game is first launched on some AMD Graphics Products such as the Radeon RX 6950 XT.",
+      "similarity": 0.907,
+      "version": "22.8.2"
+    },
+    {
+      "new": "Display may briefly show corruption when switching between video and game windows on some AMD Graphics Products such as the Radeon RX 6700 XT.",
+      "closest": "Display may flicker black when switching between video playback and gameplay windows on some AMD Graphics Products such as the Radeon RX 6700 XT.",
+      "similarity": 0.856,
+      "version": "22.8.2"
+    },
+    {
+      "new": "Vertical Refresh Sync set globally to Always Off may cause system stuttering or driver timeout during video playback using Radeon RX 6000 series GPUs.",
+      "closest": "When Vertical Refresh Sync is set globally to Always Off, system stuttering or driver timeout may occur during video playback using Radeon RX 6000 series GPUs.",
+      "similarity": 0.908,
+      "version": "22.10.2"
+    },
+    {
+      "new": "Dropped frames may occur during video playback using hardware acceleration on Chromium-based browsers with Radeon RX 6000 series GPUs.",
+      "closest": "Users may encounter dropped frames during video playback using hardware acceleration in browsers on Radeon RX 6000 series GPUs.",
+      "similarity": 0.795,
+      "version": "22.10.2"
+    },
+    {
+      "new": "Stuttering may occur during video playback using hardware acceleration with Firefox on some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+      "closest": "Stuttering may be experienced while playing Call of Duty: Warzone on the Caldera map with some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+      "similarity": 0.745,
+      "version": "22.10.2"
+    },
+    {
+      "new": "Elite Dangerous may crash upon launch on Radeon RX 6000 series GPUs.",
+      "closest": "Elite Dangerous may crash upon launch on Radeon RX 6000 series GPUs. [Resolution targeted for 22.10.3]",
+      "similarity": 0.807,
+      "version": "22.10.3"
+    },
+    {
+      "new": "Brief display corruption may occur when switching between video and game windows on some AMD Graphics Products such as the Radeon RX 6700 XT.",
+      "closest": "Display may briefly show corruption when switching between video and game windows on some AMD Graphics Products such as the Radeon RX 6700 XT.",
+      "similarity": 0.883,
+      "version": "22.10.3"
+    },
+    {
+      "new": "World Of Warships prediction lines may be missing on Radeon RX 6000 series GPUs.",
+      "closest": "World Of Warships prediction lines may be missing on Radeon RX 6000 series GPUs. [Resolution targeted for 22.11.1]",
+      "similarity": 0.832,
+      "version": "22.11.1"
+    },
+    {
+      "new": "When Radeon Anti-Lag is enabled, a beep can be heard when pressing the shift + back key.",
+      "closest": "When Radeon Anti-Lag is enabled, a beep can be heard when pressing shift + back key. [Resolution targeted for 22.11.1]",
+      "similarity": 0.816,
+      "version": "22.11.1"
+    },
+    {
+      "new": "Stuttering may occur during video playback using hardware acceleration with Firefox on Radeon RX 6000 series GPUs.",
+      "closest": "Stuttering may occur during video playback using hardware acceleration with Firefox on some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+      "similarity": 0.792,
+      "version": "22.11.2"
+    },
+    {
+      "new": "AMDRSServ.exe may cause GPU utilization to remain at 100% after closing games on some AMD Graphics Products such as Radeon 570.",
+      "closest": "GPU utilization may be stuck at 100% in Radeon performance metrics after closing games on some AMD Graphics Products such as Radeon 570.",
+      "similarity": 0.726,
+      "version": "22.11.2"
+    },
+    {
+      "new": "Intermittent system stuttering or UI flickering may occur when two videos are simultaneously playing using chromium-based browsers on some multi-display configurations.",
+      "closest": "Intermittent system stuttering or UI flickering may occur when two videos are simultaneously playing using chromium-based browsers.",
+      "similarity": 0.875,
+      "version": "23.2.1"
+    },
+    {
+      "new": "Certain videos played with Movies and TV may briefly show corruption when moving the window between displays on some AMD Graphics Products such as AMD Radeon RX 6700 XT.",
+      "closest": "Display may briefly show corruption when switching between video and game windows on some AMD Graphics Products such as the Radeon RX 6700 XT.",
+      "similarity": 0.725,
+      "version": "23.2.1"
+    },
+    {
+      "new": "AMD Bug Report Tool pop-up or system hang may be observed after driver upgrade on some hybrid graphics notebooks.",
+      "closest": "AMD Bug Report Tool pop-up or system hang may be observed after driver upgrade on some hybrid graphics notebooks. Users are recommended to use the factory reset install option as a workaround.",
+      "similarity": 0.742,
+      "version": "23.2.2"
+    },
+    {
+      "new": "Application crash may be observed while playing UNCHARTED: Legacy of Thieves Collection on some AMD Graphics Products such as the Radeon RX 6700 XT.",
+      "closest": "Visual artifacts may be observed while playing It Takes Two on some AMD Graphics Products such as Radeon RX 6900 XT Graphics.",
+      "similarity": 0.741,
+      "version": "23.3.1"
+    },
+    {
+      "new": "Application crash may be observed while playing Genshin Impact on some AMD Graphics Products, such as the Radeon RX 6750 XT.",
+      "closest": "Application crash may be observed while playing UNCHARTED: Legacy of Thieves Collection on some AMD Graphics Products such as the Radeon RX 6700 XT.",
+      "similarity": 0.843,
+      "version": "23.3.2"
+    },
+    {
+      "new": "Corruption may be observed while playing It Takes Two on Radeon RX 7000 series GPUs.",
+      "closest": "Corruption may be observed while scrolling the points shop in STEAM on Radeon RX 6000 series GPUs.",
+      "similarity": 0.8,
+      "version": "23.3.2"
+    },
+    {
+      "new": "Video playback using hardware accelerated browsers may appear blurry during upscale on some AMD Graphics Products, such as the Radeon RX 7900 XT.",
+      "closest": "Video upscaling in browsers appears blurry with some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+      "similarity": 0.727,
+      "version": "23.3.2"
+    },
+    {
+      "new": "Video playback in browsers using hardware acceleration may appear blurry on some AMD Graphics Products, such as the Radeon RX 7900 XT.",
+      "closest": "Video playback using hardware accelerated browsers may appear blurry during upscale on some AMD Graphics Products, such as the Radeon RX 7900 XT.",
+      "similarity": 0.858,
+      "version": "23.4.1"
+    },
+    {
+      "new": "Water corruption in Hogwarts Legacy may occur on some AMD Graphics Products, such as the Radeon RX 580.",
+      "closest": "Fan Tuning option may be missing on some AMD Graphics Products such as the Radeon RX 590.",
+      "similarity": 0.73,
+      "version": "23.4.1"
+    },
+    {
+      "new": "Blocky water corruption may occur in Red Dead Redemption 2 when using the Vulkan API.",
+      "closest": "Blocky water corruption in Red Dead Redemption 2 may occur using Vulkan API.",
+      "similarity": 0.83,
+      "version": "23.4.2"
+    },
+    {
+      "new": "Red corruption may occur in World War Z: Aftermath when using the Vulkan API.",
+      "closest": "Blocky water corruption may occur in Red Dead Redemption 2 when using the Vulkan API.",
+      "similarity": 0.73,
+      "version": "23.4.3"
+    },
+    {
+      "new": "Application crash may be intermittently observed while playing RuneScape on some AMD Graphics Products, such as the Radeon RX 5700 XT.",
+      "closest": "Application crash may be observed while playing Genshin Impact on some AMD Graphics Products, such as the Radeon RX 6750 XT.",
+      "similarity": 0.858,
+      "version": "23.4.3"
+    },
+    {
+      "new": "Higher than expected memory usage during shader compilation time when first launching THE LAST OF US Part I.",
+      "closest": "Longer than expected shader compilation time when first launching THE LAST OF US Part I.",
+      "similarity": 0.866,
+      "version": "23.5.1"
+    },
+    {
+      "new": "Application crash or driver timeout may be observed during playback of AV1 video content using DaVinci Resolve Studio.",
+      "closest": "Application crash or driver timeout may be observed during video playback using DaVinci Resolve Studio.",
+      "similarity": 0.877,
+      "version": "23.5.2"
+    },
+    {
+      "new": "Intermittent corruption may be observed after switching windows while play Nioh 2 on some AMD Graphics Products, such as the Radeon RX 6800 XT.",
+      "closest": "Application crash may be observed while playing Genshin Impact on some AMD Graphics Products, such as the Radeon RX 6750 XT.",
+      "similarity": 0.722,
+      "version": "23.5.2"
+    },
+    {
+      "new": "Intermittent corruption may be observed playing WWE 2K23 on some AMD Graphics Products, such as the Radeon RX 7900 XTX.",
+      "closest": "Intermittent corruption may be observed after switching windows while play Nioh 2 on some AMD Graphics Products, such as the Radeon RX 6800 XT.",
+      "similarity": 0.837,
+      "version": "23.7.1"
+    },
+    {
+      "new": "Intermittent corruption may be observed around some player models while playing Hatsune Miku: Project DIVA Mega Mix+ on some AMD Graphics Products, such as the Radeon RX 6900 XT.",
+      "closest": "Intermittent corruption may be observed playing WWE 2K23 on some AMD Graphics Products, such as the Radeon RX 7900 XTX.",
+      "similarity": 0.756,
+      "version": "23.7.1"
+    },
+    {
+      "new": "High idle power has situationally been observed when using select multi-display setups with mixed high-resolution and high refresh rate displays on Radeon RX 7000 series GPUs.",
+      "closest": "High idle power has situationally been observed when using select high-resolution and high refresh rate displays on Radeon RX 7000 series GPUs.",
+      "similarity": 0.899,
+      "version": "23.7.2"
+    },
+    {
+      "new": "Intermittent corruption may be observed playing Rocket League with Bloom set to Off on some AMD Graphics Products, such as the Radeon RX 6900 XT.",
+      "closest": "Intermittent corruption may be observed playing WWE 2K23 on some AMD Graphics Products, such as the Radeon RX 7900 XTX.",
+      "similarity": 0.838,
+      "version": "23.7.2"
+    },
+    {
+      "new": "Intermittent application hang for a few seconds may be observed while playing RuneScape on some AMD Graphics Products, such as the Radeon RX 5700 XT.",
+      "closest": "Application crash may be observed while playing Genshin Impact on some AMD Graphics Products, such as the Radeon RX 6750 XT.",
+      "similarity": 0.781,
+      "version": "23.7.2"
+    },
+    {
+      "new": "Audio may intermittently become out of sync with video when recording from AMD Software with AV1 codec.",
+      "closest": "Audio may intermittently become out of sync with video when recording from AMD Software with AVC and HEVC codecs.",
+      "similarity": 0.944,
+      "version": "23.7.2"
+    },
+    {
+      "new": "Application crash or driver timeout may be observed while playing Starcraft II on Radeon RX 7000 series GPUs.",
+      "closest": "Application crash may be observed when launching Baldur's Gate 3 using Vulkan API on Radeon RX 7000 series GPUs.",
+      "similarity": 0.725,
+      "version": "23.8.1"
+    },
+    {
+      "new": "Application crash or driver timeout may be observed while playing Baldur's Gate 3 with DirectX 11 API set on certain systems with Radeon RX 7000 series GPUs.",
+      "closest": "Application crash or driver timeout may be observed while playing Starcraft II on Radeon RX 7000 series GPUs.",
+      "similarity": 0.768,
+      "version": "23.8.1"
+    },
+    {
+      "new": "Display may not reach correct brightness with certain games on select SAMSUNG FreeSync Premium Pro monitors or TVs with local dimming setting enabled.",
+      "closest": "Display may not reach correct brightness with certain games on some SAMSUNG FreeSync Premium Pro displays and TVs when local dimming is enabled.",
+      "similarity": 0.884,
+      "version": "23.8.2"
+    },
+    {
+      "new": "Application crash may be observed while playing Baldur's Gate 3 with Vulkan API set on some AMD Graphics Products, such as the Radeon RX 7900 XTX.",
+      "closest": "Application crash may be observed while playing Genshin Impact on some AMD Graphics Products, such as the Radeon RX 6750 XT.",
+      "similarity": 0.845,
+      "version": "23.9.1"
+    },
+    {
+      "new": "Application crash or driver timeout may be observed while playing SMITE on some AMD Graphics Products, such as the Radeon RX 7900 XT.",
+      "closest": "Application crash may be observed while playing Genshin Impact on some AMD Graphics Products, such as the Radeon RX 6750 XT.",
+      "similarity": 0.862,
+      "version": "23.9.1"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while playing F1 23 on some AMD Graphics Products, such as the Radeon RX 7800 XT.",
+      "closest": "Application crash or driver timeout may be observed while playing SMITE on some AMD Graphics Products, such as the Radeon RX 7900 XT.",
+      "similarity": 0.909,
+      "version": "23.9.2"
+    },
+    {
+      "new": "Intermittent driver crash while playing Counter Strike 2 with MSAA or FSR enabled on some AMD Graphics Products, such as the Radeon RX 7900 XTX.",
+      "closest": "Intermittent system crash while playing Call of Duty: Modern Warfare II on some AMD Graphics Products, such as the Radeon RX 580.",
+      "similarity": 0.746,
+      "version": "23.10.1"
+    },
+    {
+      "new": "EA SPORTS FC 24 may fail to open on some AMD Graphics Products, such as the Radeon RX 7800 XT.",
+      "closest": "Fan Tuning option may be missing on some AMD Graphics Products such as the Radeon RX 590.",
+      "similarity": 0.722,
+      "version": "23.10.1"
+    },
+    {
+      "new": "Lower than expected performance in Counter Stike 2 on some AMD Graphics Products, such as the Radeon RX 7600.",
+      "closest": "Lower than expected Folding@home compute performance with OpenCL API on some AMD Graphics Products such as the Radeon RX 6800.",
+      "similarity": 0.793,
+      "version": "23.11.1"
+    },
+    {
+      "new": "Rebuilding shader cache may be incorrectly required when relaunching Forza Motorsport.",
+      "closest": "Rebuilding shader cache may be incorrectly required when relaunching Baldur's Gate 3 using Vulkan API.",
+      "similarity": 0.789,
+      "version": "23.11.1"
+    },
+    {
+      "new": "Intermittent stutter while playing Overwatch 2 on some AMD Graphics Products, such as the Radeon RX 6900 XT.",
+      "closest": "Stuttering may be experienced while playing Overwatch with some AMD Graphics Products such as the Radeon RX 6700 XT.",
+      "similarity": 0.796,
+      "version": "23.12.1"
+    },
+    {
+      "new": "Intermittent flickering of certain ground textures may be observed while playing War Thunder with 4x SAAA enabled on some AMD Graphics Products, such as the Radeon RX 7900 XTX.",
+      "closest": "Intermittent application hang for a few seconds may be observed while playing RuneScape on some AMD Graphics Products, such as the Radeon RX 5700 XT.",
+      "similarity": 0.779,
+      "version": "23.12.1"
+    },
+    {
+      "new": "Black texture flickering may be observed while playing Starfield on some AMD Graphics Products, such as the Radeon RX 5600 XT.",
+      "closest": "Application crash may be observed while playing Genshin Impact on some AMD Graphics Products, such as the Radeon RX 6750 XT.",
+      "similarity": 0.78,
+      "version": "24.1.1"
+    },
+    {
+      "new": "Audio may intermittently become out of sync with the video when recording from AMD Software using AV1 codec. [Resolution targeted for Q2]",
+      "closest": "Audio may intermittently become out of sync with video when recording from AMD Software with AV1 codec.",
+      "similarity": 0.839,
+      "version": "24.1.1"
+    },
+    {
+      "new": "After a system reboot, Parsec host application may experience a crash on some AMD Graphics Products, such as the Radeon RX 7900 XTX. [Resolution targeted for 24.2.1]",
+      "closest": "Deathloop may experience extended loading times on some AMD Graphics Products, such as the Radeon RX 6900 XT. [Resolution targeted for 24.2.1]",
+      "similarity": 0.765,
+      "version": "24.1.1"
+    },
+    {
+      "new": "Deathloop may experience extended loading times on some AMD Graphics Products, such as the Radeon RX 6900 XT.",
+      "closest": "Deathloop may experience extended loading times on some AMD Graphics Products, such as the Radeon RX 6900 XT. [Resolution targeted for 24.2.1]",
+      "similarity": 0.873,
+      "version": "24.2.1"
+    },
+    {
+      "new": "Intermittent driver timeout or application crash may be considered while playing Counterstrike 2 with FSR enabled on some AMD Graphics Products, such as the Radeon RX 7900 XTX.",
+      "closest": "Intermittent driver crash while playing Counter Strike 2 with MSAA or FSR enabled on some AMD Graphics Products, such as the Radeon RX 7900 XTX.",
+      "similarity": 0.842,
+      "version": "24.2.1"
+    },
+    {
+      "new": "After a system reboot, Parsec host application may experience a crash on some AMD Graphics Products, such as the Radeon RX 7900 XTX.",
+      "closest": "After a system reboot, Parsec host application may experience a crash on some AMD Graphics Products, such as the Radeon RX 7900 XTX. [Resolution targeted for 24.2.1]",
+      "similarity": 0.893,
+      "version": "24.2.1"
+    },
+    {
+      "new": "Intermittent driver timeout or application crash may be experienced while playing HELLDIVERS 2 with 100% GPU utilization on some AMD Graphics Products, such as the Radeon RX 7900 XTX.",
+      "closest": "Intermittent driver timeout or application crash may be considered while playing Counterstrike 2 with FSR enabled on some AMD Graphics Products, such as the Radeon RX 7900 XTX.",
+      "similarity": 0.842,
+      "version": "24.2.1"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while playing Starcraft II on Radeon RX 7000 series GPUs.",
+      "closest": "Application crash or driver timeout may be observed while playing Starcraft II on Radeon RX 7000 series GPUs.",
+      "similarity": 0.943,
+      "version": "24.2.1"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while playing Overwatch 2 with Radeon Boost enabled on Radeon RX 6000 and above series GPUs. Users experiencing this issue are recommended to disable Radeon Boost as a temporary workaround.",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing Starcraft II on Radeon RX 7000 series GPUs.",
+      "similarity": 0.823,
+      "version": "24.2.1"
+    },
+    {
+      "new": "World of Warcraft may experience extended initial loading times with DirectX 12 API on some AMD Graphics Products, such as the Radeon RX 6800.",
+      "closest": "Deathloop may experience extended loading times on some AMD Graphics Products, such as the Radeon RX 6900 XT.",
+      "similarity": 0.777,
+      "version": "24.2.1"
+    },
+    {
+      "new": "Performance drop may be observed while using some DirectML workloads in Topaz AI.",
+      "closest": "Performance drop may be observed in some light DirectML workloads.",
+      "similarity": 0.814,
+      "version": "24.2.1"
+    },
+    {
+      "new": "Audio and video may intermittently become out of sync while recording using the AV1 codec in AMD Software. [Resolution targeted for Q3]",
+      "closest": "Audio may intermittently become out of sync with the video when recording from AMD Software using AV1 codec. [Resolution targeted for Q2]",
+      "similarity": 0.744,
+      "version": "24.2.1"
+    },
+    {
+      "new": "Excessive micro stutter may be intermittently experienced after enabling AMD Fluid Motion Frames for select games.",
+      "closest": "Excessive micro stutter may be intermittently experienced after enabling AMD Fluid Motion Frames for select games. [Resolution targeted for 24.3.1]",
+      "similarity": 0.879,
+      "version": "24.3.1"
+    },
+    {
+      "new": "Some characters may appear invisible or have missing textures while playing Cossacks 3.",
+      "closest": "Some textures for characters may appear invisible while playing Cossacks 3.",
+      "similarity": 0.762,
+      "version": "24.3.1"
+    },
+    {
+      "new": "Shader caching may fail for Windows usernames containing accented characters.",
+      "closest": "Shader caching may fail for Windows usernames containing accented characters. [Resolution targeted for 24.3.1]",
+      "similarity": 0.831,
+      "version": "24.3.1"
+    },
+    {
+      "new": "FPS performance metric may incorrectly report values while a game is minimized.",
+      "closest": "FPS performance metric may incorrectly report values while a game is minimized. [Resolution targeted for 24.3.1]",
+      "similarity": 0.834,
+      "version": "24.3.1"
+    },
+    {
+      "new": "Intermittent driver timeout or application crash may be experienced while playing HELLDIVERS 2 on dual monitor setups on some AMD Graphics Products, such as the Radeon RX 7900 XTX.",
+      "closest": "Intermittent driver timeout or application crash may be experienced while playing HELLDIVERS 2 with 100% GPU utilization on some AMD Graphics Products, such as the Radeon RX 7900 XTX.",
+      "similarity": 0.883,
+      "version": "24.3.1"
+    },
+    {
+      "new": "Artifacts may appear in certain mud environments while playing SnowRunner on some AMD Graphics Products, such as the Radeon RX 6800. [Resolution targeted for 24.4.1]",
+      "closest": "Deathloop may experience extended loading times on some AMD Graphics Products, such as the Radeon RX 6900 XT. [Resolution targeted for 24.2.1]",
+      "similarity": 0.742,
+      "version": "24.3.1"
+    },
+    {
+      "new": "AMD SmartAccess Video may be incorrectly reported as \"Available\" on some systems with the Parsec Virtual Display Driver installed. [Resolution targeted for 24.5.1]",
+      "closest": "AMD SmartAccess Video may be incorrectly reported as \"Available\" on some systems with the Parsec Virtual Display Driver installed.",
+      "similarity": 0.891,
+      "version": "24.3.1"
+    },
+    {
+      "new": "Intermittent application crash may be observed while playing Lords of the Fallen and entering certain areas on Radeon RX 6000 series graphics products.",
+      "closest": "Intermittent application crash may be observed while playing Lords of the Fallen and entering certain areas on Radeon RX 6000 series GPUs. [Resolution targeted for 24.4.1]",
+      "similarity": 0.881,
+      "version": "24.4.1"
+    },
+    {
+      "new": "Artifacts may appear in certain mud environments while playing SnowRunner on some AMD Graphics Products, such as the Radeon RX 6800.",
+      "closest": "Artifacts may appear in certain mud environments while playing SnowRunner on some AMD Graphics Products, such as the Radeon RX 6800. [Resolution targeted for 24.4.1]",
+      "similarity": 0.893,
+      "version": "24.4.1"
+    },
+    {
+      "new": "Intermittent application crash changing Anti-Aliasing settings while playing Enshrouded on Radeon 7000 series graphics products.",
+      "closest": "Intermittent application crash when first launching Enshrouded or changing Anti-Aliasing settings on Radeon 7000 series graphics products.",
+      "similarity": 0.773,
+      "version": "24.4.1"
+    },
+    {
+      "new": "Black corruption may be observed while playing Alien Isolation on Radeon 7000 series graphics products.",
+      "closest": "Corruption may be observed while playing It Takes Two on Radeon RX 7000 series GPUs.",
+      "similarity": 0.768,
+      "version": "24.4.1"
+    },
+    {
+      "new": "Corruption may be observed while playing Dying Light 2 Stay Human: Reloaded Edition or Alan Wake 2 with Radeon Boost enabled. Users experiencing this issue are recommended to disable Radeon Boost as a temporary workaround.",
+      "closest": "Purple corruption may be observed while playing Dying Light 2 Stay Human: Reloaded Edition with Radeon Boost and Raytracing enabled. Users experiencing this issue are recommended to disable Radeon Boost as a temporary workaround.",
+      "similarity": 0.854,
+      "version": "24.4.1"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while playing World of Warcraft or World of Warcraft Classic on RDNA 3 series graphics products.",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing Starcraft II on Radeon RX 7000 series GPUs.",
+      "similarity": 0.762,
+      "version": "24.4.1"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while playing Overwatch 2 on Radeon RX 5000 series graphics products. [Resolution targeted for 24.5.1]",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing Starcraft II on Radeon RX 7000 series GPUs.",
+      "similarity": 0.779,
+      "version": "24.4.1"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while playing Overwatch 2 on Radeon RX 5000 series graphics products.",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing Overwatch 2 on Radeon RX 5000 series graphics products. [Resolution targeted for 24.5.1]",
+      "similarity": 0.896,
+      "version": "24.5.1"
+    },
+    {
+      "new": "Intermittent stutter immediately after alt-tab with Performance Metrics Overlay enabled.",
+      "closest": "Intermittent stutter immediately after alt-tab with Performance Metrics Overlay enabled. [Resolution targeted for 24.5.1]",
+      "similarity": 0.849,
+      "version": "24.5.1"
+    },
+    {
+      "new": "Texture flicking may be observed while playing Hitman: Contracts.",
+      "closest": "Texture flicking may be observed while playing Hitman: Contracts.[Resolution targeted for 24.5.1]",
+      "similarity": 0.803,
+      "version": "24.5.1"
+    },
+    {
+      "new": "Fallout 3 and Fallout: New Vegas may fail to launch.[Hotfix pending verification]",
+      "closest": "Fallout 3 and Fallout: New Vegas may fail to launch.",
+      "similarity": 0.781,
+      "version": "24.5.1"
+    },
+    {
+      "new": "Corruption may be observed while playing Dying Light 2 Stay Human: Reloaded Edition with Radeon Boost enabled. Users experiencing this issue are recommended to disable Radeon Boost as a temporary workaround.",
+      "closest": "Corruption may be observed while playing Dying Light 2 Stay Human: Reloaded Edition or Alan Wake 2 with Radeon Boost enabled. Users experiencing this issue are recommended to disable Radeon Boost as a temporary workaround.",
+      "similarity": 0.935,
+      "version": "24.5.1"
+    },
+    {
+      "new": "AMD Software Performance Metrics may intermittently fail to update while playing HELLDIVERS 2.",
+      "closest": "AMD Software Performance Metrics may intermittently fail to update while playing HELLDIVERS 2.[Resolution targeted for 24.6.1]",
+      "similarity": 0.857,
+      "version": "24.6.1"
+    },
+    {
+      "new": "Improvements to stutter when AMD Radeon Anti-Lag and AMD FidelityFX Super Resolution 3 frame generation is enabled.",
+      "closest": "Intermittent stutter may be observed while AMD Radeon Anti-Lag and AMD FidelityFX Super Resolution 3 frame generation is enabled. Users experiencing this issue are recommended to disable Radeon Anti-Lag in the per-game settings as a temporary workaround.",
+      "similarity": 0.851,
+      "version": "24.7.1"
+    },
+    {
+      "new": "Texture corruption may be observed while playing TEKKEN 8 with Ray Tracing or Upscale enabled.",
+      "closest": "Application crash may be observed while playing Hitman 3 with ray tracing settings enabled.",
+      "similarity": 0.732,
+      "version": "24.7.1"
+    },
+    {
+      "new": "Virtual Super Resolution or Display Color Enhancements may be set to disabled after driver upgrade.",
+      "closest": "Virtual Super Resolution or Display Color Enhancements may be set to disabled after driver upgrade. [Resolution targeted for 24.7.1]",
+      "similarity": 0.863,
+      "version": "24.7.1"
+    },
+    {
+      "new": "Intermittent black corruption may be observed on scaled 3d models while using Origin or OriginPro application.",
+      "closest": "Intermittent black corruption may be observed on scaled 3d models while using Origin or OriginPro application. [Resolution targeted for 24.7.1]",
+      "similarity": 0.876,
+      "version": "24.7.1"
+    },
+    {
+      "new": "Intermittent application crash may be observed while playing Kunitsu-Gami: Path of the Goddess on some Radeon RX 6600 and 6700 series GPUs. We recommend users experiencing this issue to install our new driver, available HERE.",
+      "closest": "Intermittent application crash or driver timeout may occur while playing Black Myth: Wukong. We recommend users experiencing this issue to install our new driver, available HERE.",
+      "similarity": 0.734,
+      "version": "24.7.1"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may occur while playing Black Myth: Wukong.",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing Starcraft II on Radeon RX 7000 series GPUs.",
+      "similarity": 0.73,
+      "version": "24.8.1"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may occur while launching Pacific Drive or KINGDOM HEARTS -HD 1.5+2.5 ReMIX-.",
+      "closest": "Intermittent application crash or driver timeout may occur while playing Black Myth: Wukong.",
+      "similarity": 0.732,
+      "version": "24.8.1"
+    },
+    {
+      "new": "Intermittent driver timeout or application crash while playing Warhammer 40,000: Space Marine 2. We recommend users experiencing this issue to install our new driver, available HERE.",
+      "closest": "Intermittent application crash or driver timeout may occur while playing Black Myth: Wukong. We recommend users experiencing this issue to install our new driver, available HERE.",
+      "similarity": 0.761,
+      "version": "24.8.1"
+    },
+    {
+      "new": "Intermittent driver timeout or application crash during certain cutscenes while playing FINAL FANTASY XVI on some AMD Graphics Products, such as the Radeon RX 6600 XT.",
+      "closest": "Intermittent driver timeout or application crash may be experienced while playing HELLDIVERS 2 on dual monitor setups on some AMD Graphics Products, such as the Radeon RX 7900 XTX.",
+      "similarity": 0.787,
+      "version": "24.9.1"
+    },
+    {
+      "new": "AMD Software may unexpectedly initiate upon system wake from sleep mode.",
+      "closest": "AMD Software may unexpectedly initiate upon system wake from sleep mode. [Resolution targeted for 24.9.2]",
+      "similarity": 0.821,
+      "version": "24.9.1"
+    },
+    {
+      "new": "Audio and video may intermittently become out of sync while recording using the AV1 codec in AMD Software.",
+      "closest": "Audio and video may intermittently become out of sync while recording using the AV1 codec in AMD Software. [Resolution targeted for Q3]",
+      "similarity": 0.886,
+      "version": "24.9.1"
+    },
+    {
+      "new": "Intermittent performance when entering certain areas while playing DayZ. [Resolution targeted for 24.10.1]",
+      "closest": "Intermittent performance when entering certain areas while playing DayZ",
+      "similarity": 0.816,
+      "version": "24.9.1"
+    },
+    {
+      "new": "Lower than expected performance may be observed while using llama.cpp. This may also impact Ollama and LM Studio.",
+      "closest": "Lower than expected performance may be observed while using llama.cpp. This may also impact Ollama and LM Studio. [Resolution targeted for 24.11.1]",
+      "similarity": 0.874,
+      "version": "24.12.1"
+    },
+    {
+      "new": "Intermittent application crash may be observed while playing Fortnite on Radeon RX 5000 series and above series graphics products.",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing Overwatch 2 on Radeon RX 5000 series graphics products.",
+      "similarity": 0.817,
+      "version": "24.12.1"
+    },
+    {
+      "new": "Intermittent stutter may be observed while playing Marvel Rivals when AMD FidelityFX Super Resolution 3 frame generation is enabled. Users experiencing this issue are recommended to disable AMD FidelityFX Super Resolution 3 frame generation in the per-game settings as a temporary workaround.",
+      "closest": "Intermittent stutter may be observed while AMD Radeon Anti-Lag and AMD FidelityFX Super Resolution 3 frame generation is enabled. Users experiencing this issue are recommended to disable Radeon Anti-Lag in the per-game settings as a temporary workaround.",
+      "similarity": 0.857,
+      "version": "24.12.1"
+    },
+    {
+      "new": "Improvements to performance while playing Apex Legends with DirectX 12 API.",
+      "closest": "Improvements to stutter while playing Fortnite with DirectX 12 API.",
+      "similarity": 0.771,
+      "version": "25.1.1"
+    },
+    {
+      "new": "Intermittent driver timeout or crash may be observed while playing Warhammer 40,000: Space Marine 2 on some AMD Graphics Products, such as the AMD Ryzen AI 9 HX 370.)",
+      "closest": "Intermittent driver timeout or application crash may be considered while playing Counterstrike 2 with FSR enabled on some AMD Graphics Products, such as the Radeon RX 7900 XTX.",
+      "similarity": 0.738,
+      "version": "25.3.1"
+    },
+    {
+      "new": "Lower than expected performance may be observed while playing Assetto Corsa Competizione on Radeon RX 9000 series graphics products.",
+      "closest": "Lower than expected performance may be observed in Delta Force on Radeon RX 7000 series graphics products.",
+      "similarity": 0.839,
+      "version": "25.3.1"
+    },
+    {
+      "new": "3rd party tools that rely on our ADL SDK for detecting ROPs count will incorrectly report 64 ROPs.",
+      "closest": "3rd party tools that rely on our ADL SDK for detecting ROPs count will incorrectly report 64 ROPs, and we are looking to address this in a driver update post launch.",
+      "similarity": 0.746,
+      "version": "25.3.2"
+    },
+    {
+      "new": "Intermittent system or application crash may be observed while pressing Alt-Tab during gameplay on some AMD Radeon Graphics Products such as the Radeon RX 6000 Series.",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing F1 23 on some AMD Graphics Products, such as the Radeon RX 7800 XT.",
+      "similarity": 0.742,
+      "version": "25.3.2"
+    },
+    {
+      "new": "System crash may be observed due to a memory leak when using SteamVR on some AMD Radeon Graphics Products, such as the Radeon RX 9000 series. Users experiencing this issue are recommended to turn off Motion Smoothing in SteamVR settings.",
+      "closest": "Intermittent system or application crash may be observed while pressing Alt-Tab during gameplay on some AMD Radeon Graphics Products such as the Radeon RX 6000 Series.",
+      "similarity": 0.721,
+      "version": "25.3.2"
+    },
+    {
+      "new": "Image corruption may be observed while running certain diffuser models in Amuse 3.0 with Radeon RX 9000 series graphics products.",
+      "closest": "Black corruption may be observed while playing Alien Isolation on Radeon 7000 series graphics products.",
+      "similarity": 0.739,
+      "version": "25.4.1"
+    },
+    {
+      "new": "Lower than expected performance may be observed while playing World of Warcraft (western plaguelands) with Radeon RX 9000 series graphics products.",
+      "closest": "Lower than expected performance may be observed while playing Assetto Corsa Competizione on Radeon RX 9000 series graphics products.",
+      "similarity": 0.778,
+      "version": "25.4.1"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while playing The Last of Us Part 2.",
+      "closest": "Intermittent application crash or driver timeout may occur while playing Black Myth: Wukong.",
+      "similarity": 0.779,
+      "version": "25.4.1"
+    },
+    {
+      "new": "Intermittent system or application crash may be observed while playing Cyberpunk 2077",
+      "closest": "Intermittent system or application crash may be observed while playing FINAL FANTASY VII REBIRTH for long periods of time.",
+      "similarity": 0.738,
+      "version": "25.4.1"
+    },
+    {
+      "new": "Intermittent system or application crash may be observed during shader compilation while playing Fantasy VII Rebirth during shader compilation.",
+      "closest": "Intermittent system or application crash may be observed while playing FINAL FANTASY VII REBIRTH for long periods of time.",
+      "similarity": 0.768,
+      "version": "25.4.1"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while playing Monster Hunter Wilds with Radeon Anti-Lag and Instant Replay enabled.",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing The Last of Us Part 2.",
+      "similarity": 0.729,
+      "version": "25.4.1"
+    },
+    {
+      "new": "Intermittent system or application crash may be observed while playing Marvels Spiderman 2 with Radeon Anti-Lag 2 enabled on Radeon RX 7000 series graphics products.",
+      "closest": "Intermittent application crash may be observed while playing Lords of the Fallen and entering certain areas on Radeon RX 6000 series graphics products.",
+      "similarity": 0.771,
+      "version": "25.4.1"
+    },
+    {
+      "new": "Artifacts or corruption may appear while playing BattleField on Radeon RX 7000 series graphics products.",
+      "closest": "Black corruption may be observed while playing Alien Isolation on Radeon 7000 series graphics products.",
+      "similarity": 0.761,
+      "version": "25.4.1"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while playing Metro Exodus Enhanced Edition.",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing The Last of Us Part 2.",
+      "similarity": 0.846,
+      "version": "25.5.1"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while loading Civilization VII with Anti-Lag enabled.",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing The Last of Us Part 2.",
+      "similarity": 0.774,
+      "version": "25.5.1"
+    },
+    {
+      "new": "Lower than expected performance may be observed while playing Le Mans Ultimate with Radeon RX 9070 series graphics products.",
+      "closest": "Lower than expected performance may be observed while playing World of Warcraft (western plaguelands) with Radeon RX 9000 series graphics products.",
+      "similarity": 0.839,
+      "version": "25.6.1"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while playing Marvel Spiderman 2 with Ray Tracing enabled on Radeon RX 9060 XT.",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing Overwatch 2 with Radeon Boost enabled on Radeon RX 6000 and above series GPUs. Users experiencing this issue are recommended to disable Radeon Boost as a temporary workaround.",
+      "similarity": 0.803,
+      "version": "25.6.1"
+    },
+    {
+      "new": "Intermittent application crash may be observed when first launching The Last of Us Part 1 on Radeon RX 9060 XT graphics products.",
+      "closest": "Intermittent application crash may be observed while playing Fortnite on Radeon RX 5000 series and above series graphics products.",
+      "similarity": 0.739,
+      "version": "25.6.1"
+    },
+    {
+      "new": "Intermittent system or application crash may be observed while playing Cyberpunk 2077 on some AMD Radeon Graphics Products such as the Radeon RX 7000 series.",
+      "closest": "Intermittent system or application crash may be observed while pressing Alt-Tab during gameplay on some AMD Radeon Graphics Products such as the Radeon RX 6000 Series.",
+      "similarity": 0.863,
+      "version": "25.6.1"
+    },
+    {
+      "new": "Lower than expected performance may be observed while playing Warhammer 40,000: Darktide on Radeon RX 9070 series graphics products.",
+      "closest": "Lower than expected performance may be observed while playing Assetto Corsa Competizione on Radeon RX 9000 series graphics products.",
+      "similarity": 0.858,
+      "version": "25.6.2"
+    },
+    {
+      "new": "Intermittent system or application crash may be observed while playing Cyberpunk 2077 on some AMD Radeon Graphics Products such as the Radeon RX 7000 series and Radeon RX 9000 series.",
+      "closest": "Intermittent system or application crash may be observed while playing Cyberpunk 2077 on some AMD Radeon Graphics Products such as the Radeon RX 7000 series.",
+      "similarity": 0.923,
+      "version": "25.6.2"
+    },
+    {
+      "new": "Intermittent application crash may be observed while playing FBC: Firebreak on some AMD Ryzen AI 300 series and some AMD Ryzen 7000 series APU products.",
+      "closest": "Intermittent application crash may be observed while playing Fortnite on Radeon RX 5000 series and above series graphics products.",
+      "similarity": 0.767,
+      "version": "25.6.2"
+    },
+    {
+      "new": "Intermittent system or application crash maybe observed while playing Black Myth: WuKong on Radeon RX 7650 GRE graphics products.",
+      "closest": "Intermittent system or application crash may be observed while playing Marvels Spiderman 2 with Radeon Anti-Lag 2 enabled on Radeon RX 7000 series graphics products.",
+      "similarity": 0.797,
+      "version": "25.6.3"
+    },
+    {
+      "new": "Intermittent application crash may be observed while playing Battlefield 2042.",
+      "closest": "Intermittent system or application crash may be observed while playing Cyberpunk 2077",
+      "similarity": 0.815,
+      "version": "25.8.1"
+    },
+    {
+      "new": "Intermittent application crash may be observed while playing Dragon Age: The Veilguard on Radeon RX 9000 series graphics products.",
+      "closest": "Intermittent application crash may be observed while playing Lords of the Fallen and entering certain areas on Radeon RX 6000 series graphics products.",
+      "similarity": 0.827,
+      "version": "25.8.1"
+    },
+    {
+      "new": "Corruption may appear while playing Mafia: The Old Country on Radeon RX 6600 series graphics products.",
+      "closest": "Artifacts or corruption may appear while playing BattleField on Radeon RX 7000 series graphics products.",
+      "similarity": 0.818,
+      "version": "25.8.1"
+    },
+    {
+      "new": "Intermittent application crash may be observed while playing The Last of Us Part II on Radeon RX 7900 series graphics products.",
+      "closest": "Intermittent application crash may be observed when first launching The Last of Us Part 1 on Radeon RX 9060 XT graphics products.",
+      "similarity": 0.89,
+      "version": "25.8.1"
+    },
+    {
+      "new": "Intermittent application crash may be observed while playing Call of Duty: Black Ops 6 on Radeon RX 9000 series graphics products.",
+      "closest": "Intermittent application crash may be observed while playing The Last of Us Part II on Radeon RX 7900 series graphics products.",
+      "similarity": 0.874,
+      "version": "25.8.1"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while playing Wuchang: Fallen Feathers with FSR 4 enabled on Radeon RX 9000 series graphics products.",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing Overwatch 2 on Radeon RX 5000 series graphics products.",
+      "similarity": 0.842,
+      "version": "25.8.1"
+    },
+    {
+      "new": "Intermittent application crash may be observed while playing FBC: Firebreak on some AMD Ryzen processors such as the Ryzen AI 300 series and the Ryzen 7000 series.",
+      "closest": "Intermittent application crash may be observed while playing FBC: Firebreak on some AMD Ryzen AI 300 series and some AMD Ryzen 7000 series APU products.",
+      "similarity": 0.836,
+      "version": "25.8.1"
+    },
+    {
+      "new": "Intermittent application crash may be observed while playing NBA 2K25 in MyCareer mode on Radeon RX 9070 series graphics products.",
+      "closest": "Intermittent application crash may be observed while playing Dragon Age: The Veilguard on Radeon RX 9000 series graphics products.",
+      "similarity": 0.848,
+      "version": "25.8.1"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while playing Monster Hunter Wilds with Ray Tracing enabled and recording with AMD Software on Radeon RX 7600, 7700, and 7800 series graphics products.",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing Wuchang: Fallen Feathers with FSR 4 enabled on Radeon RX 9000 series graphics products.",
+      "similarity": 0.753,
+      "version": "25.9.1"
+    },
+    {
+      "new": "Corruption (missing scan travel lines) may be observed while playing GTFO on Radeon RX 7000 series graphics products.",
+      "closest": "Black corruption may be observed while playing Alien Isolation on Radeon 7000 series graphics products.",
+      "similarity": 0.769,
+      "version": "25.9.1"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while loading a saved game in Cyberpunk 2077 with Path Tracing enabled.",
+      "closest": "Intermittent application crash or driver timeout may be observed while loading Civilization VII with Anti-Lag enabled.",
+      "similarity": 0.81,
+      "version": "25.9.1"
+    },
+    {
+      "new": "Intermittent application crash may be observed while playing Cronos: The New Dawn with Ray Tracing enabled on Radeon RX 9070 series graphics products.",
+      "closest": "Intermittent application crash may be observed while playing Dragon Age: The Veilguard on Radeon RX 9000 series graphics products.",
+      "similarity": 0.833,
+      "version": "25.9.2"
+    },
+    {
+      "new": "Intermittent system crash may be observed while playing World of Warcraft while watching YouTube on Radeon RX 7900 GRE graphics products.",
+      "closest": "Intermittent application crash may be observed while playing The Last of Us Part II on Radeon RX 7900 series graphics products.",
+      "similarity": 0.771,
+      "version": "25.9.2"
+    },
+    {
+      "new": "Intermittent application crash may be observed while playing games with EA Javelin anticheat and Radeon Anti-Lag enabled on some AMD Graphics Products. Users experiencing this issue are recommended to disable Radeon Anti-Lag as a temporary workaround.",
+      "closest": "Intermittent system or application crash may be observed while playing Marvels Spiderman 2 with Radeon Anti-Lag 2 enabled on Radeon RX 7000 series graphics products.",
+      "similarity": 0.739,
+      "version": "25.9.2"
+    },
+    {
+      "new": "Stutter may be observed While playing Baldur's Gate 3 on some AMD Radeon Graphics Products such as the Radeon RX 9000 and 7000 series.",
+      "closest": "Stutter may be observed while playing games with some VR headsets at 80Hz or 90Hz refresh rate on some AMD Radeon Graphics Products such as the Radeon RX 7000 series. Users experiencing this issue are recommended to change the refresh rate as a temporary workaround.",
+      "similarity": 0.774,
+      "version": "25.10.2"
+    },
+    {
+      "new": "Texture flickering or corruption may appear while playing Serious Sam 4 on Radeon RX 6000 series graphics products.",
+      "closest": "Artifacts or corruption may appear while playing BattleField on Radeon RX 7000 series graphics products.",
+      "similarity": 0.793,
+      "version": "25.10.2"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while playing Battlefield 6 on AMD Ryzen AI 9 HX 370",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing The Last of Us Part 2.",
+      "similarity": 0.793,
+      "version": "25.10.2"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while playing Roblox Player (Car Zone Racing & Drifting) when task switching between media on Radeon RX 7000 series products.",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing Starcraft II on Radeon RX 7000 series GPUs.",
+      "similarity": 0.758,
+      "version": "25.10.2"
+    },
+    {
+      "new": "Texture flickering or corruption may appear while playing Battlefield 6 with AMD Record and Stream on some AMD Graphics Products.",
+      "closest": "Texture flickering or corruption may appear while playing Serious Sam 4 on Radeon RX 6000 series graphics products.",
+      "similarity": 0.727,
+      "version": "25.10.2"
+    },
+    {
+      "new": "Radeon Anti-Lag 2 option may not be available while playing Counter-Strike 2 (DX11) with Radeon Anti-Lag 2 enabled on some AMD Graphics Products, such as the Radeon RX 9070 XT. Users experiencing this issue are recommended to use the Vulkan API as a temporary workaround.",
+      "closest": "Intermittent driver timeout or application crash may be considered while playing Counterstrike 2 with FSR enabled on some AMD Graphics Products, such as the Radeon RX 7900 XTX.",
+      "similarity": 0.728,
+      "version": "25.10.2"
+    },
+    {
+      "new": "Intermittent application crash when playing ARC Raiders on the Blue Gate map on Radeon RX 9000 series products.",
+      "closest": "Intermittent application crash may be observed while playing Dragon Age: The Veilguard on Radeon RX 9000 series graphics products.",
+      "similarity": 0.748,
+      "version": "25.12.1"
+    },
+    {
+      "new": "Some shadows may not render correctly while playing Call of Duty: Black Ops 7 on some AMD Graphics Products on Radeon RX 5000 series and Radeon RX 6000 series graphics products.",
+      "closest": "Some shadows may not render correctly while playing Call of Duty: Black Ops 7 on some AMD Graphics Products. AMD is actively working on a resolution with the developer to be released as soon as possible.",
+      "similarity": 0.754,
+      "version": "26.1.1"
+    },
+    {
+      "new": "Intermittent visual corruption may be observed while navigating Chromium and Electron apps on Radeon RX 5000 series and Radeon RX 6000 series graphics products.",
+      "closest": "Intermittent application crash may be observed while playing Fortnite on Radeon RX 5000 series and above series graphics products.",
+      "similarity": 0.743,
+      "version": "26.1.1"
+    },
+    {
+      "new": "Player sprites may not render correctly while playing Cassette Beasts on Radeon RX 7000 series and Radeon RX 9000 series graphics products.",
+      "closest": "Some shadows may not render correctly while playing Call of Duty: Black Ops 7 on some AMD Graphics Products on Radeon RX 5000 series and Radeon RX 6000 series graphics products.",
+      "similarity": 0.773,
+      "version": "26.1.1"
+    },
+    {
+      "new": "Corrupted clouds may be observed while playing Arc Raiders on Radeon RX 9000 series graphics products.",
+      "closest": "Black corruption may be observed while playing Alien Isolation on Radeon 7000 series graphics products.",
+      "similarity": 0.808,
+      "version": "26.2.1"
+    },
+    {
+      "new": "Intermittent application crash may be observed when playing The Finals with ray tracing enabled on Radeon RX 7000 series products.",
+      "closest": "Intermittent application crash may be observed while playing Cronos: The New Dawn with Ray Tracing enabled on Radeon RX 9070 series graphics products.",
+      "similarity": 0.881,
+      "version": "26.2.1"
+    },
+    {
+      "new": "AMD FSR Upscaling and AMD FSR Frame Generation may show as inactive in AMD Software when playing Yakuza Kiwami 3 & Dark Ties, Call of Duty: Black Ops 7, and Resident Evil Requiem when enabled on Radeon RX 9000 series graphics products.",
+      "closest": "AMD FSR Upscaling and AMD FSR Frame Generation may show as inactive in AMD Software when playing Yakuza Kiwami 3 & Dark Ties and Call of Duty: Black Ops 7 when enabled on Radeon RX 9000 series graphics products.",
+      "similarity": 0.931,
+      "version": "26.2.2"
+    },
+    {
+      "new": "AMD FSR Upscaling and AMD FSR Frame Generation may show as inactive in AMD Software while playing Battlefield 6 when enabled on Radeon RX 9000 series graphics products.",
+      "closest": "AMD FSR Upscaling and AMD FSR Frame Generation may show as inactive in AMD Software when playing Yakuza Kiwami 3 & Dark Ties and Call of Duty: Black Ops 7 when enabled on Radeon RX 9000 series graphics products.",
+      "similarity": 0.77,
+      "version": "26.3.1"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while playing RoadCraft on Radeon RX 9000 series products.",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing Starcraft II on Radeon RX 7000 series GPUs.",
+      "similarity": 0.93,
+      "version": "26.3.1"
+    },
+    {
+      "new": "Intermittent stuttering may be observed while playing Resident Evil Requiem \"Raccoon City\" map on Radeon RX 9000 series graphics products.",
+      "closest": "Intermittent application crash may be observed while playing Dragon Age: The Veilguard on Radeon RX 9000 series graphics products.",
+      "similarity": 0.73,
+      "version": "26.5.1"
+    },
+    {
+      "new": "Corruption may appear while playing God of War on Radeon RX 9000 series graphics products.",
+      "closest": "Corruption may appear while playing Mafia: The Old Country on Radeon RX 6600 series graphics products.",
+      "similarity": 0.868,
+      "version": "26.5.1"
+    },
+    {
+      "new": "Corruption may appear while playing Satisfactory on Radeon RX 9000 series graphics products.",
+      "closest": "Corruption may appear while playing God of War on Radeon RX 9000 series graphics products.",
+      "similarity": 0.9,
+      "version": "26.5.1"
+    },
+    {
+      "new": "Intermittent application crash may be observed while running Blender on Radeon RX 7000 series graphics products and above. Users experiencing this issue are recommended to install AMD Software 26.3.1.",
+      "closest": "Intermittent application crash may be observed while playing The Last of Us Part II on Radeon RX 7900 series graphics products.",
+      "similarity": 0.818,
+      "version": "26.5.2"
+    },
+    {
+      "new": "Intermittent application crash may be observed while playing Subnautica 2 and Marvel Rivals on Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.3.1.",
+      "closest": "Intermittent application crash may be observed while playing NBA 2K25 in MyCareer mode on Radeon RX 9070 series graphics products.",
+      "similarity": 0.875,
+      "version": "26.5.2"
+    },
+    {
+      "new": "Artifacts may appear while playing Enshrouded on Radeon RX 6000 series graphics products.",
+      "closest": "Artifacts or corruption may appear while playing BattleField on Radeon RX 7000 series graphics products.",
+      "similarity": 0.838,
+      "version": "26.6.1"
+    },
+    {
+      "new": "Intermittent application crash may be observed on some models while running Blender on Radeon RX 7000 and above graphics products. Users experiencing this issue are recommended to install AMD Software 26.3.1.",
+      "closest": "Intermittent application crash may be observed while running Blender on Radeon RX 7000 series graphics products and above. Users experiencing this issue are recommended to install AMD Software 26.3.1.",
+      "similarity": 0.848,
+      "version": "26.6.2"
+    },
+    {
+      "new": "Intermittent application crash may be observed in some games with AMD FSR Upscaling 4.1 enabled on Radeon RX 7000 series graphics products.",
+      "closest": "Intermittent application crash may be observed when playing The Finals with ray tracing enabled on Radeon RX 7000 series products.",
+      "similarity": 0.816,
+      "version": "26.6.4"
+    },
+    {
+      "new": "Directional indicator icon may fail to render while playing Fortnite on Radeon RX 7000 series and above graphics products.",
+      "closest": "Intermittent application crash may be observed while playing Fortnite on Radeon RX 5000 series and above series graphics products.",
+      "similarity": 0.744,
+      "version": "26.7.1"
+    },
+    {
+      "new": "Intermittent application crash may be observed in some games with AMD FSR Upscaling 4.1 enabled on Windows 10 systems for Radeon RX 7000 series graphics products.",
+      "closest": "Intermittent application crash may be observed in some games with AMD FSR Upscaling 4.1 enabled on Radeon RX 7000 series graphics products.",
+      "similarity": 0.923,
+      "version": "26.7.1"
+    },
+    {
+      "new": "AMD FSR Upscaling and AMD FSR Frame Generation may show as inactive in AMD Software while playing Call of Duty: Modern Warfare 4 Open Beta Early Access when enabled on Radeon RX 9000 series graphics products.",
+      "closest": "AMD FSR Upscaling and AMD FSR Frame Generation may show as inactive in AMD Software while playing Battlefield 6 when enabled on Radeon RX 9000 series graphics products.",
+      "similarity": 0.847,
+      "version": "26.8.1"
+    },
+    {
+      "new": "Intermittent game crash may be observed while playing Starfield on Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.7.1.",
+      "closest": "Intermittent app crash while playing Starfield on Radeon RX 7000 Series Graphics Products.",
+      "similarity": 0.882,
+      "version": "26.8.1"
+    },
+    {
+      "new": "Intermittent game crash may be observed while playing Starfield and Apex Legends on Radeon RX 9000 series graphics products.",
+      "closest": "Intermittent game crash may be observed while playing Starfield on Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.7.1.",
+      "similarity": 0.926,
+      "version": "26.9.1"
+    },
+    {
+      "new": "Intermittent driver timeout may be observed while playing Final Fantasy VII Rebirth on Radeon RX 7000 series graphics products.",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing Overwatch 2 on Radeon RX 5000 series graphics products.",
+      "similarity": 0.788,
+      "version": "26.9.2"
+    },
+    {
+      "new": "Intermittent driver timeout or system freeze may be observed while playing HITMAN World of Assassination on Radeon RX 9000 series graphics products.",
+      "closest": "Intermittent driver timeout may be observed while playing Final Fantasy VII Rebirth on Radeon RX 7000 series graphics products.",
+      "similarity": 0.777,
+      "version": "26.9.2"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while playing Assassin's Creed Black Flag Resynced on Radeon RX 7000 series graphics products.",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing Overwatch 2 on Radeon RX 5000 series graphics products.",
+      "similarity": 0.848,
+      "version": "26.9.2"
+    },
+    {
+      "new": "Intermittent driver timeout may be observed while playing War Thunder on Radeon RX 5000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.9.1.",
+      "closest": "Intermittent driver timeout may be observed while playing Final Fantasy VII Rebirth on Radeon RX 7000 series graphics products.",
+      "similarity": 0.874,
+      "version": "26.9.2"
+    }
+  ],
+  "reworded": [
+    {
+      "text": "Performance drop may be experienced while playing Fortnite with Multithreaded Rendering and DirectX 11 API on some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+      "variants": [
+        "Performance drop may be experienced while playing Fortnite with Multithreaded Rendering and DirectX 11 API on some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+        "Performance drop may be experienced while playing Fortnite with Multithreaded Rendering and DirectX 11 API on some AMD Graphics Products such as the Radeon RX 6900 XT."
+      ]
+    },
+    {
+      "text": "Higher than expected CPU usage when Instant Replay is enabled on some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+      "variants": [
+        "Higher than expected CPU usage when Instant Replay is enabled on some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+        "Higher than expected CPU usage when Instant Replay is enabled on some AMD Graphics Products such as the Radeon RX 6900 XT."
+      ]
+    },
+    {
+      "text": "Stuttering may be experienced while playing Call of Duty: Warzone on the Caldera map with some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+      "variants": [
+        "Stuttering may be experienced while playing Call of Duty: Warzone on the Caldera map with some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+        "Stuttering may be experienced while playing Call of Duty: Warzone on the Caldera map with some AMD Graphics Products such as the Radeon RX 6900 XT."
+      ]
+    },
+    {
+      "text": "VCE presets may be in mixing in VEGAS Pro with some AMD Graphics Products such as the Radeon RX 6600 Graphics.",
+      "variants": [
+        "VCE presets may be in mixing in VEGAS Pro with some AMD Graphics Products such as the Radeon RX 6600 Graphics.",
+        "VCE presets may be missing in VEGAS Pro with some AMD Graphics Products such as the Radeon RX 6600 Graphics."
+      ]
+    },
+    {
+      "text": "While playing Lost Ark, flickering may be intermittently experienced after changing displaying settings or checking character info with some AMD Graphics Products such as the Radeon RX 6800 Graphics.",
+      "variants": [
+        "While playing Lost Ark, flickering may be intermittently experienced after changing display settings or checking character info with some AMD Graphics Products such as the Radeon RX 6800 Graphics.",
+        "While playing Lost Ark, flickering may be intermittently experienced after changing displaying settings or checking character info with some AMD Graphics Products such as the Radeon RX 6800 Graphics."
+      ]
+    },
+    {
+      "text": "Stuttering may occur during video playback using hardware acceleration with Firefox on some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+      "variants": [
+        "Stuttering may occur during video playback using hardware acceleration with Firefox on some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
+        "Stuttering may occur during video playback using hardware acceleration with Firefox on some AMD Graphics Products such as the Radeon RX 6900 XT."
+      ]
+    },
+    {
+      "text": "Brief display corruption may occur when switching between video and game windows on some AMD Graphics Products such as the Radeon RX 6700 XT.",
+      "variants": [
+        "Brief display corruption may occur when switching between video and game windows on some AMD Graphics Products such as the Radeon RX 6700 XT.",
+        "Brief display corruption may occur when switching between video and game windows on some AMD Graphics Products, such as the Radeon RX 6700 XT."
+      ]
+    },
+    {
+      "text": "Some virtual reality games or apps may experience lower-than-expected performance on Radeon RX 7000 series GPUs.",
+      "variants": [
+        "Some virtual reality games or applications may experience lower-than-expected performance on Radeon RX 7000 series GPUs.",
+        "Some virtual reality games or apps may experience lower-than-expected performance on Radeon RX 7000 series GPUs."
+      ]
+    },
+    {
+      "text": "Video stuttering or performance drop may be observed during gameplay plus video playback with some extended display configurations on Radeon RX 7000 series GPUs.",
+      "variants": [
+        "Video stuttering or performance drop may be observed during gameplay plus video playback with some extended display configurations on Radeon RX 7000 series GPUs.",
+        "Video stuttering or performance drops may be observed during gameplay and video playback with some extended display configurations on Radeon RX 7000 series GPUs."
+      ]
+    },
+    {
+      "text": "Application crash may be observed while playing UNCHARTED: Legacy of Thieves Collection on some AMD Graphics Products such as the Radeon RX 6700 XT.",
+      "variants": [
+        "Application crash may be observed while playing UNCHARTED: Legacy of Thieves Collection on some AMD Graphics Products such as the Radeon RX 6700 XT.",
+        "Application crash may be observed while playing UNCHARTED: Legacy of Thieves Collection on some AMD Graphics Products, such as the Radeon RX 6700 XT."
+      ]
+    },
+    {
+      "text": "Intermittent corruption may be observed after switching windows while play Nioh 2 on some AMD Graphics Products, such as the Radeon RX 6800 XT.",
+      "variants": [
+        "Intermittent corruption may be observed after switching windows while play Nioh 2 on some AMD Graphics Products, such as the Radeon RX 6800 XT.",
+        "Intermittent corruption may be observed after switching windows while playing Nioh 2 on some AMD Graphics Products, such as the Radeon RX 6800 XT."
+      ]
+    },
+    {
+      "text": "Application crash or driver timeout may be observed while playing SMITE on some AMD Graphics Products, such as the Radeon RX 7900 XT.",
+      "variants": [
+        "Application crash or driver timeout may be observed while playing SMITE on some AMD Graphics Products, such as the Radeon RX 7900 XT.",
+        "Application crash or driver timeout may be observed while playing SMITE on some AMD Graphics Products, such as the Radeon RX 7900 XTX."
+      ]
+    },
+    {
+      "text": "Intermittent flickering may be briefly observed in Total War: Pharaoh's menus after changing graphics settings.",
+      "variants": [
+        "Intermittent flickering may be briefly observed in Total War: Pharaoh's menus after changing graphics settings.",
+        "Intermittent flickering may be observed in Total War: Pharaoh's menus after changing graphics settings."
+      ]
+    },
+    {
+      "text": "Performance drop may be observed in some light DirectML workloads.",
+      "variants": [
+        "Performance drop may be observed in some DirectML workloads.",
+        "Performance drop may be observed in some light DirectML workloads."
+      ]
+    },
+    {
+      "text": "Audio and video may intermittently become out of sync while recording using the AV1 codec in AMD Software. [Resolution targeted for Q3]",
+      "variants": [
+        "Audio and video may intermittently become out of sync while recording using the AV1 codec in AMD Software. [Resolution targeted for 24.9.1]",
+        "Audio and video may intermittently become out of sync while recording using the AV1 codec in AMD Software. [Resolution targeted for 24.9.2]",
+        "Audio and video may intermittently become out of sync while recording using the AV1 codec in AMD Software. [Resolution targeted for Q3]"
+      ]
+    },
+    {
+      "text": "Intermittent application crash or driver timeout may be observed while playing Overwatch 2 with Radeon Boost enabled on Radeon RX 6000 and above series GPUs. Users experiencing this issue are recommended to disable Radeon Boost as a temporary workaround.",
+      "variants": [
+        "Intermittent application crash or driver timeout may be observed while playing Overwatch 2 with Radeon Boost enabled on Radeon RX 6000 and above series GPUs. Users experiencing this issue are recommended to disable Radeon Boost as a temporary workaround.",
+        "Intermittent application crash or driver timeout may be observed while playing Overwatch 2 with Radeon Boost enabled on Radeon RX 6000 and above series graphics products."
+      ]
+    },
+    {
+      "text": "Purple corruption may be observed while playing Dying Light 2 Stay Human: Reloaded Edition with Radeon Boost and Raytracing enabled. Users experiencing this issue are recommended to disable Radeon Boost as a temporary workaround.",
+      "variants": [
+        "Purple corruption may be observed while playing Dying Light 2 Stay Human: Reloaded Edition with Radeon Boost and Raytracing enabled.",
+        "Purple corruption may be observed while playing Dying Light 2 Stay Human: Reloaded Edition with Radeon Boost and Raytracing enabled. Users experiencing this issue are recommended to disable Radeon Boost as a temporary workaround."
+      ]
+    },
+    {
+      "text": "Corruption may be observed while playing Dying Light 2 Stay Human: Reloaded Edition with Radeon Boost enabled. Users experiencing this issue are recommended to disable Radeon Boost as a temporary workaround.",
+      "variants": [
+        "Corruption may be observed while playing Dying Light 2 Stay Human: Reloaded Edition with Radeon Boost enabled.",
+        "Corruption may be observed while playing Dying Light 2 Stay Human: Reloaded Edition with Radeon Boost enabled. Users experiencing this issue are recommended to disable Radeon Boost as a temporary workaround."
+      ]
+    },
+    {
+      "text": "Intermittent performance when entering certain areas while playing DayZ",
+      "variants": [
+        "Intermittent performance impact when entering certain areas while playing DayZ.",
+        "Intermittent performance when entering certain areas while playing DayZ"
+      ]
+    },
+    {
+      "text": "H.264 encoding may not work as expected while using OBS Studio with Twitch Enhanced Broadcasting.",
+      "variants": [
+        "H.264 encoding may not work as expected while using OBS Studio with Twitch Enhanced Broadcasting.",
+        "HEVC encoding may not work as expected while using OBS Studio with Twitch Enhanced Broadcasting."
+      ]
+    },
+    {
+      "text": "Intermittent stutter may be observed while playing Marvel Rivals when AMD FidelityFX Super Resolution 3 frame generation is enabled. Users experiencing this issue are recommended to disable AMD FidelityFX Super Resolution 3 frame generation in the per-game settings as a temporary workaround.",
+      "variants": [
+        "Intermittent stutter may be observed while playing Marvel Rivals when AMD FidelityFX Super Resolution 3 frame generation is enabled.",
+        "Intermittent stutter may be observed while playing Marvel Rivals when AMD FidelityFX Super Resolution 3 frame generation is enabled. Users experiencing this issue are recommended to disable AMD FidelityFX Super Resolution 3 frame generation in the per-game settings as a temporary workaround."
+      ]
+    },
+    {
+      "text": "Partial black screen may appear in Main Menu while playing Marvel's Spider-Man 2 with Radeon Anti-Lag 2 and Ray Tracing enabled on AMD Ryzen 7000 and above series processors. Users experiencing this issue are recommended to disable Radeon Anti-Lag 2 as a temporary workaround.",
+      "variants": [
+        "Partial black screen may appear in Main Menu while playing Marvel's Spider-Man 2 with Radeon Anti-Lag 2 and Ray Tracing enabled on AMD Ryzen 7000 and above series processors.",
+        "Partial black screen may appear in Main Menu while playing Marvel's Spider-Man 2 with Radeon Anti-Lag 2 and Ray Tracing enabled on AMD Ryzen 7000 and above series processors. Users experiencing this issue are recommended to disable Radeon Anti-Lag 2 as a temporary workaround."
+      ]
+    },
+    {
+      "text": "Stutter may be observed while playing Call of Duty: Warzone Season 03 Verdansk map on some AMD Graphics Products.",
+      "variants": [
+        "Stutter may be observed while playing Call of Duty: Warzone Season 03 'Verdansk' map on some AMD Graphics Products.",
+        "Stutter may be observed while playing Call of Duty: Warzone Season 03 Verdansk map on some AMD Graphics Products."
+      ]
+    },
+    {
+      "text": "Intermittent application crash may be observed when first launching The Last of Us Part 1 on Radeon RX 9060 XT graphics products.",
+      "variants": [
+        "Intermittent application crash may be observed when first launching The Last of Us Part 1 on Radeon RX 9060 XT graphics products.",
+        "Intermittent application crash may be observed when first launching The Last of Us Part I on Radeon RX 9060 XT graphics products."
+      ]
+    },
+    {
+      "text": "Intermittent application crash or driver timeout may be observed while playing Marvel Spiderman 2 with Ray Tracing enabled on Radeon RX 9060 XT.",
+      "variants": [
+        "Intermittent application crash or driver timeout may be observed while playing Marvel Spiderman 2 with Ray Tracing enabled on Radeon RX 9060 XT.",
+        "Intermittent application crash or driver timeout may be observed while playing Marvel's Spider-Man 2 with Ray Tracing enabled on Radeon RX 9060 XT."
+      ]
+    },
+    {
+      "text": "Stutter and lower than expected performance may be observed while playing 4K resolution YouTube videos in Chromium. Users experiencing this issue are recommended to play videos in full screen as a temporary workaround.",
+      "variants": [
+        "Stutter and lower than expected performance may be observed while playing 4K resolution YouTube videos in Chrome.",
+        "Stutter and lower than expected performance may be observed while playing 4K resolution YouTube videos in Chrome. Users experiencing this issue are recommended to play videos in full screen as a temporary workaround.",
+        "Stutter and lower than expected performance may be observed while playing 4K resolution YouTube videos in Chromium. Users experiencing this issue are recommended to play videos in full screen as a temporary workaround."
+      ]
+    },
+    {
+      "text": "Texture flickering or corruption may appear while playing The Elder Scrolls IV: Oblivion Remastered with AMD FidelityFX Super Resolution enabled on Radeon RX 9070 XT. Users experiencing this issue are recommended to disable AMD FidelityFX Super Resolution as a temporary workaround.",
+      "variants": [
+        "Texture flickering or corruption may appear while playing The Elder Scrolls IV: Oblivion Remastered with AMD FidelityFX Super Resolution enabled on Radeon RX 9070 XT.",
+        "Texture flickering or corruption may appear while playing The Elder Scrolls IV: Oblivion Remastered with AMD FidelityFX Super Resolution enabled on Radeon RX 9070 XT. Users experiencing this issue are recommended to disable AMD FidelityFX Super Resolution as a temporary workaround."
+      ]
+    },
+    {
+      "text": "Intermittent application crash may be observed while playing FBC: Firebreak on some AMD Ryzen processors such as the Ryzen AI 300 series and the Ryzen 7000 series.",
+      "variants": [
+        "Intermittent application crash may be observed while playing FBC: Firebreak on some AMD Ryzen processors such as the Ryzen AI 300 series and the Ryzen 7000 series.",
+        "Intermittent application crash may be observed while playing FBC: Firebreak on some AMD Ryzen processors such as the Ryzen AI 300 series and the Ryzen 8000 series."
+      ]
+    },
+    {
+      "text": "Intermittent application crash may be observed while playing NBA 2K25 in MyCareer mode on Radeon RX 9070 series graphics products.",
+      "variants": [
+        "Intermittent application crash may be observed while playing NBA 2K25 in MyCareer mode on Radeon RX 9070 series graphics products.",
+        "Intermittent application crash may be observed while playing NBA 2K25 in MyCareer mode on Radeon RX 9070 series graphics products. AMD is actively working on a resolution to be released as soon as possible."
+      ]
+    },
+    {
+      "text": "Intermittent application crash or driver timeout may be observed while playing Wuchang: Fallen Feathers with FSR 4 enabled on Radeon RX 9000 series graphics products.",
+      "variants": [
+        "Intermittent application crash or driver timeout may be observed while playing WUCHANG: Fallen Feathers with FSR 4 enabled on Radeon RX 9000 series graphics products.",
+        "Intermittent application crash or driver timeout may be observed while playing Wuchang: Fallen Feathers with FSR 4 enabled on Radeon RX 9000 series graphics products."
+      ]
+    },
+    {
+      "text": "Intermittent application crash or driver timeout may be observed while loading a saved game in Cyberpunk 2077 with Path Tracing enabled.",
+      "variants": [
+        "Intermittent application crash or driver timeout may be observed while loading a saved game in Cyberpunk 2077 with Path Tracing enabled.",
+        "Intermittent application crash or driver timeout may be observed while loading a saved game in Cyberpunk 2077 with Path Tracing enabled. AMD is actively working on a resolution with the developer to be released as soon as possible."
+      ]
+    },
+    {
+      "text": "Intermittent application crash or driver timeout may be observed while playing Battlefield 6 on AMD Ryzen AI 9 HX 370",
+      "variants": [
+        "Intermittent application crash or driver timeout may be observed while playing Battlefield 6 on AMD Ryzen AI 9 HX 370",
+        "Intermittent application crash or driver timeout may be observed while playing Battlefield 6 on AMD Ryzen AI 9 HX 370.",
+        "Intermittent application crash or driver timeout may be observed while playing Battlefield 6 on AMD Ryzen AI 9 HX 370. AMD is actively working on a resolution with the developer to be released as soon as possible."
+      ]
+    },
+    {
+      "text": "Radeon Anti-Lag 2 option may not be available while playing Counter-Strike 2 (DX11) with Radeon Anti-Lag 2 enabled on some AMD Graphics Products, such as the Radeon RX 9070 XT. Users experiencing this issue are recommended to use the Vulkan API as a temporary workaround.",
+      "variants": [
+        "Radeon Anti-Lag 2 option may not be available while playing Counter-Strike 2 (DX11) with Radeon Anti-Lag 2 enabled on some AMD Graphics Products, such as the Radeon RX 9070 XT.",
+        "Radeon Anti-Lag 2 option may not be available while playing Counter-Strike 2 (DX11) with Radeon Anti-Lag 2 enabled on some AMD Graphics Products, such as the Radeon RX 9070 XT. Users experiencing this issue are recommended to use the Vulkan API as a temporary workaround."
+      ]
+    },
+    {
+      "text": "Texture flickering or corruption may appear while playing Battlefield 6 with AMD Record and Stream on some AMD Graphics Products.",
+      "variants": [
+        "Texture flickering or corruption may appear while playing Battlefield 6 with AMD Record and Stream on some AMD Graphics Products.",
+        "Texture flickering or corruption may appear while playing Battlefield 6 with AMD Record and Stream on some AMD graphics products."
+      ]
+    },
+    {
+      "text": "Intermittent system crashes may be observed while using some high-bandwidth HDMI 2.1 displays during display standby. Users experiencing this issue are recommended to use a DisplayPort connection as a temporary workaround.",
+      "variants": [
+        "Intermittent system crashes may be observed while using some high-bandwidth HDMI 2.1 displays during display standby.",
+        "Intermittent system crashes may be observed while using some high-bandwidth HDMI 2.1 displays during display standby. Users experiencing this issue are recommended to use a DisplayPort connection as a temporary workaround."
+      ]
+    },
+    {
+      "text": "Intermittent application crash or driver timeout may be observed while playing RoadCraft on Radeon RX 9000 series products.",
+      "variants": [
+        "Intermittent application crash or driver timeout may be observed while playing RoadCraft on Radeon RX 7000 series products.",
+        "Intermittent application crash or driver timeout may be observed while playing RoadCraft on Radeon RX 9000 series products."
+      ]
+    },
+    {
+      "text": "Intermittent application crash may be observed while playing Subnautica 2 and Marvel Rivals on Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.3.1.",
+      "variants": [
+        "Intermittent application crash may be observed while playing Subnautica 2 and Marvel Rivals on Radeon RX 9000 series graphics products.",
+        "Intermittent application crash may be observed while playing Subnautica 2 and Marvel Rivals on Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.3.1."
+      ]
+    },
+    {
+      "text": "Intermittent application crash may be observed on some models while running Blender on Radeon RX 7000 and above graphics products. Users experiencing this issue are recommended to install AMD Software 26.3.1.",
+      "variants": [
+        "Intermittent application crash may be observed on some models while running Blender on Radeon RX 7000 and above graphics products. Users experiencing this issue are recommended to install AMD Software 26.3.1.",
+        "Intermittent application crash may be observed on some models while running Blender on Radeon RX 7000 series and above graphics products.",
+        "Intermittent application crash may be observed on some models while running Blender on Radeon RX 7000 series and above graphics products. Users experiencing this issue are recommended to install AMD Software 26.3.1."
+      ]
+    },
+    {
+      "text": "Model flickering or rendering failure may be observed in Maxon Cinema 4D and Blender on Radeon RX 7000 series and above graphics products. Users experiencing this issue are recommended to install AMD Software 26.3.1.",
+      "variants": [
+        "Model flickering or rendering failure may be observed in Maxon Cinema 4D and Blender on Radeon RX 7000 series and above graphics products.",
+        "Model flickering or rendering failure may be observed in Maxon Cinema 4D and Blender on Radeon RX 7000 series and above graphics products. Users experiencing this issue are recommended to install AMD Software 26.3.1."
+      ]
+    }
+  ],
+  "skipped": []
+}

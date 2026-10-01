@@ -13,6 +13,9 @@ scripts/.probe/
 test-results/
 playwright-report/
 
+# Watcher output: the probe report and the generated pull-request body
+.watch/
+
 # Python
 __pycache__/
 *.py[cod]

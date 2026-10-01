@@ -204,10 +204,16 @@ def validate(path):
     check_bugs(data["bugs"], ordered, rep)
     check_meta(data["meta"], rep)
 
-    covered = {b.get("first") for b in data["bugs"] if isinstance(b, dict)}
+    # A release that no issue references at all is a parse failure, not a quiet
+    # release: even a hotfix carries issues forward. Checking `sources` rather than
+    # `first` catches that, because a release can legitimately introduce nothing new.
+    referenced = set()
+    for b in data["bugs"]:
+        if isinstance(b, dict):
+            referenced.update(b.get("sources") or [])
     for v in ordered:
-        if v not in covered:
-            rep.warn("drivers", f"{v} has no issues recorded against it")
+        if v not in referenced:
+            rep.warn("drivers", f"{v} is not referenced by any issue — check that it parsed")
 
     for w in rep.warnings:
         print(f"warn  {w}")

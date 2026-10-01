@@ -11,7 +11,10 @@
     "test:page": "node scripts/probe_page.mjs",
     "serve": "python -m http.server 8000 --bind 127.0.0.1",
     "validate": "python scripts/validate_tracker.py",
-    "import": "python scripts/import_release_notes.py"
+    "import": "python scripts/import_release_notes.py",
+    "discover": "python scripts/discover_releases.py",
+    "backfill": "python scripts/backfill.py",
+    "watch": "python scripts/watch_releases.py"
   },
   "devDependencies": {
     "playwright": "^1.63.0"

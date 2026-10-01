@@ -171,9 +171,29 @@ def normalize(text):
     return collapse(s)
 
 
+# Sentences AMD appends to a bullet that carry no issue identity. Leaving them in
+# splits one issue into two records: 25.10.2's Cyberpunk bullet is byte-identical to
+# 25.9.1's except for "AMD is actively working on a resolution...", which scored 0.74
+# and therefore stayed a separate record claiming the bug was still open.
+BOILERPLATE = (
+    re.compile(r"AMD is actively working on a resolution", re.I),
+    re.compile(r"Users experiencing this issue are recommended to", re.I),
+    re.compile(r"AMD recommends\b", re.I),
+    re.compile(r"^\s*Workaround\b", re.I),
+    re.compile(r"^\s*Note:\s", re.I),
+)
+
+
+def strip_boilerplate(text):
+    """Drop AMD's trailing advice sentences. Used for matching only, never stored."""
+    kept = [s for s in re.split(r"(?<=\.)\s+", text)
+            if not any(p.search(s) for p in BOILERPLATE)]
+    return " ".join(kept).strip()
+
+
 def match_key(text):
     """Aggressive key used only for proposing matches. Never shown to users."""
-    s = normalize(text).lower()
+    s = strip_boilerplate(normalize(text)).lower()
     s = s.replace("'", "")
     s = re.sub(r"[^a-z0-9]+", " ", s)
     return collapse(s)

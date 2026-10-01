@@ -8,10 +8,15 @@
 > - B1–B9: all fixed. The importer was rewritten around document structure, text is
 >   normalized, the fetch has real error/loading/empty states, `last_seen` is shown, the
 >   chart models carried-over issues, and there is a validator gating CI.
-> - Phases 0, 1, 2, 3 and 5: done. Phase 4 (backfill) is partially done — `26.9.2` was
->   re-checked and completed; the older releases are still a sample.
+> - Phases 0, 1, 2, 3 and 5: done.
+> - Phase 4 (backfill): done, and bounded by what AMD still publishes. 80 releases and
+>   456 issues, `22.1.1` → `26.9.2`. **The RDNA 1 goal turned out to be impossible** —
+>   AMD has removed every release note before 2022, so RDNA 2's launch window is gone too.
+>   See the data-status section of `README.md`.
+> - Phase 5's "scheduled job" (the optional last step) is now built:
+>   `.github/workflows/watch.yml` plus `scripts/watch_releases.py`.
 > - Verification now in place: 51 Python tests (including 27 validator mutation tests),
->   18 model tests, 31 rendered-page checks, and a deploy-subpath simulation.
+>   21 model tests, 28 rendered-page checks, and a deploy-subpath simulation.
 
 Status: review of the starter as it stands on 2026-10-01. Everything below was verified against
 the files in this repo and against the live AMD release-note pages, not inferred from the README.

@@ -22,6 +22,11 @@
 /* chart -------------------------------------------------------------------- */
 /* Reserve room below the plot so the release labels sit inside the panel
    instead of being clipped, and read them horizontally at a legible size. */
+/* A full archive is ~80 releases. Each bar group needs a minimum width to stay
+   readable, which is far more than a phone viewport, so the plot scrolls
+   horizontally instead of squeezing the bars into nothing. app.js sets the
+   min-width from the release count. */
+.chart-scroll{overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain}
 .chart{height:212px;padding-bottom:28px}
 .bar-label{position:absolute;bottom:-26px;left:50%;transform:translateX(-50%);transform-origin:center;font-size:11px;color:#a2a5ad;white-space:nowrap}
 .axis{padding-top:6px}

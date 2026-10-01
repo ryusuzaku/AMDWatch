@@ -7,7 +7,7 @@ import { dirname, join } from 'node:path';
 
 import {
   indexDrivers, computeStats, openAt, buildSeries, isStale,
-  filterBugs, channels, gpus, escapeHtml, validateDatabase,
+  filterBugs, channels, gpus, escapeHtml, validateDatabase, compareVersions,
 } from '../lib/model.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -166,4 +166,33 @@ test('every shipped issue has a source trail back to a tracked driver', () => {
       assert.ok(versions.has(s), `${b.id} cites untracked version ${s}`);
     }
   }
+});
+
+test('compareVersions orders numerically, not lexically', () => {
+  assert.ok(compareVersions('26.9.2', '26.9.1') > 0);
+  assert.ok(compareVersions('26.1.1', '25.12.1') > 0);
+  // "12" sorts before "9" as a string. This is the whole reason the helper exists.
+  assert.ok(compareVersions('25.12.1', '25.9.1') > 0, '25.12.1 must beat 25.9.1');
+  assert.equal(compareVersions('26.9.2', '26.9.2'), 0);
+});
+
+test('indexDrivers breaks month-precision date ties on the version', () => {
+  // Releases before ~25.9.2 carry no release date in their notes, so their date is
+  // derived from the version number and 22.1.1 / 22.1.2 both land on 2022-01-01.
+  // Which of those is newer must not depend on the order they appear in the file.
+  const tied = [
+    { version: '22.1.1', date: '2022-01-01' },
+    { version: '22.1.2', date: '2022-01-01' },
+    { version: '22.2.1', date: '2022-02-01' },
+  ];
+  const expected = ['22.2.1', '22.1.2', '22.1.1'];
+  assert.deepEqual(indexDrivers(tied).sorted.map((d) => d.version), expected);
+  assert.deepEqual(indexDrivers([...tied].reverse()).sorted.map((d) => d.version), expected,
+    'the result must not depend on file order');
+});
+
+test('the shipped database is ordered newest-first and cites real drivers', () => {
+  const versions = DB.drivers.map((d) => d.version);
+  assert.deepEqual(indexDrivers(DB.drivers).sorted.map((d) => d.version), versions,
+    'tracker.json must already be newest-first');
 });

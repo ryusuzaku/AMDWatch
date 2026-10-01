@@ -112,7 +112,13 @@ function renderChart() {
   // tooltip always carries the exact version.
   const labelStep = Math.max(1, Math.ceil(series.length / 12));
 
-  $('#chart').innerHTML = series.map((s, i) => {
+  const chart = $('#chart');
+  // A full archive is around 80 releases. Give each one enough room for two bars
+  // and a label, and let .chart-scroll handle the rest — squeezing them to fit a
+  // phone would make every bar invisible and still overflow the page.
+  chart.style.minWidth = series.length > 12 ? `${series.length * 26}px` : '';
+
+  chart.innerHTML = series.map((s, i) => {
     const openPct = (s.open / peak) * 100;
     const carriedPct = s.open ? (s.carried / s.open) * openPct : 0;
     const introducedPct = openPct - carriedPct;
@@ -139,6 +145,8 @@ function renderChart() {
 
   const worst = series.reduce((a, b) => (b.open > a.open ? b : a), series[0]);
   const totalFixed = series.reduce((sum, s) => sum + s.fixedHere, 0);
+  const scrollHint = series.length > 12
+    ? ` The plot scrolls sideways to fit ${series.length} releases.` : '';
   $('#chart-note').textContent = series.length
     ? `Left bar: issues still open at that release. Right bar: issues documented as fixed in it. `
       + `Peak is ${worst.open} open at ${worst.version}; ${totalFixed} fixes are documented across the tracked window. `
@@ -146,6 +154,7 @@ function renderChart() {
         ? 'A pending issue that stops being listed is not proof of a fix — AMD drops issues from the notes without saying so.'
         : `Coverage is not yet contiguous, so an issue that disappears between two tracked releases may have been `
           + `fixed in a release this tracker does not have. Treat "open" here as "not yet documented as fixed".`)
+      + scrollHint
     : 'No releases to chart.';
 }
 
