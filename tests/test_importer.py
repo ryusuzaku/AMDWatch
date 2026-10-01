@@ -1,0 +1,209 @@
+#!/usr/bin/env python3
+"""Tests for the release-note importer.
+
+    python -m unittest discover -s tests -v
+
+The fixture in tests/fixtures/ is a hand-written page that mirrors the structure
+of a real AMD release note, including the anchor-bar navigation links that caused
+the original section-detection bug. It is deliberately small and original rather
+than a saved copy of AMD's page.
+"""
+import json
+import os
+import sys
+import unittest
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "scripts"))
+
+import import_release_notes as imp  # noqa: E402
+
+FIXTURE = os.path.join(ROOT, "tests", "fixtures", "rn-26-9-2.html")
+TRACKER = os.path.join(ROOT, "data", "tracker.json")
+
+
+def load_fixture():
+    with open(FIXTURE, encoding="utf-8") as fh:
+        return imp.extract(fh.read(), "26.9.2", "2026-09-29", "https://example.invalid/rn")
+
+
+class Normalisation(unittest.TestCase):
+    def test_strips_trademark_and_registered_symbols(self):
+        self.assertEqual(
+            imp.normalize("playing on Radeon\u2122 RX 7000 series"),
+            "playing on Radeon RX 7000 series")
+        self.assertEqual(imp.normalize("Windows\u00ae 10 systems"), "Windows 10 systems")
+
+    def test_folds_adrenalin_channel_suffix(self):
+        self.assertEqual(imp.normalize("in AMD Software: Adrenalin Edition after"),
+                         "in AMD Software after")
+
+    def test_normalises_dashes_quotes_and_nbsp(self):
+        self.assertEqual(imp.normalize("a\u2014b\u2013c"), "a-b-c")
+        self.assertEqual(imp.normalize("it\u2019s"), "it's")
+        self.assertEqual(imp.normalize("a\u00a0b"), "a b")
+
+    def test_collapses_whitespace_and_zero_width(self):
+        self.assertEqual(imp.normalize("a  \u200b b\n c"), "a b c")
+
+    def test_match_key_ignores_punctuation_and_case(self):
+        self.assertEqual(imp.match_key("Radeon\u2122 RX 7000, series."),
+                         imp.match_key("radeon rx 7000 series"))
+
+    def test_normalised_import_text_matches_stored_record(self):
+        """The whole point of normalisation: AMD's wording must equal ours."""
+        with open(TRACKER, encoding="utf-8") as fh:
+            stored = json.load(fh)["bugs"]
+        by_id = {b["id"]: b for b in stored}
+        result = load_fixture()
+        fixed = {imp.match_key(c["text"]): c for c in result["candidates"]
+                 if c["kind"] == "fixed"}
+        self.assertIn(imp.match_key(by_id["AMD-0001"]["text"]), fixed)
+        self.assertIn(imp.match_key(by_id["AMD-0003"]["text"]), fixed)
+
+
+class SectionDetection(unittest.TestCase):
+    def setUp(self):
+        self.result = load_fixture()
+
+    def test_nav_anchor_links_are_not_treated_as_sections(self):
+        """Regression for the original bug: the anchor bar repeats every heading."""
+        for section in self.result["sections"]:
+            self.assertNotIn(section["section"], ("", "On this page"))
+
+    def test_no_candidate_is_a_heading_or_nav_label(self):
+        for c in self.result["candidates"]:
+            self.assertNotIn(c["match_key"], ("known issues", "highlights",
+                                              "fixed issues", "additional information"))
+
+    def test_page_furniture_is_excluded(self):
+        blob = " ".join(c["text"] for c in self.result["candidates"]).lower()
+        self.assertNotIn("last updated", blob)
+        self.assertNotIn("installation package can be downloaded", blob)
+
+    def test_new_game_support_titles_are_not_issues(self):
+        blob = " ".join(c["text"] for c in self.result["candidates"])
+        self.assertNotIn("Minecraft Dungeons II", blob)
+        self.assertNotIn("Witcher 3", blob)
+
+    def test_fixed_issues_is_read_from_a_bold_list_label(self):
+        fixed = [c for c in self.result["candidates"] if c["kind"] == "fixed"]
+        self.assertEqual(len(fixed), 4)
+        self.assertTrue(all(c["group"] == "Fixed Issues" for c in fixed))
+
+    def test_known_issues_is_read_from_its_heading(self):
+        known = [c for c in self.result["candidates"] if c["kind"] == "known"]
+        self.assertEqual(len(known), 4)
+        self.assertTrue(all(c["section"] == "Known Issues" for c in known))
+
+    def test_fixed_and_known_sets_are_disjoint(self):
+        """The original bug put every fixed issue into both lists."""
+        fixed = {c["match_key"] for c in self.result["candidates"] if c["kind"] == "fixed"}
+        known = {c["match_key"] for c in self.result["candidates"] if c["kind"] == "known"}
+        self.assertEqual(fixed & known, set())
+
+    def test_compatibility_lists_are_not_surfaced(self):
+        for section in self.result["sections"]:
+            for group in section["groups"]:
+                if group["kind"] == "other":
+                    self.assertIsNotNone(group["label"],
+                                         "unlabelled non-issue groups should be dropped")
+
+    def test_candidates_carry_a_source_trail(self):
+        for c in self.result["candidates"]:
+            self.assertEqual(c["sources"], ["26.9.2"])
+            self.assertEqual(c["first"], "26.9.2")
+            self.assertEqual(c["last_seen"], "26.9.2")
+
+
+class Classify(unittest.TestCase):
+    def test_known_from_section_title(self):
+        self.assertEqual(imp.classify("Known Issues", None), "known")
+
+    def test_fixed_from_group_label(self):
+        self.assertEqual(imp.classify("Highlights", "Fixed Issues"), "fixed")
+
+    def test_case_insensitive(self):
+        self.assertEqual(imp.classify("KNOWN ISSUES", None), "known")
+
+    def test_everything_else_is_other(self):
+        self.assertEqual(imp.classify("Highlights", "New Game Support"), "other")
+        self.assertEqual(imp.classify("Packaged Contents", None), "other")
+
+
+class ParseList(unittest.TestCase):
+    def parse(self, html):
+        builder = imp.DOMBuilder()
+        builder.feed(html)
+        return imp.parse_list(builder.root.first("ul"))
+
+    def test_flat_list_becomes_one_unlabelled_group(self):
+        groups = self.parse("<ul><li>alpha one two three</li><li>beta one two three</li></ul>")
+        self.assertEqual(groups, [{"label": None,
+                                   "items": ["alpha one two three", "beta one two three"]}])
+
+    def test_labelled_sublists_become_named_groups(self):
+        groups = self.parse(
+            "<ul><li><b>Fixed Issues</b><ul><li>first item here</li></ul></li>"
+            "<li><b>Known Issues</b><ul><li>second item here</li></ul></li></ul>")
+        self.assertEqual([g["label"] for g in groups], ["Fixed Issues", "Known Issues"])
+        self.assertEqual(groups[0]["items"], ["first item here"])
+
+    def test_nested_markup_inside_an_item_is_flattened(self):
+        groups = self.parse("<ul><li>a <b>bold</b> word <span>here</span></li></ul>")
+        self.assertEqual(groups[0]["items"], ["a bold word here"])
+
+
+class MatchHints(unittest.TestCase):
+    def test_hints_flag_a_real_duplicate_but_never_merge_it(self):
+        with open(TRACKER, encoding="utf-8") as fh:
+            tracker = json.load(fh)["bugs"]
+        result = load_fixture()
+        imp.add_match_hints(result, tracker, 0.72)
+
+        by_key = {c["match_key"]: c for c in result["candidates"]}
+        stored = {imp.match_key(b["text"]): b["id"] for b in tracker}
+
+        matched = 0
+        for key, bug_id in stored.items():
+            if key in by_key:
+                matched += 1
+                self.assertTrue(by_key[key]["known_to_tracker"],
+                                f"{bug_id} should be recognised as already tracked")
+        self.assertGreaterEqual(matched, 6, "normalisation should match most fixture rows")
+
+        # The importer proposes; it must not decide. Every candidate keeps its
+        # own identity until a human confirms the merge.
+        for c in result["candidates"]:
+            self.assertNotIn("id", c)
+
+    def test_unrelated_issue_gets_no_strong_hint(self):
+        """A naive matcher would merge the RX 5000 War Thunder issue with the RX 6000 one.
+
+        This runs against a controlled single-record pool rather than the shipped
+        database. The shipped data legitimately contains both issues, so keying the
+        assertion off "RX 5000 is absent from tracker.json" made the test fail every
+        time a real issue was added -- it was testing the data, not the matcher.
+        """
+        with open(TRACKER, encoding="utf-8") as fh:
+            tracker = json.load(fh)["bugs"]
+        rx6000 = [b for b in tracker if b["id"] == "AMD-0002"]
+        self.assertEqual(len(rx6000), 1, "AMD-0002 is the RX 6000 War Thunder record")
+
+        result = load_fixture()
+        imp.add_match_hints(result, rx6000, 0.72)
+
+        war_thunder = [c for c in result["candidates"] if "RX 5000" in c["text"]][0]
+        self.assertFalse(war_thunder["known_to_tracker"])
+        strong = [h for h in war_thunder["match_hints"] if h["similarity"] >= 0.9]
+        self.assertEqual(strong, [])
+
+        # Positive control. Without this, "no hint" would also pass if the matcher
+        # were simply broken and returned nothing for everything.
+        rx6000_candidate = [c for c in result["candidates"] if "RX 6000" in c["text"]][0]
+        self.assertTrue(rx6000_candidate["known_to_tracker"],
+                        "the matcher must still recognise the RX 6000 record as itself")
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)

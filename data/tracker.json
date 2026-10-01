@@ -1,0 +1,404 @@
+{
+  "drivers": [
+    {
+      "version": "26.9.2",
+      "date": "2026-09-29",
+      "channel": "Optional",
+      "url": "https://www.amd.com/en/resources/support-articles/release-notes/RN-RAD-WIN-26-9-2.html"
+    },
+    {
+      "version": "26.8.1",
+      "date": "2026-08-20",
+      "channel": "Adrenalin",
+      "url": "https://www.amd.com/en/resources/support-articles/release-notes/RN-RAD-WIN-26-8-1.html"
+    },
+    {
+      "version": "26.1.1",
+      "date": "2026-01-21",
+      "channel": "Adrenalin",
+      "url": "https://www.amd.com/en/resources/support-articles/release-notes/RN-RAD-WIN-26-1-1.html"
+    },
+    {
+      "version": "25.12.1",
+      "date": "2025-12-10",
+      "channel": "Adrenalin",
+      "url": "https://www.amd.com/en/resources/support-articles/release-notes/RN-RAD-WIN-25-12-1.html"
+    },
+    {
+      "version": "25.6.1",
+      "date": "2025-06-05",
+      "channel": "Adrenalin",
+      "url": "https://www.amd.com/en/resources/support-articles/release-notes/RN-RAD-WIN-25-6-1.html"
+    },
+    {
+      "version": "24.8.1",
+      "date": "2024-08-08",
+      "channel": "Adrenalin",
+      "url": "https://www.amd.com/en/resources/support-articles/release-notes/RN-RAD-WIN-24-8-1.html"
+    }
+  ],
+  "bugs": [
+    {
+      "id": "AMD-0001",
+      "text": "Intermittent driver timeout may be observed while playing Final Fantasy VII Rebirth on Radeon RX 7000 series graphics products.",
+      "first": "26.9.2",
+      "last_seen": "26.9.2",
+      "status": "fixed",
+      "fixed_in": "26.9.2",
+      "game": "Final Fantasy VII Rebirth",
+      "gpu": "RX 7000",
+      "sources": [
+        "26.9.2"
+      ]
+    },
+    {
+      "id": "AMD-0002",
+      "text": "Intermittent driver timeout may be observed while playing War Thunder in DirectX 12 mode with Instant Replay and Borderless Region Capture enabled on Radeon RX 6000 series graphics products.",
+      "first": "26.9.2",
+      "last_seen": "26.9.2",
+      "status": "fixed",
+      "fixed_in": "26.9.2",
+      "game": "War Thunder",
+      "gpu": "RX 6000",
+      "sources": [
+        "26.9.2"
+      ]
+    },
+    {
+      "id": "AMD-0003",
+      "text": "Anti-Lag 2 may show as inactive in AMD Software after disabling Frame Generation in Resonance: A Plague Tale Legacy.",
+      "first": "26.8.1",
+      "last_seen": "26.9.2",
+      "status": "fixed",
+      "fixed_in": "26.9.2",
+      "game": "Resonance: A Plague Tale Legacy",
+      "gpu": "Not specified",
+      "sources": [
+        "26.8.1",
+        "26.9.2"
+      ]
+    },
+    {
+      "id": "AMD-0004",
+      "text": "Intermittent driver timeout or system freeze may be observed while playing HITMAN World of Assassination on Radeon RX 9000 series graphics products.",
+      "first": "26.9.2",
+      "last_seen": "26.9.2",
+      "status": "fixed",
+      "fixed_in": "26.9.2",
+      "game": "HITMAN World of Assassination",
+      "gpu": "RX 9000",
+      "sources": [
+        "26.9.2"
+      ]
+    },
+    {
+      "id": "AMD-0005",
+      "text": "Failure to install may be observed while installing AI Bundle components in some regions with limited access to HuggingFace and GitHub.",
+      "first": "26.8.1",
+      "last_seen": "26.8.1",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "AMD AI Bundle",
+      "gpu": "Not specified",
+      "sources": [
+        "26.8.1"
+      ]
+    },
+    {
+      "id": "AMD-0006",
+      "text": "AMD Smart Access Memory may become disabled after driver installation on Windows 10 systems.",
+      "first": "26.8.1",
+      "last_seen": "26.8.1",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "AMD Software / Smart Access Memory",
+      "gpu": "Not specified",
+      "sources": [
+        "26.8.1"
+      ]
+    },
+    {
+      "id": "AMD-0007",
+      "text": "Intermittent game crash may be observed while playing Starfield on Radeon RX 9000 series graphics products.",
+      "first": "26.8.1",
+      "last_seen": "26.8.1",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "Starfield",
+      "gpu": "RX 9000",
+      "sources": [
+        "26.8.1"
+      ]
+    },
+    {
+      "id": "AMD-0008",
+      "text": "Intermittent application crash or driver timeout may be observed while loading a saved game in Cyberpunk 2077 with Path Tracing enabled.",
+      "first": "25.12.1",
+      "last_seen": "25.12.1",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "Cyberpunk 2077",
+      "gpu": "Not specified",
+      "sources": [
+        "25.12.1"
+      ]
+    },
+    {
+      "id": "AMD-0009",
+      "text": "Intermittent application crash or driver timeout may be observed while playing Battlefield 6 on AMD Ryzen AI 9 HX 370.",
+      "first": "25.12.1",
+      "last_seen": "25.12.1",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "Battlefield 6",
+      "gpu": "Ryzen AI 9 HX 370",
+      "sources": [
+        "25.12.1"
+      ]
+    },
+    {
+      "id": "AMD-0010",
+      "text": "Texture flickering or corruption may appear while playing Battlefield 6 with AMD Record and Stream on some AMD Graphics Products.",
+      "first": "25.12.1",
+      "last_seen": "25.12.1",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "Battlefield 6",
+      "gpu": "Not specified",
+      "sources": [
+        "25.12.1"
+      ]
+    },
+    {
+      "id": "AMD-0011",
+      "text": "Some shadows may not render correctly while playing Call of Duty: Black Ops 7 on some AMD Graphics Products.",
+      "first": "25.12.1",
+      "last_seen": "26.1.1",
+      "status": "fixed",
+      "fixed_in": "26.1.1",
+      "game": "Call of Duty: Black Ops 7",
+      "gpu": "RX 5000 / RX 6000",
+      "sources": [
+        "25.12.1",
+        "26.1.1"
+      ]
+    },
+    {
+      "id": "AMD-0012",
+      "text": "Texture corruption may be observed when playing Enshrouded while at the first Elixir Well location on Radeon RX 7000 and RX 9000 series products.",
+      "first": "26.1.1",
+      "last_seen": "26.1.1",
+      "status": "fixed",
+      "fixed_in": "26.1.1",
+      "game": "Enshrouded",
+      "gpu": "RX 7000 / RX 9000",
+      "sources": [
+        "26.1.1"
+      ]
+    },
+    {
+      "id": "AMD-0013",
+      "text": "Application may fail to launch while playing Diablo 4 with usernames containing non-English characters on Radeon RX 7000 and RX 9000 series products.",
+      "first": "26.1.1",
+      "last_seen": "26.1.1",
+      "status": "fixed",
+      "fixed_in": "26.1.1",
+      "game": "Diablo 4",
+      "gpu": "RX 7000 / RX 9000",
+      "sources": [
+        "26.1.1"
+      ]
+    },
+    {
+      "id": "AMD-0014",
+      "text": "Stutter and lower than expected performance may be observed when using alt-tab and streaming to Discord with multiple monitors.",
+      "first": "25.6.1",
+      "last_seen": "25.6.1",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "Discord / multi-monitor",
+      "gpu": "Not specified",
+      "sources": [
+        "25.6.1"
+      ]
+    },
+    {
+      "id": "AMD-0015",
+      "text": "Intermittent application crash or driver timeout may be observed while playing Marvel's Spider-Man 2 with Ray Tracing enabled on Radeon RX 9060 XT.",
+      "first": "25.6.1",
+      "last_seen": "25.6.1",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "Marvel's Spider-Man 2",
+      "gpu": "RX 9060 XT",
+      "sources": [
+        "25.6.1"
+      ]
+    },
+    {
+      "id": "AMD-0016",
+      "text": "Intermittent application crash may be observed when first launching The Last of Us Part 1 on Radeon RX 9060 XT graphics products.",
+      "first": "25.6.1",
+      "last_seen": "25.6.1",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "The Last of Us Part 1",
+      "gpu": "RX 9060 XT",
+      "sources": [
+        "25.6.1"
+      ]
+    },
+    {
+      "id": "AMD-0017",
+      "text": "Stutter may be observed while playing games with some VR headsets at 80Hz or 90Hz refresh rate on some Radeon graphics products.",
+      "first": "25.6.1",
+      "last_seen": "25.6.1",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "VR games",
+      "gpu": "RX 7000 (example)",
+      "sources": [
+        "25.6.1"
+      ]
+    },
+    {
+      "id": "AMD-0018",
+      "text": "Intermittent system or application crash may be observed while playing Cyberpunk 2077 on some Radeon graphics products.",
+      "first": "25.6.1",
+      "last_seen": "25.6.1",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "Cyberpunk 2077",
+      "gpu": "RX 7000 (example)",
+      "sources": [
+        "25.6.1"
+      ]
+    },
+    {
+      "id": "AMD-0019",
+      "text": "Intermittent application crash or driver timeout may be observed while playing Monster Hunter Wilds with Radeon Anti-Lag and Instant Replay enabled.",
+      "first": "25.6.1",
+      "last_seen": "25.6.1",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "Monster Hunter Wilds",
+      "gpu": "Not specified",
+      "sources": [
+        "25.6.1"
+      ]
+    },
+    {
+      "id": "AMD-0020",
+      "text": "Stutter may be observed while playing Call of Duty: Warzone Season 03 Verdansk map on some AMD Graphics Products.",
+      "first": "25.6.1",
+      "last_seen": "25.6.1",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "Call of Duty: Warzone",
+      "gpu": "Not specified",
+      "sources": [
+        "25.6.1"
+      ]
+    },
+    {
+      "id": "AMD-0021",
+      "text": "Stutter and lower than expected performance may be observed while playing 4K resolution YouTube videos in Chromium.",
+      "first": "25.6.1",
+      "last_seen": "25.6.1",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "YouTube / Chromium",
+      "gpu": "Not specified",
+      "sources": [
+        "25.6.1"
+      ]
+    },
+    {
+      "id": "AMD-0022",
+      "text": "Texture flickering or corruption may appear while playing The Elder Scrolls IV: Oblivion Remastered with FSR enabled on Radeon RX 9070 XT.",
+      "first": "25.6.1",
+      "last_seen": "25.6.1",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "The Elder Scrolls IV: Oblivion Remastered",
+      "gpu": "RX 9070 XT",
+      "sources": [
+        "25.6.1"
+      ]
+    },
+    {
+      "id": "AMD-0023",
+      "text": "Intermittent application crash or driver timeout may occur while playing Black Myth: Wukong.",
+      "first": "24.8.1",
+      "last_seen": "24.8.1",
+      "status": "fixed",
+      "fixed_in": "24.8.1",
+      "game": "Black Myth: Wukong",
+      "gpu": "Not specified",
+      "sources": [
+        "24.8.1"
+      ]
+    },
+    {
+      "id": "AMD-0024",
+      "text": "Intermittent application crash may occur while playing Kunitsu-Gami: Path of the Goddess on some Radeon RX 6600 and 6700 series GPUs.",
+      "first": "24.8.1",
+      "last_seen": "24.8.1",
+      "status": "fixed",
+      "fixed_in": "24.8.1",
+      "game": "Kunitsu-Gami: Path of the Goddess",
+      "gpu": "RX 6600 / RX 6700",
+      "sources": [
+        "24.8.1"
+      ]
+    },
+    {
+      "id": "AMD-0025",
+      "text": "Artifacts may appear while playing certain games such as Marvel's Spider-Man: Miles Morales or Rust.",
+      "first": "24.8.1",
+      "last_seen": "24.8.1",
+      "status": "fixed",
+      "fixed_in": "24.8.1",
+      "game": "Marvel's Spider-Man: Miles Morales / Rust",
+      "gpu": "Not specified",
+      "sources": [
+        "24.8.1"
+      ]
+    },
+    {
+      "id": "AMD-0026",
+      "text": "Intermittent application crash or driver timeout may be observed while playing Assassin's Creed Black Flag Resynced on Radeon RX 7000 series graphics products.",
+      "first": "26.9.2",
+      "last_seen": "26.9.2",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "Assassin's Creed Black Flag Resynced",
+      "gpu": "RX 7000",
+      "sources": [
+        "26.9.2"
+      ]
+    },
+    {
+      "id": "AMD-0027",
+      "text": "Intermittent driver timeout may be observed while playing War Thunder on Radeon RX 5000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.9.1.",
+      "first": "26.9.2",
+      "last_seen": "26.9.2",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "War Thunder",
+      "gpu": "RX 5000",
+      "sources": [
+        "26.9.2"
+      ]
+    }
+  ],
+  "meta": {
+    "generated": "2026-10-01",
+    "coverage": "Starter sample only; not a complete historical archive.",
+    "method": "Manual transcription from linked official AMD release notes. Status is inferred only where a later release explicitly lists the matching issue as fixed.",
+    "coverage_from": "24.8.1",
+    "coverage_to": "26.9.2",
+    "contiguous": false,
+    "last_checked": "2026-10-01T13:08:47Z"
+  }
+}

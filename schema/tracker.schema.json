@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/amdwatch/amdwatch/schema/tracker.schema.json",
+  "title": "AMDWatch tracker database",
+  "type": "object",
+  "required": ["drivers", "bugs", "meta"],
+  "additionalProperties": false,
+  "properties": {
+    "drivers": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Tracked AMD driver releases, newest first.",
+      "items": {
+        "type": "object",
+        "required": ["version", "date", "channel", "url"],
+        "additionalProperties": false,
+        "properties": {
+          "version": {
+            "type": "string",
+            "pattern": "^[0-9]{2}\\.[0-9]{1,2}\\.[0-9]{1,2}$",
+            "description": "AMD Software version, e.g. 26.9.2"
+          },
+          "date": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+          },
+          "channel": {
+            "type": "string",
+            "enum": ["Adrenalin", "Optional", "Recommended", "WHQL"]
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^https://"
+          }
+        }
+      }
+    },
+    "bugs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "text", "first", "last_seen", "status", "fixed_in", "game", "gpu", "sources"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^AMD-[0-9]{4}$",
+            "description": "Stable AMDWatch identifier. Never reused, never renumbered."
+          },
+          "text": {
+            "type": "string",
+            "minLength": 25,
+            "description": "Normalized issue text: no trademark symbols, no Adrenalin channel suffix."
+          },
+          "first": {
+            "type": "string",
+            "description": "Driver version where this issue was first observed."
+          },
+          "last_seen": {
+            "type": "string",
+            "description": "Newest driver version whose notes still list this issue."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "fixed"]
+          },
+          "fixed_in": {
+            "type": ["string", "null"],
+            "description": "Driver version whose release notes list this under Fixed Issues. null when pending."
+          },
+          "game": { "type": "string" },
+          "gpu": { "type": "string" },
+          "sources": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" },
+            "description": "Every driver version whose notes list this issue. Includes first and last_seen."
+          },
+          "aliases": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Earlier or alternative wordings of the same issue, kept so wording changes do not fork a record."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Reviewer note, e.g. why a wording change was merged."
+          }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": ["generated", "coverage", "method"],
+      "additionalProperties": false,
+      "properties": {
+        "generated": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "coverage": { "type": "string" },
+        "method": { "type": "string" },
+        "coverage_from": {
+          "type": "string",
+          "description": "Oldest driver version covered by the archive."
+        },
+        "coverage_to": {
+          "type": "string",
+          "description": "Newest driver version covered by the archive."
+        },
+        "contiguous": {
+          "type": "boolean",
+          "description": "True only when every AMD release between coverage_from and coverage_to is tracked. Until then the UI must not claim an issue was dropped from the notes, because it may have been fixed in an untracked release."
+        },
+        "last_checked": {
+          "type": "string",
+          "description": "ISO 8601 UTC timestamp of the last upstream check."
+        }
+      }
+    }
+  }
+}

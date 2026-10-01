@@ -1,0 +1,20 @@
+{
+  "name": "amdwatch",
+  "version": "0.2.0",
+  "private": true,
+  "description": "A community tracker for known issues in AMD Radeon driver release notes.",
+  "type": "module",
+  "homepage": "https://github.com/amdwatch/amdwatch",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test",
+    "test:page": "node scripts/probe_page.mjs",
+    "serve": "python -m http.server 8000 --bind 127.0.0.1",
+    "validate": "python scripts/validate_tracker.py",
+    "import": "python scripts/import_release_notes.py"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  },
+  "comment": "The published site has no runtime dependencies and no build step. playwright is only used by the rendered-page smoke check in CI."
+}

@@ -1,0 +1,28 @@
+# Dependencies (dev only - the published site has none)
+node_modules/
+
+# Cached copies of AMD release-note pages. Useful locally, and not ours to
+# redistribute. The importer re-fetches on demand.
+cache/
+
+# Draft imports awaiting human review. Regenerate with scripts/import_release_notes.py
+candidates/
+
+# Screenshots and traces from the rendered-page smoke check
+scripts/.probe/
+test-results/
+playwright-report/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+
+# Assistant working notes
+.workbuddy-ai/

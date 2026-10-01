@@ -1,0 +1,14 @@
+# Normalise line endings on commit so CI on Linux and clones on Windows agree.
+# Without this, a Windows checkout would rewrite every file to CRLF and the
+# repo would churn on every touch.
+* text=auto eol=lf
+
+# Binary or generated content that must not be line-ending converted
+*.png binary
+*.jpg binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+
+# Keep GitHub Actions workflows exactly as written
+.github/workflows/*.yml text eol=lf

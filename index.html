@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AMDWatch — Radeon Driver Bug Tracker</title>
+<meta name="description" content="A community tracker for known issues in AMD Radeon driver release notes. Follow every issue from first appearance to a documented fix.">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23ed3b42'/><text x='16' y='23' font-family='system-ui' font-size='20' font-weight='700' fill='%23fff' text-anchor='middle'>A</text></svg>">
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <span class="mark">A</span>
+    <div>
+      <h1>AMDWatch</h1>
+      <p>Radeon driver bug tracker</p>
+    </div>
+  </div>
+  <a class="source-link" href="https://www.amd.com/en/support/download/drivers.html" target="_blank" rel="noopener">AMD driver support ↗</a>
+</header>
+
+<main>
+  <noscript>
+    <section class="panel error-panel">
+      <b>JavaScript is required.</b>
+      <span>AMDWatch loads its issue database and renders the tracker in the browser. Enable JavaScript to use it.</span>
+    </section>
+  </noscript>
+
+  <section class="intro">
+    <div>
+      <div class="eyebrow">COMMUNITY-DRIVEN TRACKER</div>
+      <h2>Every driver. Every known issue.<br><em>Tracked over time.</em></h2>
+      <p>Search AMD's published release notes and follow issues from first appearance to a documented fix.</p>
+    </div>
+    <div class="notice" id="coverage">
+      <b>Loading coverage…</b>
+      <span>Reading the local issue database.</span>
+    </div>
+  </section>
+
+  <section id="boot-status" class="panel status-panel" aria-live="polite">
+    <div class="spinner" aria-hidden="true"></div>
+    <div>
+      <b>Loading the issue database…</b>
+      <span class="muted">If this does not resolve, the page is probably open from the filesystem instead of a web server.</span>
+    </div>
+  </section>
+
+  <div id="app" hidden>
+    <section class="stats" id="stats"></section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="eyebrow">DRIVER HISTORY</div>
+          <h3>Issues open at each release</h3>
+        </div>
+        <span class="legend">
+          <i class="introduced"></i> New this release
+          <i class="carried"></i> Carried over
+          <i class="fixed"></i> Fixed this release
+        </span>
+      </div>
+      <div id="chart" class="chart" role="img" aria-label="Bar chart of open issues per driver release"></div>
+      <div class="axis"><span>Older drivers</span><span>Newer drivers</span></div>
+      <p class="chart-note" id="chart-note"></p>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="eyebrow">ISSUE DATABASE</div>
+          <h3>Bug reports</h3>
+        </div>
+        <span id="count" class="muted"></span>
+      </div>
+      <div class="filters">
+        <input id="search" type="search" placeholder="Search game, issue, GPU, driver or ID…" aria-label="Search issues">
+        <select id="status" aria-label="Filter by status">
+          <option value="all">All statuses</option>
+          <option value="pending">Pending</option>
+          <option value="fixed">Fixed</option>
+        </select>
+        <select id="driver" aria-label="Filter by driver"><option value="all">All drivers</option></select>
+        <select id="channel" aria-label="Filter by driver channel"><option value="all">All channels</option></select>
+        <select id="sort" aria-label="Sort results">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+        </select>
+      </div>
+      <div id="bugs" class="bug-list"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="eyebrow">RELEASE NOTES</div>
+          <h3>Tracked driver releases</h3>
+        </div>
+      </div>
+      <div id="drivers" class="driver-list"></div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <p id="foot-meta"></p>
+  <p>Data transcribed from AMD's official release notes. AMD and Radeon are trademarks of Advanced Micro Devices, Inc. This is an independent community project and is not affiliated with AMD.</p>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

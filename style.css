@@ -1,0 +1,59 @@
+*{box-sizing:border-box} :root{color-scheme:dark;--bg:#111214;--panel:#191a1e;--line:#2b2d32;--muted:#9699a3;--text:#f1f1f3;--red:#ed3b42;--green:#79c9a5;--yellow:#e5bd45}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,Segoe UI,sans-serif}.top{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(28px,calc((100vw - 1160px)/2))}.brand{display:flex;align-items:center;gap:12px}.brand h1{font-size:20px;margin:0;letter-spacing:-.5px}.brand p{margin:0;color:var(--muted);font-size:12px}.mark{display:grid;place-items:center;background:var(--red);width:38px;height:38px;border-radius:10px;font-weight:900;font-size:24px;color:#fff}.source-link{color:#ddd;text-decoration:none;font-size:13px}main{max-width:1160px;margin:0 auto;padding:44px 28px}.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:32px}.eyebrow{font-size:10px;letter-spacing:1.7px;color:var(--red);font-weight:800}.intro h2{font-size:clamp(32px,5vw,52px);line-height:1.07;letter-spacing:-2px;margin:10px 0 14px}.intro h2 em{font-style:normal;color:#ff666b}.intro p{color:#aeb0b8;max-width:590px;margin:0}.notice{background:#211c1d;border:1px solid #573236;border-radius:10px;padding:14px 16px;max-width:280px;flex-shrink:0}.notice b{display:block;color:#ff8589;font-size:13px;margin-bottom:4px}.notice span{display:block;color:#c0b5b7;font-size:12px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}.stat,.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px}.stat{padding:18px 20px}.stat strong{display:block;font-size:30px;letter-spacing:-1px}.stat span{font-size:12px;color:var(--muted)}.panel{padding:22px;margin-bottom:18px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.panel h3{font-size:18px;margin:2px 0 0}.legend{font-size:11px;color:#b5b6bd;display:flex;gap:8px;align-items:center}.legend i{width:8px;height:8px;border-radius:50%;display:inline-block}.pending{background:var(--red)}.fixed{background:var(--green)}.chart{height:190px;display:flex;align-items:flex-end;gap:8px;border-bottom:1px solid #444;padding:8px 4px 0}.bar-wrap{flex:1;min-width:12px;height:100%;display:flex;align-items:flex-end;justify-content:center;position:relative}.bar{width:min(28px,85%);display:flex;flex-direction:column;justify-content:flex-end;border-radius:3px 3px 0 0;overflow:hidden;background:#303238}.bar .p{background:var(--red)}.bar .f{background:var(--green)}.bar-label{position:absolute;bottom:-23px;font-size:9px;color:#858891;white-space:nowrap;transform:rotate(-35deg);transform-origin:top left}.axis{display:flex;justify-content:space-between;color:#858891;font-size:10px;padding-top:27px}.filters{display:grid;grid-template-columns:1fr 160px 160px;gap:10px;margin-bottom:14px}input,select{background:#111316;border:1px solid #34363c;border-radius:7px;color:#eee;padding:11px 12px;font:inherit;font-size:13px;min-width:0}.bug-list{display:grid;gap:8px}.bug{border:1px solid #303238;background:#151619;border-radius:9px;padding:14px 15px}.bug-top{display:flex;justify-content:space-between;gap:12px;align-items:center}.bug-id{font-size:10px;color:#9b9da6;font-family:ui-monospace,monospace}.pill{font-size:10px;text-transform:uppercase;letter-spacing:.7px;padding:3px 8px;border-radius:20px}.pill.pending{color:#ff9295;background:#482326}.pill.fixed{color:#91dfbb;background:#1d3b30}.bug p{margin:8px 0 9px;font-size:13px;color:#e0e0e3}.meta{display:flex;gap:14px;flex-wrap:wrap;color:#999ca5;font-size:11px}.meta a,.driver a{color:#ff777c;text-decoration:none}.driver-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.driver{padding:12px 14px;border:1px solid #303238;border-radius:8px;display:flex;justify-content:space-between;gap:10px;font-size:12px}.driver b{font-size:13px}.muted{color:var(--muted);font-size:12px}footer{padding:20px 2px 8px;color:#777b84;font-size:11px} @media(max-width:700px){.intro{display:block}.notice{margin-top:20px;max-width:none}.stats{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:1fr 1fr}.filters input{grid-column:1/-1}.driver-list{grid-template-columns:1fr}.top{padding:0 18px}.source-link{font-size:11px}main{padding:30px 16px}.panel{padding:16px}.chart{gap:3px}.bar-label{font-size:8px}}
+/* ==========================================================================
+   Additions for the tracked-over-time chart, load/error states and deep links.
+   Appended rather than folded into the minified block above so the change is
+   reviewable as a diff.
+   ========================================================================== */
+[hidden]{display:none!important}
+
+/* load and error states ---------------------------------------------------- */
+.status-panel{display:flex;gap:14px;align-items:flex-start}
+.status-panel b{display:block;margin-bottom:4px}
+.error-panel{background:#211c1d;border-color:#573236}
+.error-panel b{display:block;color:#ff8589;margin-bottom:6px}
+.error-panel span{display:block;color:#c0b5b7;font-size:13px;line-height:1.65;margin-bottom:6px}
+.error-panel code{background:#111316;padding:1px 5px;border-radius:4px;font-family:ui-monospace,monospace;font-size:12px;color:#e6e6e9}
+.error-panel a{color:#ff8589}
+.error-hint{max-width:70ch}
+.spinner{width:16px;height:16px;flex:0 0 auto;margin-top:3px;border:2px solid #3a3d43;border-top-color:var(--red);border-radius:50%;animation:amdwatch-spin .8s linear infinite}
+@keyframes amdwatch-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.spinner{animation:none}}
+
+/* chart -------------------------------------------------------------------- */
+/* Reserve room below the plot so the release labels sit inside the panel
+   instead of being clipped, and read them horizontally at a legible size. */
+.chart{height:212px;padding-bottom:28px}
+.bar-label{position:absolute;bottom:-26px;left:50%;transform:translateX(-50%);transform-origin:center;font-size:11px;color:#a2a5ad;white-space:nowrap}
+.axis{padding-top:6px}
+@media(max-width:700px){.bar-label{font-size:10px}}
+.bar-group{display:flex;align-items:flex-end;justify-content:center;gap:3px;height:100%;width:100%}
+.bar-group .bar{height:100%;width:min(16px,42%);background:transparent;display:flex;flex-direction:column;justify-content:flex-end;border-radius:3px 3px 0 0;overflow:hidden}
+.bar-group .bar.fixed{background:transparent}
+.bar .seg{width:100%;flex:0 0 auto}
+.seg.introduced{background:var(--red)}
+.seg.carried{background:#8a6a33}
+.seg.closed{background:var(--green)}
+/* A real zero, drawn as a baseline tick rather than a phantom bar. */
+.bar[data-zero="true"]{height:2px!important;background:#3f4248;border-radius:2px}
+.legend i.introduced{background:var(--red)}
+.legend i.carried{background:#8a6a33}
+.legend i.fixed{background:var(--green)}
+.legend{flex-wrap:wrap;row-gap:4px;justify-content:flex-end}
+.legend i{margin-left:10px}
+.legend i:first-child{margin-left:0}
+.chart-note{color:#858891;font-size:11px;line-height:1.65;margin:12px 0 0;max-width:88ch}
+
+/* filters ------------------------------------------------------------------ */
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.filters input[type=search]{flex:1 1 220px;min-width:180px}
+.filters select{flex:0 1 auto}
+
+/* issue cards -------------------------------------------------------------- */
+.bug:target{outline:2px solid var(--red);outline-offset:2px}
+a.bug-id{text-decoration:none}
+a.bug-id:hover{color:#ff777c}
+.pill.stale{color:#e8c98a;background:#3d3218}
+.empty{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.link-button{background:none;border:0;padding:0;color:#ff777c;font:inherit;font-size:11px;cursor:pointer;text-decoration:underline}
+.driver-links{display:flex;gap:12px;align-items:center;flex:0 0 auto}
+#coverage{max-width:340px}
