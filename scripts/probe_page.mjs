@@ -48,7 +48,7 @@ check('no failed requests', badRequests.length === 0, badRequests.join(' | '));
 check('loading panel is hidden after boot', await page.locator('#boot-status').isHidden());
 
 const stats = await page.locator('#stats .stat strong').allTextContents();
-check('five stat tiles render', stats.length === 5, `got ${stats.length}`);
+check('six stat tiles render', stats.length === 6, `got ${stats.length}`);
 check('stat tiles are numeric', stats.every((s) => /^\d+%?$/.test(s.trim())), stats.join(','));
 
 const expected = JSON.parse(
@@ -62,8 +62,18 @@ check('documented fixes matches the database', stats[2] === String(fixedCount),
 check('pending count matches the database',
   stats[3] === String(expected.bugs.length - fixedCount));
 check('fix rate matches the database',
-  stats[4] === `${Math.round((fixedCount / expected.bugs.length) * 100)}%`,
-  `page ${stats[4]}`);
+  stats[5] === `${Math.round((fixedCount / expected.bugs.length) * 100)}%`,
+  `page ${stats[5]}`);
+
+// "Possibly fixed" is the part of the pending count AMD's newest notes no longer
+// mention. Computed from the file the same way lib/model.js isStale does.
+const orderOf = new Map(expected.drivers.map((d, i) => [d.version, i]));
+const newestVersion = expected.drivers[0].version;
+const expectedPossibly = expected.bugs.filter((b) => b.status === 'pending'
+  && orderOf.get(b.last_seen) > orderOf.get(newestVersion)).length;
+check('possibly-fixed count matches the database',
+  stats[4] === String(expectedPossibly), `page ${stats[4]} vs file ${expectedPossibly}`);
+notes.push(`  info  ${stats[4]} of ${stats[3]} pending issues are no longer listed by AMD at all`);
 
 // The archive is ~80 releases, which is unreadable as 80 bars, so the chart opens
 // on a window. `All time` is the escape hatch and must reach every release.
@@ -84,8 +94,8 @@ check('every issue renders a card', cards === expected.bugs.length,
 
 const metaText = await page.locator('#bugs .bug').first().locator('.meta').textContent();
 check('cards show first seen', metaText.includes('First seen'));
-check('cards show last seen or a stale badge',
-  metaText.includes('Last seen') || metaText.includes('Not listed since'));
+check('cards show last seen or a possibly-fixed badge',
+  metaText.includes('Last seen') || metaText.includes('Possibly fixed'));
 
 const staleBadges = await page.locator('.pill.stale').count();
 const contiguous = expected.meta?.contiguous === true;
@@ -158,6 +168,21 @@ check('pending filter narrows the list', pendingCards > 0 && pendingCards < card
 check('pending filter writes a shareable url', page.url().includes('status=pending'), page.url());
 check('all visible rows are pending',
   (await page.locator('#bugs .pill.pending').count()) === pendingCards);
+
+// The "possibly fixed" view is the one that makes the label actionable: these are
+// the issues a human would need to go and confirm against a real system.
+await page.selectOption('#status', 'possibly-fixed');
+await page.waitForTimeout(150);
+const possiblyCards = await page.locator('#bugs .bug').count();
+check('the possibly-fixed filter finds exactly those issues',
+  possiblyCards === expectedPossibly, `got ${possiblyCards}, expected ${expectedPossibly}`);
+check('every row in that view carries the possibly-fixed badge',
+  (await page.locator('#bugs .pill.stale').count()) === possiblyCards,
+  `${await page.locator('#bugs .pill.stale').count()} badges for ${possiblyCards} rows`);
+check('the possibly-fixed filter is shareable',
+  page.url().includes('status=possibly-fixed'), page.url());
+await page.selectOption('#status', 'all');
+await page.waitForTimeout(120);
 
 await page.fill('#search', 'AMD-0012');
 await page.selectOption('#status', 'all');

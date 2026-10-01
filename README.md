@@ -32,6 +32,8 @@ directly, the page now says so instead of rendering blank.
   and the window is what makes the trend legible. The choice is in the URL.
 - **Click any bar to filter the issue list to that release**, and a toggle to fold
   carried-over issues into "new"
+- A **"Possibly fixed (no longer listed)"** status filter, and a tile counting them, so
+  the issues that need a human to confirm are one click away
 - A fix-rate tile alongside the totals
 - Every issue links to its source release notes
 - Deep links: `#AMD-0012` opens straight to that issue
@@ -75,8 +77,14 @@ Three caveats worth knowing before trusting a number on the page:
   lists all 34 automatic merges, 39 reworded variants, and 172 near-misses that were
   *not* merged. A duplicate is recoverable; a wrong merge invents a fix.
 - **An issue is `fixed` only where a release lists it under Fixed Issues.** AMD also
-  silently drops issues from the notes without saying they were fixed, which is what the
-  "Not listed since" badge reports. That is a signal, not proof.
+  silently drops issues from the notes without ever saying they were fixed. Those are
+  labelled **"possibly fixed · not listed since X"**, and there is a filter for them.
+  The label is deliberately two-sided: the issue may have been fixed without a note, or
+  the notes may simply have stopped mentioning it. The release notes cannot tell those
+  apart, so this tracker does not pretend to know.
+- **That is most of the archive.** 115 of the 119 pending issues are no longer listed by
+  AMD at all. Read "still pending" as "no documented fix", not as "known to be broken" —
+  AMD's newest release note lists only four known issues.
 
 ## Importing more releases
 

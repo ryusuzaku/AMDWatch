@@ -67,6 +67,8 @@ a.bug-id:hover{color:#ff777c}
 /* Five tiles now that fix rate is on the board. auto-fit gives 5 across on a
    desktop and 2 on a phone without a second breakpoint to maintain. */
 .stats{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+/* The possibly-fixed tile needs its explanation, so make that discoverable. */
+.stat[title]{cursor:help}
 
 .chart-controls{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-bottom:14px}
 .chips{display:flex;gap:6px;flex-wrap:wrap}

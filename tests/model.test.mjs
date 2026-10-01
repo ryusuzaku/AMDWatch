@@ -8,8 +8,8 @@ import { dirname, join } from 'node:path';
 import {
   indexDrivers, computeStats, openAt, buildSeries, isStale,
   filterBugs, channels, gpus, escapeHtml, validateDatabase, compareVersions,
-  selectSeries, rangeLabel, fixRate,
-  RANGE_ALL, RANGE_RECENT, RANGE_WORST, RANGE_LIMIT,
+  selectSeries, rangeLabel, fixRate, possiblyFixedCount,
+  RANGE_ALL, RANGE_RECENT, RANGE_WORST, RANGE_LIMIT, POSSIBLY_FIXED,
 } from '../lib/model.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -245,4 +245,51 @@ test('the shipped chart window is a fraction of the archive', () => {
   assert.ok(series.length > RANGE_LIMIT, `archive is only ${series.length} releases`);
   assert.equal(selectSeries(series, RANGE_RECENT).length, RANGE_LIMIT);
   assert.equal(selectSeries(series, RANGE_ALL).length, series.length);
+});
+
+const STALE_DRIVERS = [
+  { version: '26.2.1', date: '2026-02-01', channel: 'Adrenalin' },
+  { version: '26.1.1', date: '2026-01-01', channel: 'Adrenalin' },
+];
+const STALE_BUGS = [
+  // Listed once, then never again, with no fix documented: possibly fixed.
+  { id: 'A', text: 'ghost issue', status: 'pending', first: '26.1.1', last_seen: '26.1.1', sources: ['26.1.1'] },
+  // Still listed in the newest release: genuinely open.
+  { id: 'B', text: 'live issue', status: 'pending', first: '26.2.1', last_seen: '26.2.1', sources: ['26.2.1'] },
+  // Documented as fixed: not possibly fixed, it is fixed.
+  { id: 'C', text: 'solved issue', status: 'fixed', first: '26.1.1', last_seen: '26.2.1', fixed_in: '26.2.1', sources: ['26.1.1', '26.2.1'] },
+];
+
+test('possiblyFixedCount counts only issues that stopped being listed', () => {
+  const { order } = indexDrivers(STALE_DRIVERS);
+  assert.equal(possiblyFixedCount(STALE_BUGS, '26.2.1', order), 1);
+});
+
+test('the possibly-fixed filter selects exactly those issues', () => {
+  const rows = filterBugs(STALE_BUGS, { status: POSSIBLY_FIXED }, STALE_DRIVERS);
+  assert.deepEqual(rows.map((b) => b.id), ['A']);
+});
+
+test('possibly fixed never swallows an issue AMD documented as fixed', () => {
+  const rows = filterBugs(STALE_BUGS, { status: POSSIBLY_FIXED }, STALE_DRIVERS);
+  assert.ok(!rows.some((b) => b.status === 'fixed'),
+    'a documented fix is not uncertain, so it must not appear here');
+});
+
+test('an empty archive yields no possibly-fixed issues rather than throwing', () => {
+  assert.equal(possiblyFixedCount([], '26.2.1', new Map()), 0);
+  assert.deepEqual(filterBugs([], { status: POSSIBLY_FIXED }, []), []);
+});
+
+test('the shipped possibly-fixed count is a large share of pending, not a rounding error', () => {
+  // This is the finding that motivated the label: most "pending" issues are not
+  // actually being tracked by AMD any more. If this ever inverts, the wording on
+  // the page is wrong.
+  const { order } = indexDrivers(DB.drivers);
+  const newest = indexDrivers(DB.drivers).sorted[0].version;
+  const possibly = possiblyFixedCount(DB.bugs, newest, order);
+  const pending = DB.bugs.filter((b) => b.status === 'pending').length;
+  assert.ok(possibly > 0, 'no possibly-fixed issues at all — is meta.contiguous still true?');
+  assert.ok(possibly / pending > 0.5,
+    `only ${possibly} of ${pending} pending issues stopped being listed; the page says they mostly have`);
 });
