@@ -1,6 +1,7 @@
 import {
-  buildSeries, channels, computeStats, escapeHtml, filterBugs, gpus,
-  indexDrivers, isStale, validateDatabase,
+  RANGE_ALL, RANGE_RECENT, RANGE_WORST, RANGE_LIMIT,
+  buildSeries, channels, computeStats, escapeHtml, filterBugs, fixRate, gpus,
+  indexDrivers, isStale, rangeLabel, selectSeries, validateDatabase,
 } from './lib/model.js';
 
 const DATA_URL = 'data/tracker.json';
@@ -14,7 +15,10 @@ let NEWEST = '';
 // sample an issue can vanish from the notes because it was fixed in a release we
 // never imported, so the UI must not present that as "AMD dropped it".
 let CONTIGUOUS = false;
-let state = { query: '', status: 'all', driver: 'all', channel: 'all', sort: 'newest' };
+let state = {
+  query: '', status: 'all', driver: 'all', channel: 'all',
+  sort: 'newest', range: RANGE_RECENT, carried: true,
+};
 
 // ---------------------------------------------------------------- entry point
 
@@ -40,6 +44,7 @@ async function boot() {
     readUrl();
     render();
     bindEvents();
+    syncChartControls();
     $('#boot-status').hidden = true;
     $('#app').hidden = false;
   } catch (error) {
@@ -96,40 +101,48 @@ function renderCoverage() {
 
 function renderStats() {
   const s = computeStats(DB.drivers, DB.bugs);
+  const rate = Math.round(fixRate(DB.bugs) * 100);
   $('#stats').innerHTML = [
     ['DRIVERS TRACKED', s.drivers],
     ['BUGS LOGGED', s.bugs],
     ['DOCUMENTED FIXES', s.fixed],
     ['STILL PENDING', s.pending],
+    ['FIX RATE', `${rate}%`],
   ].map(([label, value]) => `
     <div class="stat"><strong>${value}</strong><span>${label}</span></div>`).join('');
 }
 
 function renderChart() {
-  const series = buildSeries(DB.drivers, DB.bugs).reverse(); // oldest on the left
+  const all = buildSeries(DB.drivers, DB.bugs); // newest first
+  // A full archive is ~80 releases. Showing every one at once is unreadable, so the
+  // chart shows a window by default and `All time` is an explicit choice.
+  const series = selectSeries(all, state.range).reverse(); // oldest on the left
   const peak = Math.max(1, ...series.map((s) => Math.max(s.open, s.fixedHere)));
   // Thin the labels out once releases get numerous, so they never collide. The
   // tooltip always carries the exact version.
   const labelStep = Math.max(1, Math.ceil(series.length / 12));
 
   const chart = $('#chart');
-  // A full archive is around 80 releases. Give each one enough room for two bars
-  // and a label, and let .chart-scroll handle the rest — squeezing them to fit a
-  // phone would make every bar invisible and still overflow the page.
   chart.style.minWidth = series.length > 12 ? `${series.length * 26}px` : '';
 
   chart.innerHTML = series.map((s, i) => {
     const openPct = (s.open / peak) * 100;
-    const carriedPct = s.open ? (s.carried / s.open) * openPct : 0;
+    // Carried-over issues are issues that existed in an earlier release and had not
+    // been fixed by this one. The toggle folds them into "new" rather than dropping
+    // them, so the bar still shows how many were open.
+    const carried = state.carried ? s.carried : 0;
+    const carriedPct = s.open ? (carried / s.open) * openPct : 0;
     const introducedPct = openPct - carriedPct;
     const fixedPct = (s.fixedHere / peak) * 100;
 
     const title = `${s.version} (${s.date}, ${s.channel})\n`
-      + `${s.open} open — ${s.introduced} new this release, ${s.carried} carried over\n`
-      + `${s.fixedHere} documented as fixed in this release`;
+      + `${s.open} open — ${s.open - carried} new this release, ${carried} carried over\n`
+      + `${s.fixedHere} documented as fixed in this release\n`
+      + `Click to filter the list to this release`;
 
     return `
-      <div class="bar-wrap" title="${escapeHtml(title)}">
+      <div class="bar-wrap" data-driver="${escapeHtml(s.version)}" role="button" tabindex="0"
+           aria-label="${escapeHtml(title)}" title="${escapeHtml(title)}">
         <div class="bar-group">
           <div class="bar open" data-zero="${s.open === 0}">
             <div class="seg introduced" style="height:${introducedPct}%"></div>
@@ -145,11 +158,14 @@ function renderChart() {
 
   const worst = series.reduce((a, b) => (b.open > a.open ? b : a), series[0]);
   const totalFixed = series.reduce((sum, s) => sum + s.fixedHere, 0);
-  const scrollHint = series.length > 12
+  const shown = state.range === RANGE_ALL
+    ? `every tracked release` : rangeLabel(state.range);
+  const scrollHint = series.length > 12 && state.range === RANGE_ALL
     ? ` The plot scrolls sideways to fit ${series.length} releases.` : '';
   $('#chart-note').textContent = series.length
-    ? `Left bar: issues still open at that release. Right bar: issues documented as fixed in it. `
-      + `Peak is ${worst.open} open at ${worst.version}; ${totalFixed} fixes are documented across the tracked window. `
+    ? `Showing ${shown}. Left bar: issues still open at that release. Right bar: issues documented as fixed in it. `
+      + `Peak is ${worst.open} open at ${worst.version}; ${totalFixed} fixes are documented in this window. `
+      + (state.carried ? '' : 'Carried-over issues are folded into "new". ')
       + (CONTIGUOUS
         ? 'A pending issue that stops being listed is not proof of a fix — AMD drops issues from the notes without saying so.'
         : `Coverage is not yet contiguous, so an issue that disappears between two tracked releases may have been `
@@ -259,15 +275,39 @@ function bindEvents() {
     });
   }
 
+  for (const chip of document.querySelectorAll('#chart-range .chip')) {
+    chip.addEventListener('click', () => {
+      state.range = chip.dataset.range;
+      syncChartControls();
+      renderChart();
+      writeUrl();
+    });
+  }
+
+  $('#carried-toggle').addEventListener('change', (event) => {
+    state.carried = event.target.checked;
+    renderChart();
+    writeUrl();
+  });
+
+  // The chart doubles as a filter: clicking a release narrows the list to it, which
+  // is the fastest way to answer "what was actually open in 26.8.1".
+  const chart = $('#chart');
+  chart.addEventListener('click', (event) => {
+    const bar = event.target.closest('[data-driver]');
+    if (bar) applyDriverFilter(bar.dataset.driver);
+  });
+  chart.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    const bar = event.target.closest('[data-driver]');
+    if (!bar) return;
+    event.preventDefault();
+    applyDriverFilter(bar.dataset.driver);
+  });
+
   $('#drivers').addEventListener('click', (event) => {
     const button = event.target.closest('[data-filter-driver]');
-    if (!button) return;
-    state.driver = button.dataset.filterDriver;
-    state.query = '';
-    $('#driver').value = state.driver;
-    $('#search').value = '';
-    update();
-    document.getElementById('bugs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (button) applyDriverFilter(button.dataset.filterDriver);
   });
 
   window.addEventListener('hashchange', () => {
@@ -284,8 +324,28 @@ function bindEvents() {
   });
 }
 
+function applyDriverFilter(version) {
+  state.driver = version;
+  state.query = '';
+  $('#driver').value = version;
+  $('#search').value = '';
+  update();
+  document.getElementById('bugs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function syncChartControls() {
+  for (const chip of document.querySelectorAll('#chart-range .chip')) {
+    const on = chip.dataset.range === state.range;
+    chip.classList.toggle('active', on);
+    chip.setAttribute('aria-pressed', String(on));
+  }
+  $('#carried-toggle').checked = state.carried;
+}
+
 function clearFilters() {
-  state = { query: '', status: 'all', driver: 'all', channel: 'all', sort: 'newest' };
+  // Range and carried-over are view settings rather than filters: clearing the
+  // search should not silently change what the chart is showing.
+  state = { ...state, query: '', status: 'all', driver: 'all', channel: 'all', sort: 'newest' };
   $('#search').value = '';
   $('#status').value = 'all';
   $('#driver').value = 'all';
@@ -309,6 +369,9 @@ function readUrl() {
   state.status = ['all', 'pending', 'fixed'].includes(params.get('status')) ? params.get('status') : 'all';
   state.channel = params.get('channel') || 'all';
   state.sort = params.get('sort') === 'oldest' ? 'oldest' : 'newest';
+  const range = params.get('range');
+  state.range = [RANGE_RECENT, RANGE_WORST, RANGE_ALL].includes(range) ? range : RANGE_RECENT;
+  state.carried = params.get('carried') !== '0';
   const driver = params.get('driver');
   state.driver = DB.drivers.some((d) => d.version === driver) ? driver : 'all';
 
@@ -325,6 +388,8 @@ function writeUrl() {
   if (state.driver !== 'all') params.set('driver', state.driver);
   if (state.channel !== 'all') params.set('channel', state.channel);
   if (state.sort !== 'newest') params.set('sort', state.sort);
+  if (state.range !== RANGE_RECENT) params.set('range', state.range);
+  if (!state.carried) params.set('carried', '0');
   const query = params.toString();
   window.history.replaceState(null, '', query ? `?${query}${window.location.hash}` : window.location.pathname + window.location.hash);
 }

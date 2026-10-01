@@ -48,8 +48,8 @@ check('no failed requests', badRequests.length === 0, badRequests.join(' | '));
 check('loading panel is hidden after boot', await page.locator('#boot-status').isHidden());
 
 const stats = await page.locator('#stats .stat strong').allTextContents();
-check('four stat tiles render', stats.length === 4, `got ${stats.length}`);
-check('stat tiles are numeric', stats.every((s) => /^\d+$/.test(s.trim())), stats.join(','));
+check('five stat tiles render', stats.length === 5, `got ${stats.length}`);
+check('stat tiles are numeric', stats.every((s) => /^\d+%?$/.test(s.trim())), stats.join(','));
 
 const expected = JSON.parse(
   await (await fetch(`${BASE}/data/tracker.json`)).text(),
@@ -61,10 +61,17 @@ check('documented fixes matches the database', stats[2] === String(fixedCount),
   `page ${stats[2]} vs file ${fixedCount}`);
 check('pending count matches the database',
   stats[3] === String(expected.bugs.length - fixedCount));
+check('fix rate matches the database',
+  stats[4] === `${Math.round((fixedCount / expected.bugs.length) * 100)}%`,
+  `page ${stats[4]}`);
 
+// The archive is ~80 releases, which is unreadable as 80 bars, so the chart opens
+// on a window. `All time` is the escape hatch and must reach every release.
+const RANGE_LIMIT = 20;
+const windowed = Math.min(RANGE_LIMIT, expected.drivers.length);
 const bars = await page.locator('#chart .bar-wrap').count();
-check('one bar group per driver release', bars === expected.drivers.length,
-  `got ${bars}, expected ${expected.drivers.length}`);
+check('chart opens on a readable window, not the whole archive', bars === windowed,
+  `got ${bars}, expected ${windowed}`);
 
 const zeroBars = await page.locator('#chart .bar[data-zero="true"]').count();
 const chartNote = (await page.locator('#chart-note').textContent()) ?? '';
@@ -95,6 +102,52 @@ if (contiguous) {
 
 await page.screenshot({ path: join(OUT, 'full.png'), fullPage: true });
 await page.locator('#chart').screenshot({ path: join(OUT, 'chart.png') });
+
+// ------------------------------------------------------- the chart as a control
+await page.click('#chart-range .chip[data-range="all"]');
+await page.waitForTimeout(150);
+check('All time reaches every tracked release',
+  (await page.locator('#chart .bar-wrap').count()) === expected.drivers.length,
+  `got ${await page.locator('#chart .bar-wrap').count()}`);
+check('the range choice is written to the url', page.url().includes('range=all'), page.url());
+
+await page.click('#chart-range .chip[data-range="worst"]');
+await page.waitForTimeout(150);
+check('Most affected shows the same number of bars, not more',
+  (await page.locator('#chart .bar-wrap').count()) === windowed,
+  `got ${await page.locator('#chart .bar-wrap').count()}`);
+
+await page.click('#chart-range .chip[data-range="recent"]');
+await page.waitForTimeout(150);
+
+const noteWithCarried = (await page.locator('#chart-note').textContent()) ?? '';
+check('carried-over issues are included by default',
+  !noteWithCarried.includes('Carried-over issues are folded'));
+
+await page.uncheck('#carried-toggle');
+await page.waitForTimeout(150);
+const noteWithoutCarried = (await page.locator('#chart-note').textContent()) ?? '';
+check('switching off carried-over is stated in the note',
+  noteWithoutCarried.includes('Carried-over issues are folded'), noteWithoutCarried.slice(0, 150));
+check('the carried-over toggle is written to the url',
+  page.url().includes('carried=0'), page.url());
+
+await page.check('#carried-toggle');
+await page.waitForTimeout(150);
+check('re-enabling carried-over clears the note',
+  !((await page.locator('#chart-note').textContent()) ?? '')
+    .includes('Carried-over issues are folded'));
+
+// Clicking a release bar filters the list to that release.
+const newestBar = page.locator('#chart .bar-wrap[data-driver]').last();
+const clickedVersion = await newestBar.getAttribute('data-driver');
+await newestBar.click();
+await page.waitForTimeout(250);
+check('clicking a bar filters the issue list to that release',
+  (await page.locator('#driver').inputValue()) === clickedVersion,
+  `select=${await page.locator('#driver').inputValue()} bar=${clickedVersion}`);
+await page.selectOption('#driver', 'all');
+await page.waitForTimeout(150);
 
 // ------------------------------------------------------------------ filtering
 await page.selectOption('#status', 'pending');

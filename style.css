@@ -62,3 +62,22 @@ a.bug-id:hover{color:#ff777c}
 .link-button{background:none;border:0;padding:0;color:#ff777c;font:inherit;font-size:11px;cursor:pointer;text-decoration:underline}
 .driver-links{display:flex;gap:12px;align-items:center;flex:0 0 auto}
 #coverage{max-width:340px}
+
+/* chart controls ----------------------------------------------------------- */
+/* Five tiles now that fix rate is on the board. auto-fit gives 5 across on a
+   desktop and 2 on a phone without a second breakpoint to maintain. */
+.stats{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+
+.chart-controls{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-bottom:14px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:#111316;border:1px solid #34363c;border-radius:20px;color:#b9bbc3;font:inherit;font-size:12px;padding:6px 13px;cursor:pointer}
+.chip:hover{border-color:#4a4d55;color:#e6e7ea}
+.chip.active{background:#3a1b1d;border-color:var(--red);color:#ff9295}
+.chip:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.toggle{display:flex;align-items:center;gap:7px;font-size:12px;color:#b9bbc3;cursor:pointer;user-select:none}
+.toggle input{accent-color:var(--red);width:14px;height:14px;margin:0}
+
+/* the chart is a control, not decoration: make that visible */
+.bar-wrap[data-driver]{cursor:pointer}
+.bar-wrap[data-driver]:hover .bar-group{filter:brightness(1.5)}
+.bar-wrap[data-driver]:focus-visible{outline:2px solid var(--red);outline-offset:-2px;border-radius:4px}

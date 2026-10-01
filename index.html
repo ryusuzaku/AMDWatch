@@ -64,6 +64,17 @@
           <i class="fixed"></i> Fixed this release
         </span>
       </div>
+      <div class="chart-controls">
+        <div class="chips" id="chart-range" role="group" aria-label="Chart range">
+          <button type="button" class="chip" data-range="recent">Latest 20</button>
+          <button type="button" class="chip" data-range="worst">Most affected</button>
+          <button type="button" class="chip" data-range="all">All time</button>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="carried-toggle" checked>
+          Include carried-over issues
+        </label>
+      </div>
       <div class="chart-scroll">
         <div id="chart" class="chart" role="img" aria-label="Bar chart of open issues per driver release"></div>
       </div>

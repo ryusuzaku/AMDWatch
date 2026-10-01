@@ -8,6 +8,8 @@ import { dirname, join } from 'node:path';
 import {
   indexDrivers, computeStats, openAt, buildSeries, isStale,
   filterBugs, channels, gpus, escapeHtml, validateDatabase, compareVersions,
+  selectSeries, rangeLabel, fixRate,
+  RANGE_ALL, RANGE_RECENT, RANGE_WORST, RANGE_LIMIT,
 } from '../lib/model.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -195,4 +197,52 @@ test('the shipped database is ordered newest-first and cites real drivers', () =
   const versions = DB.drivers.map((d) => d.version);
   assert.deepEqual(indexDrivers(DB.drivers).sorted.map((d) => d.version), versions,
     'tracker.json must already be newest-first');
+});
+
+test('selectSeries windows a long archive and never invents releases', () => {
+  const series = Array.from({ length: 50 }, (_, i) => ({
+    version: '26.' + (50 - i) + '.1', open: i, fixedHere: 0,
+  }));
+  assert.equal(selectSeries(series, RANGE_ALL).length, 50, 'all time shows everything');
+  assert.equal(selectSeries(series, RANGE_RECENT).length, RANGE_LIMIT);
+  assert.equal(selectSeries(series, RANGE_WORST).length, RANGE_LIMIT);
+  assert.equal(selectSeries(series, RANGE_RECENT)[0].version, series[0].version,
+    'recent keeps the newest end, since the input is newest-first');
+});
+
+test('selectSeries returns the worst releases in chronological order', () => {
+  const series = [
+    { version: '26.3.1', open: 1, fixedHere: 0 },
+    { version: '26.2.1', open: 99, fixedHere: 0 },
+    { version: '26.1.1', open: 5, fixedHere: 0 },
+  ];
+  assert.deepEqual(selectSeries(series, RANGE_WORST, 2).map((s) => s.version),
+    ['26.2.1', '26.1.1'], 'the two worst, in the order they appeared');
+});
+
+test('a short archive is never windowed', () => {
+  const series = [{ version: '26.1.1', open: 1, fixedHere: 0 }];
+  assert.equal(selectSeries(series, RANGE_RECENT).length, 1);
+  assert.equal(selectSeries(series, RANGE_WORST).length, 1);
+});
+
+test('fixRate is the share of issues AMD has documented as fixed', () => {
+  assert.equal(fixRate([]), 0, 'no issues means no rate, not a divide by zero');
+  assert.equal(fixRate([{ status: 'fixed' }, { status: 'pending' }]), 0.5);
+  assert.equal(fixRate([{ status: 'fixed' }, { status: 'fixed' }]), 1);
+});
+
+test('rangeLabel describes each range', () => {
+  assert.match(rangeLabel(RANGE_RECENT), /latest \d+ releases/);
+  assert.match(rangeLabel(RANGE_WORST), /worst/);
+  assert.match(rangeLabel(RANGE_ALL), /every tracked release/);
+});
+
+test('the shipped chart window is a fraction of the archive', () => {
+  // Guards the reason this exists: if the archive is bigger than the window, the
+  // default view must be a window rather than all 80 bars at once.
+  const series = buildSeries(DB.drivers, DB.bugs);
+  assert.ok(series.length > RANGE_LIMIT, `archive is only ${series.length} releases`);
+  assert.equal(selectSeries(series, RANGE_RECENT).length, RANGE_LIMIT);
+  assert.equal(selectSeries(series, RANGE_ALL).length, series.length);
 });

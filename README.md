@@ -25,8 +25,14 @@ directly, the page now says so instead of rendering blank.
 - Search across issue text, game, GPU, driver version and tracker ID
 - Filters for status, driver, channel, and sort order — all reflected in the URL,
   so any view is shareable
-- Per-release chart showing issues *still open* at each release, split into new
-  this release and carried over, alongside the issues documented as fixed in it
+- Per-release chart of issues *still open* at each release, split into new this
+  release and carried over, alongside the issues documented as fixed in it
+- The chart shows a **window** of releases, not the whole archive — `Latest 20`
+  by default, plus `Most affected` and `All time`. 80 bars at once is unreadable,
+  and the window is what makes the trend legible. The choice is in the URL.
+- **Click any bar to filter the issue list to that release**, and a toggle to fold
+  carried-over issues into "new"
+- A fix-rate tile alongside the totals
 - Every issue links to its source release notes
 - Deep links: `#AMD-0012` opens straight to that issue
 - Explicit loading, empty and error states
@@ -196,9 +202,12 @@ project subpath works without configuration.
   `gpu` fields are `Not specified` for about half the archive. They are derived
   heuristically for filtering; the issue text is the source of truth.
 - Dates before `25.9.2` are month-precision. See `meta.date_precision`.
-- The chart thins release labels to about twelve and scrolls sideways, because 80 bars
-  cannot fit a phone viewport. A much deeper archive would want a coarser x-axis than
-  "one bar per release".
+- The chart windows the archive to 20 releases and scrolls sideways in `All time`. A
+  much deeper archive would want a coarser x-axis than "one bar per release" —
+  quarterly buckets, say.
+- Not built, and worth knowing if you compare this to similar trackers: GPU
+  **launch-period bands** on the chart, and an alternate card/timeline layout. Neither
+  is hard; both need verified launch-date data, which is the part that takes the care.
 - Release-note text is AMD's. The site carries a trademark disclaimer and links every
   issue to its source, and the archive is stored as normalized one-line summaries rather
   than republished pages. **This is a judgement call, not legal advice** — get it reviewed
