@@ -50,6 +50,22 @@ class Normalisation(unittest.TestCase):
         self.assertEqual(imp.match_key("Radeon\u2122 RX 7000, series."),
                          imp.match_key("radeon rx 7000 series"))
 
+    def test_folds_the_pre_rename_product_name(self):
+        """The 2019-2021 pages predate the "AMD Software" rename.
+
+        They say "Radeon Software Adrenalin Edition". Left unfolded, an issue recovered
+        from the Internet Archive keeps a product name that no longer appears anywhere
+        else, and the validator flags it as unnormalized.
+        """
+        self.assertEqual(
+            imp.normalize("upgrading from previous Radeon Software Adrenalin Edition releases"),
+            "upgrading from previous Radeon Software releases")
+        self.assertEqual(
+            imp.normalize("Radeon Software Adrenalin 21.12.1 may fail to install"),
+            "Radeon Software 21.12.1 may fail to install")
+        self.assertNotIn("Adrenalin Edition",
+                         imp.normalize("Radeon Software Adrenalin Edition 20.1.1"))
+
     def test_normalised_import_text_matches_stored_record(self):
         """The whole point of normalisation: AMD's wording must equal ours.
 

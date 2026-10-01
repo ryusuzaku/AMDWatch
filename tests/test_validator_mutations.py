@@ -153,9 +153,12 @@ class ValidatorMutation(unittest.TestCase):
 
     # -------------------------------------------------- normalisation gates
     def test_unstripped_trademark(self):
+        # Appends the symbol rather than replacing a token: bugs[0] is whatever issue
+        # was first seen oldest, and it may not contain "Radeon" at all. A mutation that
+        # silently does nothing makes this test pass for the wrong reason.
         self.assert_rejected(
             mutate(lambda d: d["bugs"][0].__setitem__(
-                "text", d["bugs"][0]["text"].replace("Radeon", "Radeon\u2122"))),
+                "text", d["bugs"][0]["text"] + " Radeon\u2122")),
             "not normalized")
 
     def test_unfolded_channel_suffix(self):

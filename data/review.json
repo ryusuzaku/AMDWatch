@@ -5,16 +5,106 @@
     "report": 0.72
   },
   "summary": {
-    "releases": 80,
-    "candidates_parsed": 815,
-    "issues": 456,
-    "pending": 119,
-    "fixed": 337,
-    "fuzzy_merges": 34,
-    "near_misses_not_merged": 172,
-    "issues_with_reworded_variants": 39
+    "releases": 135,
+    "candidates_parsed": 1687,
+    "issues": 964,
+    "pending": 224,
+    "fixed": 740,
+    "fuzzy_merges": 49,
+    "near_misses_not_merged": 223,
+    "issues_with_reworded_variants": 52
   },
   "fuzzy_merges": [
+    {
+      "version": "19.7.2",
+      "incoming": "With Radeon Image Sharpening enabled, Radeon Overlay may flicker in DirectX9 applications or games.",
+      "matched": "With Radeon Image Sharpening enabled, Radeon Overlay may flicker in DirectX9 or Vulkan applications or games.",
+      "similarity": 0.951
+    },
+    {
+      "version": "20.1.1",
+      "incoming": "CPU usage may sometimes remain high once Radeon Game Advisor has been invoked during a game.",
+      "matched": "CPU usage may remain sometimes remain high once Radeon Game Advisor has been invoked during a game.",
+      "similarity": 0.963
+    },
+    {
+      "version": "20.2.2",
+      "incoming": "Radeon Software may open with an inconsistent window size or may not keep its previously set size when opened.",
+      "matched": "Radeon Software may open with an inconsistent size or may not keep it's previously set size when opened.",
+      "similarity": 0.967
+    },
+    {
+      "version": "20.3.1",
+      "incoming": "Radeon Software may open with an inconsistent window size or may not keep its previously set size when opened.",
+      "matched": "Radeon Software may open with an inconsistent size or may not keep it's previously set size when opened.",
+      "similarity": 0.967
+    },
+    {
+      "version": "20.7.1",
+      "incoming": "Some game titles may experience hitching or stutter when Instant Replay is enabled on Radeon RX 5000 series system configurations.",
+      "matched": "Some game titles may experience hitching when Instant Replay is enabled on Radeon RX 5000 series system configurations.",
+      "similarity": 0.955
+    },
+    {
+      "version": "21.5.1",
+      "incoming": "If Ryzen Master is not detected in Adrenalin software after installation, a system restart may be required.",
+      "matched": "If Ryzen Master is not detected in Adrenalin software after installation, a system restart maybe required.",
+      "similarity": 0.995
+    },
+    {
+      "version": "21.5.2",
+      "incoming": "If Ryzen Master is not detected in Adrenalin software after installation, a system restart may be required.",
+      "matched": "If Ryzen Master is not detected in Adrenalin software after installation, a system restart maybe required.",
+      "similarity": 0.995
+    },
+    {
+      "version": "21.6.1",
+      "incoming": "If Ryzen Master is not detected in Adrenalin software after installation, a system restart may be required.",
+      "matched": "If Ryzen Master is not detected in Adrenalin software after installation, a system restart maybe required.",
+      "similarity": 0.995
+    },
+    {
+      "version": "21.6.2",
+      "incoming": "If Ryzen Master is not detected in Adrenalin software after installation, a system restart may be required.",
+      "matched": "If Ryzen Master is not detected in Adrenalin software after installation, a system restart maybe required.",
+      "similarity": 0.995
+    },
+    {
+      "version": "21.6.2",
+      "incoming": "AMD is investigating a D3 code that may be seen in some motherboard after updating to the latest Radeon Software.",
+      "matched": "AMD is investigating a D3 error code that may be seen in some motherboard after updating to the latest Radeon Software.",
+      "similarity": 0.974
+    },
+    {
+      "version": "21.7.1",
+      "incoming": "If Ryzen Master is not detected in Adrenalin software after installation, a system restart may be required.",
+      "matched": "If Ryzen Master is not detected in Adrenalin software after installation, a system restart maybe required.",
+      "similarity": 0.995
+    },
+    {
+      "version": "21.7.2",
+      "incoming": "If a Blue or Black screen is observed in mobile systems, temporarily disable Enhanced sign-in.",
+      "matched": "If Blue or Black screen is observed in mobile systems, temporarily disable Enhanced sign-in",
+      "similarity": 0.989
+    },
+    {
+      "version": "21.8.2",
+      "incoming": "Users may experience difficulties ending a recording session on Open Broadcaster Software when recording in H265/HEVC codec on some AMD Graphics products such as Radeon RX 6800 XT.",
+      "matched": "Users may experience difficulties ending a recording session on Open Broadcaster Software when recording in H265/HEVC codec on some AMD Graphics products such as Radeon RX 6800XT.",
+      "similarity": 0.997
+    },
+    {
+      "version": "21.8.2",
+      "incoming": "Radeon Software may crash or become unresponsive while playing some DirectX 11 games such as PlayerUnknown's Battlegrounds with multiple displays connected in extended mode.",
+      "matched": "AMD Radeon Software may crash or become unresponsive while playing some DirectX 11 games such as PlayerUnknown's Battlegrounds with multiple displays connected in extended mode.",
+      "similarity": 0.988
+    },
+    {
+      "version": "21.10.1",
+      "incoming": "Playing Horizon Zero Dawn for an extended period may lead to driver timeouts or game crash on some AMD Graphics products such as Radeon RX 6700 XT.",
+      "matched": "Playing Horizon Zero Dawn for an extended period may lead to a driver timeout or game crash on some AMD Graphics products such as Radeon RX 6700 XT.",
+      "similarity": 0.99
+    },
     {
       "version": "22.6.1",
       "incoming": "Performance drop may be experienced while playing Fortnite with Multithreaded Rendering and DirectX 11 API on some AMD Graphics Products such as the Radeon RX 6900 XT.",
@@ -222,9 +312,309 @@
   ],
   "near_misses_not_merged": [
     {
+      "new": "League of Legends may fail to launch on Radeon RX 5700 Series Graphics with Windows7 system configurations.",
+      "closest": "Recording clips with Radeon ReLive may result in blank clips on Radeon RX 5700 Series Graphics with Windows7 system configurations.",
+      "similarity": 0.729,
+      "version": "19.7.1"
+    },
+    {
+      "new": "Valve Index headset may experience flicker for approximately 30 seconds when launching SteamVR on AMD Radeon RX 5700 Series Graphics.",
+      "closest": "Valve Index headset may experience flicker when launching SteamVR on AMD Radeon RX 5700 Series Graphics.",
+      "similarity": 0.877,
+      "version": "19.7.2"
+    },
+    {
+      "new": "Some system configurations may experience color corruption after install of Radeon Software when running Windows 10 May 2019 update. Issue is resolved in the latest Windows Update 18362.267 (KB4505903)",
+      "closest": "Some system configurations may experience green color corruption after install of Radeon Software when running Windows 10 May 2019 update.",
+      "similarity": 0.782,
+      "version": "19.8.1"
+    },
+    {
+      "new": "Borderlands3 may experience lighting corruption when running DirectX12 API.",
+      "closest": "Borderlands3 may experience an application crash or hang when running DirectX12 API.",
+      "similarity": 0.79,
+      "version": "19.10.1"
+    },
+    {
+      "new": "Performance Metrics Overlay may report incorrect VRAM utilization.",
+      "closest": "Radeon Performance Metrics may report incorrect VRAM utilization.",
+      "similarity": 0.884,
+      "version": "19.11.1"
+    },
+    {
+      "new": "Rocket League may crash or experience an application hang after performing a task switch.",
+      "closest": "Rocket League may experience an application hang on performing a task switch.",
+      "similarity": 0.902,
+      "version": "19.12.3"
+    },
+    {
+      "new": "Mortal Kombat 11 may experience an application crash after the splash screen on Radeon RX 5700 series graphics products.",
+      "closest": "Wolfenstein: Youngblood may experience an application crash or hang on Radeon RX 5700 series graphics products.",
+      "similarity": 0.781,
+      "version": "19.12.3"
+    },
+    {
+      "new": "Enabling HDR enabled displays in Windows may cause colors to become washed out.",
+      "closest": "Enabling Radeon Image Sharpening on HDR enabled displays may cause colors to become washed out.",
+      "similarity": 0.779,
+      "version": "20.1.1"
+    },
+    {
+      "new": "A limited number of games such as Nioh, Dead or Alive 6, Dragon Quest Builders 2 and Atelier Ryza may crash or fail to launch.",
+      "closest": "A limited number of games such as Nioh, Dead or Alive 6, Trials Rising, Tetris Effect and Atelier Ryza may crash or fail to launch.",
+      "similarity": 0.84,
+      "version": "20.1.2"
+    },
+    {
+      "new": "A limited number of games such as Nioh, Dragon Quest Builders 2, WWE2K20, Dead or Alive 6 and Atelier Ryza may crash or fail to launch.",
+      "closest": "A limited number of games such as Nioh, Dead or Alive 6, Dragon Quest Builders 2 and Atelier Ryza may crash or fail to launch.",
+      "similarity": 0.843,
+      "version": "20.1.3"
+    },
+    {
+      "new": "Some Vulkan API games may experience a crash or application hang when performing a task switch while Radeon Image Sharpening is enabled.",
+      "closest": "Some Vulkan gaming applications may crash when performing a task switch with Radeon Image Sharpening enabled.",
+      "similarity": 0.79,
+      "version": "20.1.4"
+    },
+    {
+      "new": "Fortnite may experience an application crash on Radeon RX 500 series Hybrid Graphics system configurations.",
+      "closest": "Display artifacts may be experienced on some 75hz display configurations on Radeon RX 5700 series graphics system configurations.",
+      "similarity": 0.735,
+      "version": "20.2.2"
+    },
+    {
+      "new": "Performance Metrics Overlay and Radeon WattMan incorrectly report higher than expected idle clock speeds on Radeon RX 5700 series graphics products. Performance and power consumption are not impacted by this incorrect reporting.",
+      "closest": "Performance Metrics Overlay and Radeon WattMan incorrectly report lower than expected clock speeds on Radeon RX 5700 series graphics products during gaming workloads.",
+      "similarity": 0.731,
+      "version": "20.2.2"
+    },
+    {
+      "new": "Some games may experience stutter while using Instant Replay or third-party applications that stream or perform screen capture.",
+      "closest": "Some games may experience stutter while using Instant Replay or third-party applications that stream or perform screen capture. A potential workaround is to disable these features or applications while gaming.",
+      "similarity": 0.757,
+      "version": "20.3.1"
+    },
+    {
+      "new": "AMD A-Series/E-Series APU Processors will reflect older Radeon Software 2019 Edition Settings user interface.",
+      "closest": "AMD A-Series/E-Series APU Processors will reflect older Radeon Software 2019 Edition Settings user interface. AMD will update the user interface to the 2020 Edition in a future release.",
+      "similarity": 0.742,
+      "version": "20.3.1"
+    },
+    {
+      "new": "Desktop cursor may intermittently remain visible after toggling Radeon Software's overlay in some games.",
+      "closest": "Desktop cursor may intermittently remain visible after toggling Radeon Software's overlay in some games. A workaround is to bring up the game menu or task switch to refresh the cursor.",
+      "similarity": 0.721,
+      "version": "20.3.1"
+    },
+    {
+      "new": "Enhanced Sync may cause a black screen to occur when enabled on some games and system configurations. Any users who may be experiencing issues with Enhanced Sync enabled should disable it as a temporary workaround.",
+      "closest": "Enhanced Sync may cause a black screen to occur when enabled on some games and system configurations. Enhanced Sync has been temporarily disabled from the gaming profile and any users who may be experiencing issues with Enhanced Sync enabled should disable it as a temporary workaround.",
+      "similarity": 0.855,
+      "version": "20.3.1"
+    },
+    {
+      "new": "Some users may still experience black screen or system hang issues during extended periods of gameplay. AMD will continue to monitor and investigate reports of these issues closely.",
+      "closest": "Although Radeon Software 2020 Edition 20.2.2 resolves many black screen issues, AMD is aware that some users may still experience black screen or system hang issues during extended periods of gameplay. AMD will continue to monitor and investigate reports of these issues closely.",
+      "similarity": 0.787,
+      "version": "20.3.1"
+    },
+    {
+      "new": "XSplit may experience an application hang or freeze when performing a scene switch.",
+      "closest": "Rocket League may experience an application hang on performing a task switch.",
+      "similarity": 0.772,
+      "version": "20.4.2"
+    },
+    {
+      "new": "Radeon RX Vega series graphics products may experience a system crash or TDR when performing multiple task switches using Alt+Tab.",
+      "closest": "Radeon RX Vega series graphics products may experience a system crash or TDR when playing games with Instant Replay or Record Desktop enabled.",
+      "similarity": 0.741,
+      "version": "20.4.2"
+    },
+    {
+      "new": "Radeon Software may experience a crash or hang on Hybrid Graphics system configurations.",
+      "closest": "Fortnite may experience an application crash on Radeon RX 500 series Hybrid Graphics system configurations.",
+      "similarity": 0.736,
+      "version": "20.5.1"
+    },
+    {
+      "new": "Performance Metrics Overlay and the Performance Tuning tab incorrectly report higher than expected idle clock speeds on Radeon RX 5700 series graphics products. Performance and power consumption are not impacted by this incorrect reporting.",
+      "closest": "Performance Metrics Overlay and Radeon WattMan incorrectly report higher than expected idle clock speeds on Radeon RX 5700 series graphics products. Performance and power consumption are not impacted by this incorrect reporting.",
+      "similarity": 0.914,
+      "version": "20.7.1"
+    },
+    {
+      "new": "Reports of intermittent system hangs while exiting system sleep on some AMD Ryzen 3000 Series Mobile Processors with Radeon Graphics.",
+      "closest": "AMD is investigating isolated reports of intermittent system hangs while exiting system sleep on some AMD Ryzen 3000 Series Mobile Processors with Radeon Graphics.",
+      "similarity": 0.898,
+      "version": "20.8.2"
+    },
+    {
+      "new": "Surviving Mars may experience an application crash or hang at launch on Radeon RX 5000 series graphics products.",
+      "closest": "Wolfenstein: Youngblood may experience an application crash or hang on Radeon RX 5700 series graphics products.",
+      "similarity": 0.818,
+      "version": "20.8.3"
+    },
+    {
+      "new": "eFootball PES 2020 may experience an application crash at launch on Radeon RX 5000 series graphics products.",
+      "closest": "Surviving Mars may experience an application crash or hang at launch on Radeon RX 5000 series graphics products.",
+      "similarity": 0.835,
+      "version": "20.8.3"
+    },
+    {
+      "new": "Error 195 may occur during Radeon Software installation on some AMD Ryzen 3 Mobile Processors with Radeon Vega Graphics.",
+      "closest": "Error 1603 may occur during Radeon Software installation on some AMD Ryzen 5 Mobile Processors with Radeon Graphics system configurations.",
+      "similarity": 0.867,
+      "version": "20.9.1"
+    },
+    {
+      "new": "With Radeon FreeSync enabled on Radeon RX 5000 series system configurations, task switching to another display or application may cause the display to flicker for a few moments or for the displays refresh rate to spike.",
+      "closest": "With Radeon FreeSync enabled on Radeon RX 5000 series system configurations, task switching to another display or application may cause the display to flicker for a few moments.",
+      "similarity": 0.893,
+      "version": "20.9.1"
+    },
+    {
+      "new": "Lower than expected performance may be experienced on Radeon RX 5000/500/400 series graphics products in Godfall.",
+      "closest": "Lower than expected performance may be experienced on Radeon RX 6000 series graphics products in Watchdogs: Legion and Dirt 5.",
+      "similarity": 0.839,
+      "version": "20.11.3"
+    },
+    {
+      "new": "Godfall is not detected or listed in Radeon Software gaming tab.",
+      "closest": "Genshin Impact is not detected or listed in Radeon Software gaming tab.",
+      "similarity": 0.872,
+      "version": "20.11.3"
+    },
+    {
+      "new": "Crysis Remastered may experience corruption on character models on Radeon RX 6800 Series graphics products.",
+      "closest": "DOOM Eternal may experience intermittent corruption on Radeon RX 5600 series graphics products.",
+      "similarity": 0.73,
+      "version": "20.11.3"
+    },
+    {
+      "new": "Oculus Link users may experience intermittent crashes on Polaris and Vega series graphics products.",
+      "closest": "Oculus Link users might experience crashes on Polaris and Vega series graphics products.",
+      "similarity": 0.897,
+      "version": "21.1.1"
+    },
+    {
+      "new": "Brightness flickering may intermittently occur in some games or applications when Radeon FreeSync is enabled, and the game is set to use borderless fullscreen.",
+      "closest": "Brightness flickering may intermittently occur in some games when Radeon FreeSync is enabled, and the game is set to use borderless fullscreen.",
+      "similarity": 0.946,
+      "version": "21.1.1"
+    },
+    {
+      "new": "Hitman 3 may experience an application crash in the Apex Predator mission on Radeon RX 6000 series graphics products.",
+      "closest": "Mortal Kombat 11 may experience an application crash after the splash screen on Radeon RX 5700 series graphics products.",
+      "similarity": 0.783,
+      "version": "21.2.1"
+    },
+    {
+      "new": "RS-351. Testing conducted by AMD Performance Labs as of Jan 28, 2021 on the 16GB Radeon RX 6800XT, using a test system comprising of AMD Ryzen 9 5900X CPU (3.7 GHz), 16GB DDR4-3200MHz memory, and Windows 10x64 with Radeon Software 2020 Edition 21.2.1 versus the previous driver edition 21.1.1 on The Medium @ 4k High settings. Performance may vary.",
+      "closest": "Testing conducted by AMD Performance Labs as of Jan 15, 2021 on the 16GB Radeon RX 6800 XT, using a test system comprising of AMD Ryzen 9 5900X CPU (3.7 GHz), 16GB DDR4-3200MHz memory, and Windows 10x64 with Radeon Software 2020 Edition 21.1.1 versus the previous driver edition 20.12.1 on Hitman 3 @ 4K Ultra settings. Performance may vary. RS-349.",
+      "similarity": 0.75,
+      "version": "21.2.1"
+    },
+    {
+      "new": "A system hang or crash may be experienced when upgrading Radeon Software while an Oculus VR headset is connected to your system on Radeon GCN graphics products.",
+      "closest": "A system hang or crash may be experienced when upgrading Radeon Software while an Oculus VR headset is connected to your system on Radeon GCN graphics products. A temporary workaround is to disconnect the headset before install.",
+      "similarity": 0.826,
+      "version": "21.3.1"
+    },
+    {
+      "new": "SteamVR may experience an application crash when a VR headset is connected on Radeon RX 500 series graphics products.",
+      "closest": "Hitman 3 may experience an application crash in the Apex Predator mission on Radeon RX 6000 series graphics products.",
+      "similarity": 0.784,
+      "version": "21.4.1"
+    },
+    {
+      "new": "Lower than expected performance may be experienced at 4K resolutions on Radeon RX 6000 series graphics products in some Payday 2 missions.",
+      "closest": "Lower than expected performance may be experienced on Radeon RX 5000/500/400 series graphics products in Godfall.",
+      "similarity": 0.787,
+      "version": "21.5.1"
+    },
+    {
+      "new": "Uninstalling or upgrading Radeon Software using the factory reset option may delete AMD chipset driver folders if they are stored in the same directory as the Radeon Software installation. Users who wish to perform a factory reset are recommended to use the AMD cleanup utility instead.",
+      "closest": "Uninstalling or upgrading Radeon Software using the factory reset option may delete AMD chipset driver folders if they are stored in the same directory as the Radeon Software installation. Users who wish to perform a factory reset are recommended to use the latest AMD cleanup utility instead.",
+      "similarity": 0.894,
+      "version": "21.5.1"
+    },
+    {
+      "new": "Radeon FreeSync may intermittently become locked while on desktop after performing task switching between extended and primary displays upon closing a game, causing poor performance or stuttering.",
+      "closest": "Radeon FreeSync may intermittently become locked while on desktop after performing task switching between extended and primary displays upon closing a game, causing poor performance or stuttering. A system restart is a potential workaround if this is experienced.",
+      "similarity": 0.855,
+      "version": "21.6.1"
+    },
+    {
+      "new": "Lighting corruption may be experienced in Apex Legends when Radeon Boost is enabled.",
+      "closest": "Color corruption may be experienced in Cyberpunk 2077 when Radeon Boost is enabled.",
+      "similarity": 0.8,
+      "version": "21.7.1"
+    },
+    {
+      "new": "A driver mismatch error may appear when two versions of Radeon software (Windows Store & AMD Support versions) are installed on your system.",
+      "closest": "A driver mismatch error may appear when two versions of Radeon software (Windows Store & AMD Support versions) are installed on your system. As a temporary workaround, launch the Windows Store version of Radeon software.",
+      "similarity": 0.776,
+      "version": "21.7.1"
+    },
+    {
+      "new": "A Blue or Black screen may be observed after updating to the latest Radeon Software when core isolation is enabled.",
+      "closest": "A Blue or Black screen may be observed after updating to the latest Radeon Software. A workaround is to disable core isolation.",
+      "similarity": 0.845,
+      "version": "21.7.2"
+    },
+    {
+      "new": "Driver timeouts may be experienced while playing The Medium on some AMD Graphics products such as Radeon RX 6700 XT.",
+      "closest": "Driver timeouts may be experienced while playing a game & streaming a video simultaneously on some AMD Graphics products such as Radeon RX 500 Series Graphics.",
+      "similarity": 0.79,
+      "version": "21.10.1"
+    },
+    {
+      "new": "Visual artifacts may be observed while playing Call of Duty: Black Ops Cold War on some AMD Graphics products such as Radeon RX 6800M Graphics.",
+      "closest": "Visual corruption may be observed while playing Marvel's Guardians of the Galaxy on some AMD Graphics products such as Radeon RX 6800 Graphics.",
+      "similarity": 0.801,
+      "version": "21.10.4"
+    },
+    {
+      "new": "Driver timeouts or game crashes may be experienced by some users while playing Battlefield 2042 on some AMD Graphics products such as Radeon RX 6900 XT Graphics.",
+      "closest": "Driver timeouts may be experienced while playing The Medium on some AMD Graphics products such as Radeon RX 6700 XT.",
+      "similarity": 0.778,
+      "version": "21.11.3"
+    },
+    {
+      "new": "During Marvel's Guardians of the Galaxy gameplay, some users may experience driver timeouts on some AMD Graphics products such as Radeon RX 5500 XT Graphics.",
+      "closest": "During Marvel's Guardians of the Galaxy gameplay, some users may experience driver timeouts on some AMD Graphics products such as Radeon RX 5500 XT Graphics. A temporary workaround is to disable the Radeon Anti-Lag feature in Radeon Software.",
+      "similarity": 0.786,
+      "version": "21.12.1"
+    },
+    {
+      "new": "While playing PlayerUnknown's Battlegrounds with multiple displays connected in extended mode, Radeon Software may become unresponsive when the user is in the lobby and attempts to open Radeon Software on the secondary display via the context menu.",
+      "closest": "While playing PlayerUnknown's Battlegrounds with multiple displays connected in extended mode, Radeon Software may become unresponsive when the user is in the lobby and attempts to open Radeon Software on the secondary display via the context menu. A temporary workaround is to press the Alt + R keyboard shortcut if this happens.",
+      "similarity": 0.861,
+      "version": "21.12.1"
+    },
+    {
+      "new": "Stuttering or lower than expected FPS values may be experienced by some users while playing God of War on some AMD Graphics Products such as Radeon RX 6900 XT Graphics.",
+      "closest": "Driver timeouts or game crashes may be experienced by some users while playing Battlefield 2042 on some AMD Graphics products such as Radeon RX 6900 XT Graphics.",
+      "similarity": 0.777,
+      "version": "22.2.1"
+    },
+    {
+      "new": "Visual artifacts may be observed while playing It Takes Two on some AMD Graphics Products such as Radeon RX 6900 XT Graphics.",
+      "closest": "Visual artifacts may be observed while playing Call of Duty: Black Ops Cold War on some AMD Graphics products such as Radeon RX 6800M Graphics.",
+      "similarity": 0.868,
+      "version": "22.3.1"
+    },
+    {
+      "new": "Stuttering may be experienced while playing Genshin Impact with video playback or encoding on some AMD Graphics Products such as Radeon RX 6900 XT.",
+      "closest": "Driver timeouts may be experienced while playing The Medium on some AMD Graphics products such as Radeon RX 6700 XT.",
+      "similarity": 0.751,
+      "version": "22.3.2"
+    },
+    {
       "new": "Visual artifacts in Horizon Zero Dawn may be observed during gameplay on some AMD Graphics products such as Radeon RX 6800 XT.",
-      "closest": "Visual artifacts may be observed while playing It Takes Two on some AMD Graphics Products such as Radeon RX 6900 XT Graphics.",
-      "similarity": 0.755,
+      "closest": "Visual artifacts in PAYDAY 2 may be observed during gameplay on some AMD Graphics products such as Radeon RX 6800 XT.",
+      "similarity": 0.913,
       "version": "22.4.1"
     },
     {
@@ -235,8 +625,8 @@
     },
     {
       "new": "Stuttering may be experienced while playing Call of Duty: Warzone on the Caldera map with some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
-      "closest": "Stuttering or lower than expected FPS values may be experienced by some users while playing God of War on some AMD Graphics Products such as Radeon RX 6900 XT Graphics.",
-      "similarity": 0.723,
+      "closest": "Visual artifacts may be observed while playing Call of Duty: Black Ops Cold War on some AMD Graphics products such as Radeon RX 6800M Graphics.",
+      "similarity": 0.725,
       "version": "22.5.2"
     },
     {
@@ -846,6 +1236,12 @@
       "version": "25.3.1"
     },
     {
+      "new": "Lower than expected performance may be observed in Delta Force on Radeon RX 7000 series graphics products.",
+      "closest": "Lower than expected performance may be experienced on Radeon RX 5000/500/400 series graphics products in Godfall.",
+      "similarity": 0.783,
+      "version": "25.3.1"
+    },
+    {
       "new": "Lower than expected performance may be observed while playing Assetto Corsa Competizione on Radeon RX 9000 series graphics products.",
       "closest": "Lower than expected performance may be observed in Delta Force on Radeon RX 7000 series graphics products.",
       "similarity": 0.839,
@@ -1256,6 +1652,99 @@
   ],
   "reworded": [
     {
+      "text": "With Radeon Image Sharpening enabled, Radeon Overlay may flicker in DirectX9 or Vulkan applications or games.",
+      "variants": [
+        "With Radeon Image Sharpening enabled, Radeon Overlay may flicker in DirectX9 applications or games.",
+        "With Radeon Image Sharpening enabled, Radeon Overlay may flicker in DirectX9 or Vulkan applications or games."
+      ]
+    },
+    {
+      "text": "Enabling Enhanced Sync may cause game, application or system crashes on Radeon RX 5700 series graphics products",
+      "variants": [
+        "Enabling Enhanced Sync may cause game, application or system crashes on Radeon RX 5700 series graphics products",
+        "Enabling Enhanced Sync may cause game, application or system crashes on Radeon RX 5700 series graphics products."
+      ]
+    },
+    {
+      "text": "CPU usage may remain sometimes remain high once Radeon Game Advisor has been invoked during a game.",
+      "variants": [
+        "CPU usage may remain sometimes remain high once Radeon Game Advisor has been invoked during a game.",
+        "CPU usage may sometimes remain high once Radeon Game Advisor has been invoked during a game."
+      ]
+    },
+    {
+      "text": "Radeon Software may open with an inconsistent size or may not keep it's previously set size when opened.",
+      "variants": [
+        "Radeon Software may open with an inconsistent size or may not keep it's previously set size when opened.",
+        "Radeon Software may open with an inconsistent size or may not keep its previously set size when opened.",
+        "Radeon Software may open with an inconsistent window size or may not keep its previously set size when opened."
+      ]
+    },
+    {
+      "text": "Some game titles may experience hitching when Instant Replay is enabled on Radeon RX 5000 series system configurations.",
+      "variants": [
+        "Some game titles may experience hitching or stutter when Instant Replay is enabled on Radeon RX 5000 series system configurations.",
+        "Some game titles may experience hitching when Instant Replay is enabled on Radeon RX 5000 series system configurations."
+      ]
+    },
+    {
+      "text": "Audio may experience instability when connected through an Audio Video Receiver via HDMI on Radeon RX 5000 series graphics products",
+      "variants": [
+        "Audio may experience instability when connected through an Audio Video Receiver via HDMI on Radeon RX 5000 series graphics products",
+        "Audio may experience instability when connected through an Audio Video Receiver via HDMI on Radeon RX 5000 series graphics products."
+      ]
+    },
+    {
+      "text": "Performance issues may be experienced when playing Horizon Zero Dawn on select Radeon Vega graphics",
+      "variants": [
+        "Performance issues may be experienced when playing Horizon Zero Dawn on select Radeon Vega graphics",
+        "Performance issues may be experienced when playing Horizon Zero Dawn on select Radeon Vega graphics."
+      ]
+    },
+    {
+      "text": "If Ryzen Master is not detected in Adrenalin software after installation, a system restart maybe required.",
+      "variants": [
+        "If Ryzen Master is not detected in Adrenalin software after installation, a system restart may be required.",
+        "If Ryzen Master is not detected in Adrenalin software after installation, a system restart maybe required."
+      ]
+    },
+    {
+      "text": "If Blue or Black screen is observed in mobile systems, temporarily disable Enhanced sign-in",
+      "variants": [
+        "If Blue or Black screen is observed in mobile systems, temporarily disable Enhanced sign-in",
+        "If Blue or Black screen is observed in mobile systems, temporarily disable Enhanced sign-in.",
+        "If a Blue or Black screen is observed in mobile systems, temporarily disable Enhanced sign-in."
+      ]
+    },
+    {
+      "text": "AMD is investigating a D3 error code that may be seen in some motherboard after updating to the latest Radeon Software.",
+      "variants": [
+        "AMD is investigating a D3 code that may be seen in some motherboard after updating to the latest Radeon Software.",
+        "AMD is investigating a D3 error code that may be seen in some motherboard after updating to the latest Radeon Software."
+      ]
+    },
+    {
+      "text": "AMD Radeon Software may crash or become unresponsive while playing some DirectX 11 games such as PlayerUnknown's Battlegrounds with multiple displays connected in extended mode.",
+      "variants": [
+        "AMD Radeon Software may crash or become unresponsive while playing some DirectX 11 games such as PlayerUnknown's Battlegrounds with multiple displays connected in extended mode.",
+        "Radeon Software may crash or become unresponsive while playing some DirectX 11 games such as PlayerUnknown's Battlegrounds with multiple displays connected in extended mode."
+      ]
+    },
+    {
+      "text": "Playing Horizon Zero Dawn for an extended period may lead to a driver timeout or game crash on some AMD Graphics products such as Radeon RX 6700 XT.",
+      "variants": [
+        "Playing Horizon Zero Dawn for an extended period may lead to a driver timeout or game crash on some AMD Graphics products such as Radeon RX 6700 XT.",
+        "Playing Horizon Zero Dawn for an extended period may lead to driver timeouts or game crash on some AMD Graphics products such as Radeon RX 6700 XT."
+      ]
+    },
+    {
+      "text": "Users may experience difficulties ending a recording session on Open Broadcaster Software when recording in H265/HEVC codec on some AMD Graphics products such as Radeon RX 6800XT.",
+      "variants": [
+        "Users may experience difficulties ending a recording session on Open Broadcaster Software when recording in H265/HEVC codec on some AMD Graphics products such as Radeon RX 6800 XT.",
+        "Users may experience difficulties ending a recording session on Open Broadcaster Software when recording in H265/HEVC codec on some AMD Graphics products such as Radeon RX 6800XT."
+      ]
+    },
+    {
       "text": "Performance drop may be experienced while playing Fortnite with Multithreaded Rendering and DirectX 11 API on some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
       "variants": [
         "Performance drop may be experienced while playing Fortnite with Multithreaded Rendering and DirectX 11 API on some AMD Graphics Products such as the Radeon RX 6900 XT Graphics.",
@@ -1533,5 +2022,6 @@
       ]
     }
   ],
-  "skipped": []
+  "skipped": [],
+  "parsed_to_nothing": []
 }

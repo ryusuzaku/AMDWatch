@@ -168,6 +168,11 @@ def normalize(text):
     s = s.replace("\u2026", "...")
     s = re.sub(r"\bAMD Software:\s*Adrenalin Edition\b", "AMD Software", s, flags=re.I)
     s = re.sub(r"\bAMD Software:\s*Adrenalin\b", "AMD Software", s, flags=re.I)
+    # The 2019-2021 pages predate the "AMD Software" rename and say "Radeon Software
+    # Adrenalin Edition". Without folding that too, an issue recovered from the Archive
+    # never matches the same issue worded on a modern page.
+    s = re.sub(r"\bRadeon Software Adrenalin Edition\b", "Radeon Software", s, flags=re.I)
+    s = re.sub(r"\bRadeon Software Adrenalin\b", "Radeon Software", s, flags=re.I)
     return collapse(s)
 
 

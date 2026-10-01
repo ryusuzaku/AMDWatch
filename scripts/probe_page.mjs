@@ -66,11 +66,18 @@ check('fix rate matches the database',
   `page ${stats[5]}`);
 
 // "Possibly fixed" is the part of the pending count AMD's newest notes no longer
-// mention. Computed from the file the same way lib/model.js isStale does.
+// mention, restricted to the verified window. Computed from the file the same way
+// lib/model.js isStale does, including the contiguousFrom floor.
 const orderOf = new Map(expected.drivers.map((d, i) => [d.version, i]));
 const newestVersion = expected.drivers[0].version;
-const expectedPossibly = expected.bugs.filter((b) => b.status === 'pending'
-  && orderOf.get(b.last_seen) > orderOf.get(newestVersion)).length;
+const floorVersion = expected.meta?.contiguous_from ?? null;
+const floorIndex = floorVersion ? orderOf.get(floorVersion) : null;
+const expectedPossibly = expected.bugs.filter((b) => {
+  if (b.status !== 'pending') return false;
+  const last = orderOf.get(b.last_seen);
+  if (!(last > orderOf.get(newestVersion))) return false;
+  return floorIndex === null || floorIndex === undefined || last <= floorIndex;
+}).length;
 check('possibly-fixed count matches the database',
   stats[4] === String(expectedPossibly), `page ${stats[4]} vs file ${expectedPossibly}`);
 notes.push(`  info  ${stats[4]} of ${stats[3]} pending issues are no longer listed by AMD at all`);
@@ -97,17 +104,31 @@ check('cards show first seen', metaText.includes('First seen'));
 check('cards show last seen or a possibly-fixed badge',
   metaText.includes('Last seen') || metaText.includes('Possibly fixed'));
 
+// Coverage has two tiers now: AMD's own site back to contiguous_from, then an
+// incomplete Internet Archive recovery behind it. The "possibly fixed" signal is only
+// valid inside the verified tier, so the page must not judge the gappy range.
+const contiguousFrom = expected.meta?.contiguous_from ?? null;
+const wholeWindowContiguous = expected.meta?.contiguous === true;
+const judgeable = Boolean(contiguousFrom);
 const staleBadges = await page.locator('.pill.stale').count();
-const contiguous = expected.meta?.contiguous === true;
-if (contiguous) {
-  notes.push(`  info  ${staleBadges} issue(s) flagged as no longer listed`);
+
+if (judgeable) {
+  check('possibly-fixed badges appear when a verified window exists', staleBadges > 0,
+    `${staleBadges} badge(s)`);
+  notes.push(`  info  ${staleBadges} issue(s) flagged as possibly fixed`);
 } else {
-  check('sparse coverage does not claim issues were dropped', staleBadges === 0,
-    `${staleBadges} stale badge(s) shown while meta.contiguous is false`);
-  check('the chart warns that coverage is incomplete',
-    chartNote.includes('not yet contiguous'), chartNote.slice(0, 160));
-  check('the coverage notice says the window is sampled',
-    ((await page.locator('#coverage').textContent()) ?? '').includes('sampled'));
+  check('with no verified window the page claims no issue was dropped', staleBadges === 0,
+    `${staleBadges} badge(s) shown while contiguous_from is unset`);
+}
+
+if (judgeable && !wholeWindowContiguous) {
+  check('the chart says issues before the verified window are excluded',
+    chartNote.includes(contiguousFrom), chartNote.slice(0, 240));
+  const coverageText = (await page.locator('#coverage').textContent()) ?? '';
+  check('the coverage notice names where completeness starts',
+    coverageText.includes(contiguousFrom), coverageText.slice(0, 220));
+  check('the coverage notice admits the earlier range is incomplete',
+    /incomplete|partial/i.test(coverageText), coverageText.slice(0, 220));
 }
 
 await page.screenshot({ path: join(OUT, 'full.png'), fullPage: true });

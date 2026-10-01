@@ -287,9 +287,60 @@ test('the shipped possibly-fixed count is a large share of pending, not a roundi
   // the page is wrong.
   const { order } = indexDrivers(DB.drivers);
   const newest = indexDrivers(DB.drivers).sorted[0].version;
-  const possibly = possiblyFixedCount(DB.bugs, newest, order);
+  const contiguousFrom = DB.meta?.contiguous_from ?? null;
+  const possibly = possiblyFixedCount(DB.bugs, newest, order, contiguousFrom);
   const pending = DB.bugs.filter((b) => b.status === 'pending').length;
-  assert.ok(possibly > 0, 'no possibly-fixed issues at all — is meta.contiguous still true?');
+  assert.ok(possibly > 0, 'no possibly-fixed issues at all — is contiguous_from set?');
   assert.ok(possibly / pending > 0.5,
     `only ${possibly} of ${pending} pending issues stopped being listed; the page says they mostly have`);
+});
+
+test('isStale leaves issues before the verified window unjudged', () => {
+  const drivers = [
+    { version: '26.2.1', date: '2026-02-01', channel: 'Adrenalin' },
+    { version: '22.1.1', date: '2022-01-01', channel: 'Adrenalin' },
+    { version: '20.1.1', date: '2020-01-01', channel: 'Adrenalin' },
+  ];
+  const { order } = indexDrivers(drivers);
+  const inWindow = { status: 'pending', first: '22.1.1', last_seen: '22.1.1' };
+  const archived = { status: 'pending', first: '20.1.1', last_seen: '20.1.1' };
+
+  // With no floor, both look like they stopped being listed.
+  assert.equal(isStale(inWindow, '26.2.1', order), true);
+  assert.equal(isStale(archived, '26.2.1', order), true);
+
+  // With a floor, the one last seen inside the incomplete Archive range is not judged:
+  // it may have been relisted and fixed in a release the Archive never captured.
+  assert.equal(isStale(inWindow, '26.2.1', order, '22.1.1'), true);
+  assert.equal(isStale(archived, '26.2.1', order, '22.1.1'), false);
+});
+
+test('possiblyFixedCount respects the verified window', () => {
+  const drivers = [
+    { version: '26.2.1', date: '2026-02-01', channel: 'Adrenalin' },
+    { version: '22.1.1', date: '2022-01-01', channel: 'Adrenalin' },
+    { version: '20.1.1', date: '2020-01-01', channel: 'Adrenalin' },
+  ];
+  const bugs = [
+    { status: 'pending', first: '22.1.1', last_seen: '22.1.1' },
+    { status: 'pending', first: '20.1.1', last_seen: '20.1.1' },
+  ];
+  const { order } = indexDrivers(drivers);
+  assert.equal(possiblyFixedCount(bugs, '26.2.1', order), 2, 'no floor means both count');
+  assert.equal(possiblyFixedCount(bugs, '26.2.1', order, '22.1.1'), 1,
+    'the Archive-era issue must be excluded');
+});
+
+test('the possibly-fixed filter honours the verified window too', () => {
+  const drivers = [
+    { version: '26.2.1', date: '2026-02-01', channel: 'Adrenalin' },
+    { version: '22.1.1', date: '2022-01-01', channel: 'Adrenalin' },
+    { version: '20.1.1', date: '2020-01-01', channel: 'Adrenalin' },
+  ];
+  const bugs = [
+    { id: 'IN', status: 'pending', first: '22.1.1', last_seen: '22.1.1', sources: ['22.1.1'] },
+    { id: 'OLD', status: 'pending', first: '20.1.1', last_seen: '20.1.1', sources: ['20.1.1'] },
+  ];
+  const rows = filterBugs(bugs, { status: POSSIBLY_FIXED, contiguousFrom: '22.1.1' }, drivers);
+  assert.deepEqual(rows.map((b) => b.id), ['IN']);
 });

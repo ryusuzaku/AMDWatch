@@ -15,6 +15,11 @@ let NEWEST = '';
 // sample an issue can vanish from the notes because it was fixed in a release we
 // never imported, so the UI must not present that as "AMD dropped it".
 let CONTIGUOUS = false;
+// The oldest release from which coverage is complete. Releases before it are recovered
+// from the Internet Archive and are partial, so issues last seen in that range cannot be
+// judged. `CONTIGUOUS` describes the whole window; this describes where trust starts.
+let CONTIGUOUS_FROM = null;
+let CAN_JUDGE_STALE = false;
 let state = {
   query: '', status: 'all', driver: 'all', channel: 'all',
   sort: 'newest', range: RANGE_RECENT, carried: true,
@@ -40,6 +45,8 @@ async function boot() {
     ORDER = indexed.order;
     NEWEST = indexed.sorted[0]?.version ?? '';
     CONTIGUOUS = DB.meta?.contiguous === true;
+    CONTIGUOUS_FROM = DB.meta?.contiguous_from || null;
+    CAN_JUDGE_STALE = Boolean(CONTIGUOUS_FROM);
 
     readUrl();
     render();
@@ -90,19 +97,28 @@ function renderCoverage() {
   const stats = computeStats(DB.drivers, DB.bugs);
   const from = meta.coverage_from || DB.drivers[DB.drivers.length - 1]?.version || '—';
   const to = meta.coverage_to || NEWEST || '—';
+  // Two tiers: AMD's own site back to 22.1.1, then an incomplete Internet Archive
+  // recovery behind that. Saying which is which is the difference between a number
+  // and a claim.
+  const window = CONTIGUOUS
+    ? 'Every release in this window is tracked.'
+    : CONTIGUOUS_FROM
+      ? `Every release from ${escapeHtml(CONTIGUOUS_FROM)} onward is tracked. Before that the notes `
+        + `were recovered from the Internet Archive and are incomplete, so issues last seen back `
+        + `there are left unjudged.`
+      : 'The releases in this window are sampled, not complete.';
   $('#coverage').innerHTML = `
     <b>Coverage: ${escapeHtml(from)} to ${escapeHtml(to)}</b>
     <span>${stats.drivers} releases, ${stats.bugs} issues. Last checked
     ${escapeHtml((meta.last_checked || meta.generated || 'unknown').slice(0, 10))}.
-    ${CONTIGUOUS
-      ? 'Every release in this window is tracked.'
-      : 'The releases in this window are sampled, not complete.'}</span>`;
+    ${window}</span>`;
 }
 
 function renderStats() {
   const s = computeStats(DB.drivers, DB.bugs);
   const rate = Math.round(fixRate(DB.bugs) * 100);
-  const possibly = CONTIGUOUS ? possiblyFixedCount(DB.bugs, NEWEST, ORDER) : 0;
+  const possibly = CAN_JUDGE_STALE
+    ? possiblyFixedCount(DB.bugs, NEWEST, ORDER, CONTIGUOUS_FROM) : 0;
   // "Still pending" counts everything AMD has not documented as fixed, which
   // overstates how many are live: most of them stopped being listed entirely.
   // Showing the split is the difference between a scary number and a real one.
@@ -169,7 +185,8 @@ function renderChart() {
   const worst = series.reduce((a, b) => (b.open > a.open ? b : a), series[0]);
   const totalFixed = series.reduce((sum, s) => sum + s.fixedHere, 0);
   const pending = computeStats(DB.drivers, DB.bugs).pending;
-  const possibly = CONTIGUOUS ? possiblyFixedCount(DB.bugs, NEWEST, ORDER) : 0;
+  const possibly = CAN_JUDGE_STALE
+    ? possiblyFixedCount(DB.bugs, NEWEST, ORDER, CONTIGUOUS_FROM) : 0;
   const shown = state.range === RANGE_ALL
     ? `every tracked release` : rangeLabel(state.range);
   const scrollHint = series.length > 12 && state.range === RANGE_ALL
@@ -178,10 +195,13 @@ function renderChart() {
     ? `Showing ${shown}. Left bar: issues still open at that release. Right bar: issues documented as fixed in it. `
       + `Peak is ${worst.open} open at ${worst.version}; ${totalFixed} fixes are documented in this window. `
       + (state.carried ? '' : 'Carried-over issues are folded into "new". ')
-      + (CONTIGUOUS
+      + (CAN_JUDGE_STALE
         ? `${possibly} of the ${pending} pending issues have stopped being listed altogether, so they are `
           + `"possibly fixed" rather than open — AMD drops issues from the notes without ever saying so.`
-        : `Coverage is not yet contiguous, so an issue that disappears between two tracked releases may have been `
+          + (CONTIGUOUS ? ''
+            : ` Issues last seen before ${CONTIGUOUS_FROM} are excluded, because the archive is`
+              + ` incomplete back there and their last appearance cannot be trusted.`)
+        : `Coverage is not contiguous, so an issue that disappears between two tracked releases may have been `
           + `fixed in a release this tracker does not have. Treat "open" here as "not yet documented as fixed".`)
       + scrollHint
     : 'No releases to chart.';
@@ -205,17 +225,17 @@ function renderDriverOptions() {
   // which would make the filter a lie.
   const statusSelect = $('#status');
   const existing = statusSelect.querySelector(`option[value="${POSSIBLY_FIXED}"]`);
-  if (CONTIGUOUS && !existing) {
+  if (CAN_JUDGE_STALE && !existing) {
     statusSelect.insertAdjacentHTML('beforeend',
       `<option value="${POSSIBLY_FIXED}">Possibly fixed (no longer listed)</option>`);
-  } else if (!CONTIGUOUS && existing) {
+  } else if (!CAN_JUDGE_STALE && existing) {
     existing.remove();
   }
   statusSelect.value = state.status;
 }
 
 function renderBugs() {
-  const rows = filterBugs(DB.bugs, state, DB.drivers);
+  const rows = filterBugs(DB.bugs, { ...state, contiguousFrom: CONTIGUOUS_FROM }, DB.drivers);
   $('#count').textContent = `${rows.length} of ${DB.bugs.length} issues`;
 
   if (!rows.length) {
@@ -235,7 +255,7 @@ function renderBugs() {
         : label;
     }).join(', ');
 
-    const stale = CONTIGUOUS && isStale(bug, NEWEST, ORDER);
+    const stale = CAN_JUDGE_STALE && isStale(bug, NEWEST, ORDER, CONTIGUOUS_FROM);
     const lastSeen = stale
       ? `<span class="pill stale" title="AMD listed this issue, then stopped. It may have been fixed without a note, or the notes may just have stopped mentioning it — the release notes cannot tell the two apart, so this tracker does not guess.">Possibly fixed · not listed since ${escapeHtml(bug.last_seen)}</span>`
       : `<span>Last seen: ${escapeHtml(bug.last_seen)}</span>`;
@@ -262,15 +282,21 @@ function renderBugs() {
 function renderDrivers() {
   $('#drivers').innerHTML = DB.drivers.map((driver) => {
     const open = buildSeries([driver], DB.bugs)[0]?.open ?? 0;
+    // Archived releases are no longer on amd.com, so the link goes to the snapshot
+    // and the row says so. Without the marker the link would look like any other.
+    const archived = driver.archived === true;
+    const badge = archived
+      ? ' <span class="pill archived" title="AMD no longer publishes this release note. Recovered from the Internet Archive.">archived</span>'
+      : '';
     return `
       <div class="driver">
         <div>
-          <b>${escapeHtml(driver.version)}</b>
+          <b>${escapeHtml(driver.version)}</b>${badge}
           <div class="muted">${escapeHtml(driver.date)} · ${escapeHtml(driver.channel)} · ${open} open</div>
         </div>
         <div class="driver-links">
           <button type="button" class="link-button" data-filter-driver="${escapeHtml(driver.version)}">Filter</button>
-          <a href="${escapeHtml(driver.url)}" target="_blank" rel="noopener">Release notes ↗</a>
+          <a href="${escapeHtml(driver.url)}" target="_blank" rel="noopener">${archived ? 'Archived notes ↗' : 'Release notes ↗'}</a>
         </div>
       </div>`;
   }).join('');
@@ -394,7 +420,7 @@ function readUrl() {
   state.query = params.get('q') || '';
   const status = params.get('status');
   state.status = ['all', 'pending', 'fixed'].includes(status)
-    || (status === POSSIBLY_FIXED && CONTIGUOUS) ? status : 'all';
+    || (status === POSSIBLY_FIXED && CAN_JUDGE_STALE) ? status : 'all';
   state.channel = params.get('channel') || 'all';
   state.sort = params.get('sort') === 'oldest' ? 'oldest' : 'newest';
   const range = params.get('range');

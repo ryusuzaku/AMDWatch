@@ -13,6 +13,7 @@
     "validate": "python scripts/validate_tracker.py",
     "import": "python scripts/import_release_notes.py",
     "discover": "python scripts/discover_releases.py",
+    "discover:archived": "python scripts/discover_archived.py",
     "backfill": "python scripts/backfill.py",
     "watch": "python scripts/watch_releases.py"
   },

@@ -21,6 +21,7 @@ that a human should confirm.
 import argparse
 import collections
 import difflib
+import gzip
 import json
 import os
 import re
@@ -36,6 +37,24 @@ SERIES = ("5000", "6000", "7000", "8000", "9000")
 
 def cache_path(cache_dir, url):
     return os.path.join(cache_dir, CACHE_NAME_RE.sub("_", url) + ".html")
+
+
+def read_html(path):
+    """Read a cached page.
+
+    Archived snapshots are stored gzipped (see discover_archived.py) because the
+    Wayback replay is already compressed on the wire and re-compressing halves the
+    cache. Reading them as text yields 33 pages of binary noise that parse to zero
+    issues, silently — so decompress on the magic bytes, not on the file extension.
+    """
+    with open(path, "rb") as fh:
+        raw = fh.read()
+    if raw[:2] == b"\x1f\x8b":
+        try:
+            raw = gzip.decompress(raw)
+        except OSError:
+            pass
+    return raw.decode("utf-8", "replace")
 
 
 def version_key(version):
@@ -170,9 +189,14 @@ class IssueIndex:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--manifest", default="cache/releases.json")
+    ap.add_argument("--archived", default="cache/archived.json",
+                    help="Wayback-recovered manifest for releases AMD no longer publishes")
     ap.add_argument("--cache", default="cache")
     ap.add_argument("--out", default="data/tracker.json")
     ap.add_argument("--review-out", default="data/review.json")
+    ap.add_argument("--existing", default="data/tracker.json",
+                    help="Existing database, used to carry forward releases whose cached "
+                         "page is unavailable instead of silently dropping them.")
     ap.add_argument("--threshold", type=float, default=0.95,
                     help="similarity at or above which two lines are the same issue")
     ap.add_argument("--review-threshold", type=float, default=0.72)
@@ -180,19 +204,38 @@ def main():
 
     with open(args.manifest, encoding="utf-8") as fh:
         manifest = json.load(fh)
-    releases = sorted(manifest["releases"], key=lambda r: version_key(r["version"]))
+    live = sorted(manifest["releases"], key=lambda r: version_key(r["version"]))
+    # AMD still publishes these and they were probed exhaustively, so coverage from
+    # here on is complete. Anything older is a best-effort Internet Archive recovery.
+    contiguous_from = live[0]["version"] if live else None
+
+    releases = list(live)
+    archived_count = 0
+    if args.archived and os.path.exists(args.archived):
+        with open(args.archived, encoding="utf-8") as fh:
+            archived = json.load(fh)
+        have = {r["version"] for r in releases}
+        extra = [r for r in archived.get("releases", []) if r["version"] not in have]
+        releases.extend(extra)
+        releases.sort(key=lambda r: version_key(r["version"]))
+        archived_count = len(extra)
+        print(f"merged {archived_count} archived release(s) from {args.archived}")
 
     index = IssueIndex(args.threshold, args.review_threshold)
-    parsed, skipped = [], []
+    parsed, skipped, empty = [], [], []
     for release_idx, rel in enumerate(releases):
-        path = cache_path(args.cache, rel["url"])
+        path = rel.get("cache_file") or cache_path(args.cache, rel["url"])
         if not os.path.exists(path):
             skipped.append({"version": rel["version"], "reason": "no cached page"})
             continue
-        with open(path, encoding="utf-8", errors="replace") as fh:
-            html = fh.read()
+        html = read_html(path)
         result = extract(html, rel["version"], rel.get("date", ""), rel["url"])
         parsed.append((rel, result))
+        # A release note that yields nothing is almost always a parsing or encoding
+        # failure, not a release with no issues. Reading gzipped snapshots as text
+        # silently produced 33 empty releases and looked like nothing had happened.
+        if not result["candidates"]:
+            empty.append(rel["version"])
         for cand in result["candidates"]:
             index.add(cand, release_idx, rel["version"])
 
@@ -202,11 +245,10 @@ def main():
     issues = sorted(index.issues, key=lambda x: (x["first_idx"], x["text"]))
 
     bugs = []
-    for n, issue in enumerate(issues, 1):
+    for issue in issues:
         fixed_idx = issue["fixed_idx"]
         sources = sorted(issue["sources_idx"], key=lambda i: version_key(ver(i)))
         bugs.append({
-            "id": f"AMD-{n:04d}",
             "text": issue["text"],
             "first": ver(issue["first_idx"]),
             "last_seen": ver(issue["last_idx"]),
@@ -217,12 +259,37 @@ def main():
             "sources": [ver(i) for i in sources],
         })
 
+    # Releases whose cached page is missing cannot be re-derived. The Wayback cache is
+    # gitignored, so CI has none of the 2019-2021 snapshots. Without this, running the
+    # pipeline there would silently delete every archived release *and* the issues it
+    # contributed -- a database that quietly shrinks is worse than one that fails.
+    # Carry forward what the existing database already says about those releases.
+    carried = []
+    unparsed = {s["version"] for s in skipped}
+    if unparsed:
+        if args.existing and os.path.exists(args.existing):
+            with open(args.existing, encoding="utf-8") as fh:
+                previous = json.load(fh)
+            have = {b["text"] for b in bugs}
+            for bug in previous.get("bugs", []):
+                if bug.get("first") in unparsed and bug.get("text") not in have:
+                    carried.append(bug)
+        if carried:
+            print(f"carried forward {len(carried)} issue(s) from {len(unparsed)} "
+                  f"unparseable release(s) in {args.existing}")
+
+    bugs.extend(carried)
+    bugs.sort(key=lambda b: (version_key(b["first"]), b["text"]))
+    for n, bug in enumerate(bugs, 1):
+        bug["id"] = f"AMD-{n:04d}"
+
     drivers_oldest_first = [{
         "version": rel["version"],
         "date": rel.get("date") or f"{2000 + int(rel['version'].split('.')[0]):04d}-"
                                    f"{int(rel['version'].split('.')[1]):02d}-01",
         "channel": rel.get("channel", "Adrenalin"),
         "url": rel["url"],
+        **({"archived": True} if rel.get("archived") else {}),
     } for rel in releases]
     # The data file stores drivers newest-first. The validator enforces it, and
     # indexDrivers no longer depends on it, so keep the file consistent anyway.
@@ -230,20 +297,37 @@ def main():
     oldest, newest = drivers_oldest_first[0]["version"], drivers_oldest_first[-1]["version"]
 
     month_precision = sum(1 for r in releases if r.get("date_precision") == "month")
+
+    if archived_count:
+        coverage_text = (
+            f"{len(releases)} release notes, {oldest} to {newest}. AMD still publishes "
+            f"every release from {contiguous_from} onward; the {archived_count} release(s) "
+            f"before that were recovered from the Internet Archive and are incomplete.")
+        contiguity_text = (
+            f"Every version between {contiguous_from} and {newest} was either found and "
+            f"included, or confirmed absent (HTTP 404) by scripts/discover_releases.py. "
+            f"Releases before {contiguous_from} come from the Internet Archive, which did "
+            f"not capture every release, so they are best-effort and must not be treated "
+            f"as complete.")
+    else:
+        coverage_text = (f"Every AMD Adrenalin release note still published by AMD, "
+                         f"{oldest} to {newest}.")
+        contiguity_text = ("Every version in the probed window was either found and "
+                           "included, or confirmed absent (HTTP 404) by "
+                           "scripts/discover_releases.py.")
+
     data = {
         "drivers": drivers,
         "bugs": bugs,
         "meta": {
             "generated": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
             "last_checked": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-            "coverage": f"Every AMD Adrenalin release note still published by AMD, "
-                        f"{oldest} to {newest}.",
+            "coverage": coverage_text,
             "coverage_from": oldest,
             "coverage_to": newest,
-            "contiguous": True,
-            "contiguity_basis": "Every version in the probed window was either found "
-                                "and included, or confirmed absent (HTTP 404) by "
-                                "scripts/discover_releases.py.",
+            "contiguous_from": contiguous_from,
+            "contiguous": oldest == contiguous_from,
+            "contiguity_basis": contiguity_text,
             "date_precision": {
                 "exact": len(releases) - month_precision,
                 "month": month_precision,
@@ -286,6 +370,7 @@ def main():
         "reworded": [{"text": i["text"], "variants": sorted(i["variants"])}
                      for i in issues if len(i["variants"]) > 1],
         "skipped": skipped,
+        "parsed_to_nothing": empty,
     }
     os.makedirs(os.path.dirname(args.review_out) or ".", exist_ok=True)
     with open(args.review_out, "w", encoding="utf-8", newline="\n") as fh:
@@ -301,8 +386,11 @@ def main():
     print(f"near misses kept    {s['near_misses_not_merged']}  (not merged, for review)")
     if skipped:
         print(f"skipped             {len(skipped)}")
+    if empty:
+        print(f"parsed to nothing   {len(empty)}: {', '.join(empty[:12])}")
+        print("                    ^ check the cache: a real release note yields issues")
     print(f"wrote {args.out} and {args.review_out}")
-    return 0
+    return 1 if empty else 0
 
 
 if __name__ == "__main__":

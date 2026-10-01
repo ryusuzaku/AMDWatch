@@ -58,6 +58,7 @@
 a.bug-id{text-decoration:none}
 a.bug-id:hover{color:#ff777c}
 .pill.stale{color:#e8c98a;background:#3d3218}
+.pill.archived{color:#9fb6d0;background:#1d2a38;font-size:9px;vertical-align:middle}
 .empty{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .link-button{background:none;border:0;padding:0;color:#ff777c;font:inherit;font-size:11px;cursor:pointer;text-decoration:underline}
 .driver-links{display:flex;gap:12px;align-items:center;flex:0 0 auto}

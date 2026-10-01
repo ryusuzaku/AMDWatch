@@ -31,6 +31,10 @@
           "url": {
             "type": "string",
             "pattern": "^https://"
+          },
+          "archived": {
+            "type": "boolean",
+            "description": "True when this release is no longer published by AMD and was recovered from the Internet Archive. The url then points at the snapshot, not at amd.com."
           }
         }
       }
@@ -111,6 +115,23 @@
         "contiguous": {
           "type": "boolean",
           "description": "True only when every AMD release between coverage_from and coverage_to is tracked. Until then the UI must not claim an issue was dropped from the notes, because it may have been fixed in an untracked release."
+        },
+        "contiguous_from": {
+          "type": ["string", "null"],
+          "description": "Oldest version from which coverage is known to be complete. Releases before it are best-effort Internet Archive recoveries, so an issue last seen in that range cannot be judged as 'no longer listed'. Defaults to coverage_from when the whole window is complete."
+        },
+        "contiguity_basis": {
+          "type": "string",
+          "description": "How contiguity was established, so the claim can be audited rather than trusted."
+        },
+        "date_precision": {
+          "type": "object",
+          "description": "How many release dates are exact versus derived from the version number.",
+          "properties": {
+            "exact": { "type": "integer" },
+            "month": { "type": "integer" },
+            "note": { "type": "string" }
+          }
         },
         "last_checked": {
           "type": "string",

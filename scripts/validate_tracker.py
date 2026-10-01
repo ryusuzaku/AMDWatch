@@ -166,7 +166,7 @@ def check_bugs(bugs, versions, rep):
             seen_keys[key] = i
 
 
-def check_meta(meta, rep):
+def check_meta(meta, rep, known=None):
     if not isinstance(meta, dict):
         rep.error("meta", "must be an object")
         return
@@ -177,6 +177,17 @@ def check_meta(meta, rep):
         rep.error("meta", f"generated {meta['generated']!r} is not YYYY-MM-DD")
     if meta.get("generated") and parse_date(meta["generated"]) is None:
         rep.error("meta", f"generated {meta['generated']!r} is not a real date")
+
+    contiguous_from = meta.get("contiguous_from")
+    if contiguous_from:
+        if known is not None and contiguous_from not in known:
+            rep.error("meta", f"contiguous_from={contiguous_from!r} is not a tracked driver version")
+        # The claim and the window have to agree: a window starting before the verified
+        # point is not contiguous, whatever the flag says.
+        if meta.get("contiguous") is True and meta.get("coverage_from") != contiguous_from:
+            rep.error("meta",
+                      f"contiguous is true but coverage_from={meta.get('coverage_from')!r} "
+                      f"starts before contiguous_from={contiguous_from!r}")
 
 
 def validate(path):
@@ -202,7 +213,7 @@ def validate(path):
     versions, dated = check_drivers(data["drivers"], rep)
     ordered = [v for _, v in dated]
     check_bugs(data["bugs"], ordered, rep)
-    check_meta(data["meta"], rep)
+    check_meta(data["meta"], rep, known=set(ordered))
 
     # A release that no issue references at all is a parse failure, not a quiet
     # release: even a hotfix carries issues forward. Checking `sources` rather than
