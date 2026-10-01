@@ -231,15 +231,20 @@ npx playwright install chromium
 
 ## Deploying
 
-`.github/workflows/pages.yml` publishes to GitHub Pages on every push to `main`.
-It stages only `index.html`, `app.js`, `style.css`, `lib/` and `data/` into the
-published artifact, so the scripts, schema, tests and workflows stay in the
-repository and off the site. It refuses to publish if validation or the importer
-tests fail.
+Live at **https://ryusuzaku.github.io/AMDWatch/**.
 
-To enable it: Settings → Pages → Source → **GitHub Actions**. The site then lives
-at `https://<user>.github.io/<repo>/`. All asset paths are relative, so the
-project subpath works without configuration.
+`.github/workflows/pages.yml` publishes to GitHub Pages on every push to `main`. It
+stages only the five files the browser actually fetches — `index.html`, `app.js`,
+`style.css`, `lib/` and `data/tracker.json` — so the scripts, schema, tests, workflows
+and the `data/review.json` review artifact stay in the repository and off the site. It
+refuses to publish if validation or the importer tests fail.
+
+Pages is configured with Source = **GitHub Actions**. All asset paths are relative, so
+the `/AMDWatch/` project subpath works without configuration — which is verified, not
+assumed: the rendered-page probe runs against a simulated subpath deploy.
+
+`.github/workflows/watch.yml` runs daily and opens a pull request when AMD ships a
+release the tracker has not logged, rather than pushing to `main`.
 
 ## Known limitations
 

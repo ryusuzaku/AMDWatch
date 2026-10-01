@@ -4,7 +4,11 @@
   "private": true,
   "description": "A community tracker for known issues in AMD Radeon driver release notes.",
   "type": "module",
-  "homepage": "https://github.com/amdwatch/amdwatch",
+  "homepage": "https://ryusuzaku.github.io/AMDWatch/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryusuzaku/AMDWatch.git"
+  },
   "license": "MIT",
   "scripts": {
     "test": "node --test",

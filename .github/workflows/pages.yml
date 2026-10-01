@@ -29,14 +29,18 @@ jobs:
           python scripts/validate_tracker.py
           python -m unittest discover -s tests -t .
 
-      # Publish only what the browser needs. scripts/, schema/, tests/ and the
-      # workflow files stay in the repository and off the public site.
+      # Publish only what the browser actually fetches. scripts/, schema/, tests/ and
+      # the workflow files stay in the repository. data/review.json is a review artifact
+      # and stays out too -- it is 130 KB that no page requests.
       - name: Stage the static site
         run: |
-          mkdir -p _site
+          mkdir -p _site/data
           cp index.html app.js style.css _site/
-          cp -r lib data _site/
+          cp -r lib _site/
+          cp data/tracker.json _site/data/
           touch _site/.nojekyll
+          echo "published:"
+          find _site -type f | sort
 
       - uses: actions/configure-pages@v5
 
