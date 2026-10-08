@@ -22,7 +22,7 @@ let CONTIGUOUS_FROM = null;
 let CAN_JUDGE_STALE = false;
 let state = {
   query: '', status: 'all', driver: 'all', channel: 'all',
-  sort: 'newest', range: RANGE_RECENT, carried: true,
+  sort: 'newest', range: RANGE_RECENT,
 };
 
 // ---------------------------------------------------------------- entry point
@@ -143,47 +143,62 @@ function renderChart() {
   // A full archive is ~80 releases. Showing every one at once is unreadable, so the
   // chart shows a window by default and `All time` is an explicit choice.
   const series = selectSeries(all, state.range).reverse(); // oldest on the left
-  const peak = Math.max(1, ...series.map((s) => Math.max(s.open, s.fixedHere)));
+
+  // Two scales, because the two quantities differ by an order of magnitude and forcing
+  // them onto one axis is what made the old chart unreadable. In the default window the
+  // unfixed backlog only moves between 105 and 119 while new/fixed per release are 0-11,
+  // so a shared 0-119 axis drew every release as the same near-full-height column with a
+  // hairline cap on top: a wall of identical pylons that encoded almost nothing.
+  //
+  //   backlog -> a line, scaled 0..max(open), so its height never overstates the level
+  //   churn   -> diverging bars around a zero line, scaled to max(new, fixed)
+  const churnPeak = Math.max(1, ...series.map((s) => Math.max(s.introduced, s.fixedHere)));
+  const maxOpen = Math.max(1, ...series.map((s) => s.open));
   // Thin the labels out once releases get numerous, so they never collide. The
   // tooltip always carries the exact version.
   const labelStep = Math.max(1, Math.ceil(series.length / 12));
 
   const chart = $('#chart');
-  chart.style.minWidth = series.length > 12 ? `${series.length * 26}px` : '';
+  // One bar per release now instead of two, so the columns can be narrower.
+  chart.style.minWidth = series.length > 12 ? `${series.length * 22}px` : '';
 
-  chart.innerHTML = series.map((s, i) => {
-    const openPct = (s.open / peak) * 100;
-    // Carried-over issues are issues that existed in an earlier release and had not
-    // been fixed by this one. The toggle folds them into "new" rather than dropping
-    // them, so the bar still shows how many were open.
-    const carried = state.carried ? s.carried : 0;
-    const carriedPct = s.open ? (carried / s.open) * openPct : 0;
-    const introducedPct = openPct - carriedPct;
-    const fixedPct = (s.fixedHere / peak) * 100;
+  // A point sits at i + 0.5 in a 0..n viewBox, which is the centre of flex column i, so
+  // the line stays over its release however wide the plot is scrolled to. The 4/92 inset
+  // keeps a full-height line off the strip's edges, where the stroke would be clipped.
+  const points = series.map((s, i) => [i + 0.5, 96 - (s.open / maxOpen) * 92]);
+  const line = points.map(([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`).join(' ');
+  const area = `M${points[0][0]},100 L${line.replace(/ /g, ' L')} L${points.at(-1)[0]},100 Z`;
+  const newestInWindow = series.at(-1);
 
+  $('#trend').innerHTML = `
+    <span class="trend-name">Unfixed backlog</span>
+    <span class="trend-end">${newestInWindow.open} at ${escapeHtml(newestInWindow.version)}</span>
+    <svg viewBox="0 0 ${series.length} 100" preserveAspectRatio="none" aria-hidden="true">
+      <path class="trend-area" d="${area}"/>
+      <polyline class="trend-line" points="${line}" vector-effect="non-scaling-stroke"/>
+    </svg>`;
+
+  $('#chart-bars').innerHTML = series.map((s, i) => {
+    const upPct = (s.introduced / churnPeak) * 100;
+    const downPct = (s.fixedHere / churnPeak) * 100;
     const title = `${s.version} (${s.date}, ${s.channel})\n`
-      + `${s.open} unfixed — ${s.open - carried} new this release, ${carried} carried over\n`
-      + `${s.fixedHere} documented as fixed in this release\n`
+      + `${s.introduced} new this release, ${s.fixedHere} documented as fixed\n`
+      + `${s.open} unfixed at this release — ${s.carried} of them carried over from earlier releases\n`
       + `Click to filter the list to this release`;
 
     return `
       <div class="bar-wrap" data-driver="${escapeHtml(s.version)}" role="button" tabindex="0"
            aria-label="${escapeHtml(title)}" title="${escapeHtml(title)}">
-        <div class="bar-group">
-          <div class="bar open" data-zero="${s.open === 0}">
-            <div class="seg introduced" style="height:${introducedPct}%"></div>
-            <div class="seg carried" style="height:${carriedPct}%"></div>
-          </div>
-          <div class="bar fixed" data-zero="${s.fixedHere === 0}">
-            <div class="seg closed" style="height:${fixedPct}%"></div>
-          </div>
+        <div class="col">
+          <div class="up"><span class="seg introduced" data-zero="${s.introduced === 0}" style="height:${upPct}%"></span></div>
+          <div class="down"><span class="seg closed" data-zero="${s.fixedHere === 0}" style="height:${downPct}%"></span></div>
         </div>
         <span class="bar-label">${i % labelStep === 0 ? escapeHtml(s.version) : ''}</span>
       </div>`;
   }).join('');
 
-  const worst = series.reduce((a, b) => (b.open > a.open ? b : a), series[0]);
   const totalFixed = series.reduce((sum, s) => sum + s.fixedHere, 0);
+  const totalNew = series.reduce((sum, s) => sum + s.introduced, 0);
   const pending = computeStats(DB.drivers, DB.bugs).pending;
   const possibly = CAN_JUDGE_STALE
     ? possiblyFixedCount(DB.bugs, NEWEST, ORDER, CONTIGUOUS_FROM) : 0;
@@ -192,9 +207,10 @@ function renderChart() {
   const scrollHint = series.length > 12 && state.range === RANGE_ALL
     ? ` The plot scrolls sideways to fit ${series.length} releases.` : '';
   $('#chart-note').textContent = series.length
-    ? `Showing ${shown}. Left bar: issues still unfixed at that release. Right bar: issues documented as fixed in it. `
-      + `Peak is ${worst.open} unfixed at ${worst.version}; ${totalFixed} fixes are documented in this window. `
-      + (state.carried ? '' : 'Carried-over issues are folded into "new". ')
+    ? `Showing ${shown}. Above the line: issues first listed in that release. Below it: issues that release `
+      + `documented as fixed. The line is the unfixed backlog, on its own scale. `
+      + `Over this window ${totalNew} issues were added and ${totalFixed} documented as fixed, taking the `
+      + `backlog from ${series[0].open} to ${newestInWindow.open}. `
       + (CAN_JUDGE_STALE
         ? `${possibly} of the ${pending} pending issues have stopped being listed altogether, so they are `
           + `"possibly fixed" rather than open — AMD drops issues from the notes without ever saying so.`
@@ -336,12 +352,6 @@ function bindEvents() {
     });
   }
 
-  $('#carried-toggle').addEventListener('change', (event) => {
-    state.carried = event.target.checked;
-    renderChart();
-    writeUrl();
-  });
-
   // The chart doubles as a filter: clicking a release narrows the list to it, which
   // is the fastest way to answer "what was actually open in 26.8.1".
   const chart = $('#chart');
@@ -391,7 +401,6 @@ function syncChartControls() {
     chip.classList.toggle('active', on);
     chip.setAttribute('aria-pressed', String(on));
   }
-  $('#carried-toggle').checked = state.carried;
 }
 
 function clearFilters() {
@@ -425,7 +434,6 @@ function readUrl() {
   state.sort = params.get('sort') === 'oldest' ? 'oldest' : 'newest';
   const range = params.get('range');
   state.range = [RANGE_RECENT, RANGE_WORST, RANGE_ALL].includes(range) ? range : RANGE_RECENT;
-  state.carried = params.get('carried') !== '0';
   const driver = params.get('driver');
   state.driver = DB.drivers.some((d) => d.version === driver) ? driver : 'all';
 
@@ -443,7 +451,6 @@ function writeUrl() {
   if (state.channel !== 'all') params.set('channel', state.channel);
   if (state.sort !== 'newest') params.set('sort', state.sort);
   if (state.range !== RANGE_RECENT) params.set('range', state.range);
-  if (!state.carried) params.set('carried', '0');
   const query = params.toString();
   window.history.replaceState(null, '', query ? `?${query}${window.location.hash}` : window.location.pathname + window.location.hash);
 }

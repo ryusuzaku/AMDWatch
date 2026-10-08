@@ -90,9 +90,20 @@ const bars = await page.locator('#chart .bar-wrap').count();
 check('chart opens on a readable window, not the whole archive', bars === windowed,
   `got ${bars}, expected ${windowed}`);
 
-const zeroBars = await page.locator('#chart .bar[data-zero="true"]').count();
+// The whole point of the redesign: the backlog level and the per-release churn sit on
+// separate scales. If the backlog ever goes back to sharing the churn axis, the default
+// window renders 20 near-identical columns again -- which is the bug this replaced.
+check('the backlog is drawn as a line, not a bar',
+  (await page.locator('#trend .trend-line').count()) === 1);
+const ups = await page.locator('#chart .bar-wrap .up .seg').count();
+const downs = await page.locator('#chart .bar-wrap .down .seg').count();
+check('every release has a bar above and below the zero line',
+  ups === windowed && downs === windowed,
+  `${ups} up / ${downs} down for ${windowed} releases`);
+
+const zeroBars = await page.locator('#chart .seg[data-zero="true"]').count();
 const chartNote = (await page.locator('#chart-note').textContent()) ?? '';
-check('chart explains its own semantics', chartNote.includes('still unfixed'));
+check('chart explains its own semantics', chartNote.includes('unfixed backlog'));
 notes.push(`  info  ${zeroBars} zero-valued bar(s) drawn as a baseline tick`);
 
 const cards = await page.locator('#bugs .bug').count();
@@ -150,6 +161,10 @@ await page.waitForTimeout(150);
 check('All time reaches every tracked release',
   (await page.locator('#chart .bar-wrap').count()) === expected.drivers.length,
   `got ${await page.locator('#chart .bar-wrap').count()}`);
+check('the backlog line follows the range',
+  ((await page.locator('#trend .trend-line').getAttribute('points')) ?? '')
+    .trim().split(/\s+/).length === expected.drivers.length,
+  'one backlog point per release shown');
 check('the range choice is written to the url', page.url().includes('range=all'), page.url());
 
 await page.click('#chart-range .chip[data-range="worst"]');
@@ -160,24 +175,6 @@ check('Most affected shows the same number of bars, not more',
 
 await page.click('#chart-range .chip[data-range="recent"]');
 await page.waitForTimeout(150);
-
-const noteWithCarried = (await page.locator('#chart-note').textContent()) ?? '';
-check('carried-over issues are included by default',
-  !noteWithCarried.includes('Carried-over issues are folded'));
-
-await page.uncheck('#carried-toggle');
-await page.waitForTimeout(150);
-const noteWithoutCarried = (await page.locator('#chart-note').textContent()) ?? '';
-check('switching off carried-over is stated in the note',
-  noteWithoutCarried.includes('Carried-over issues are folded'), noteWithoutCarried.slice(0, 150));
-check('the carried-over toggle is written to the url',
-  page.url().includes('carried=0'), page.url());
-
-await page.check('#carried-toggle');
-await page.waitForTimeout(150);
-check('re-enabling carried-over clears the note',
-  !((await page.locator('#chart-note').textContent()) ?? '')
-    .includes('Carried-over issues are folded'));
 
 // Clicking a release bar filters the list to that release.
 const newestBar = page.locator('#chart .bar-wrap[data-driver]').last();

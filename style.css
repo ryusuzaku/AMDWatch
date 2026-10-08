@@ -20,32 +20,64 @@
 @media(prefers-reduced-motion:reduce){.spinner{animation:none}}
 
 /* chart -------------------------------------------------------------------- */
-/* Reserve room below the plot so the release labels sit inside the panel
-   instead of being clipped, and read them horizontally at a legible size. */
-/* A full archive is ~80 releases. Each bar group needs a minimum width to stay
-   readable, which is far more than a phone viewport, so the plot scrolls
-   horizontally instead of squeezing the bars into nothing. app.js sets the
-   min-width from the release count. */
+/* Reserve room below the plot so the release labels sit inside the panel instead of
+   being clipped, and read them horizontally at a legible size. The archive is ~80
+   releases and each column needs a minimum width to stay readable, which is far more
+   than a phone viewport, so the plot scrolls horizontally rather than squeezing the
+   bars into nothing. app.js sets the min-width from the release count. */
 .chart-scroll{overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain}
-.chart{height:212px;padding-bottom:28px}
+/* The base stylesheet sets align-items:flex-end and a bottom border on .chart for the old
+   single-row bar chart. Both have to be reset here. The leftover align-items stopped the
+   children stretching, so each sized to its own content -- the SVG fell back to its
+   intrinsic aspect ratio (300x1500) and collapsed the plot to zero height. The border
+   drew a second axis line at the foot of the panel. */
+.chart{height:268px;padding:0 0 28px;display:flex;flex-direction:column;align-items:stretch;gap:8px;border-bottom:0}
+
+/* The backlog is a level, so it is drawn as a line on its own 0-based scale instead of
+   as a bar sharing the churn axis. See the comment in app.js: on a single axis the level
+   (105-119) swallows the churn (0-11) and every release renders identically. */
+/* The strip carries a caption row so the value labels sit above the plot instead of on
+   top of it. It is deliberately short: the scale is 0-based, so in a 20-release window
+   the line is near-flat and a tall strip would be mostly empty. It earns its height in
+   `All time`, where the backlog climbs from 3 to 119. */
+.trend{position:relative;flex:0 0 46px;height:46px;min-height:0;padding-top:12px;overflow:hidden}
+.trend svg{display:block;width:100%;height:34px}
+.trend-name,.trend-end{position:absolute;top:0;font-size:10px;letter-spacing:.4px;color:#7f828b}
+.trend-name{left:0;text-transform:uppercase;font-weight:700}
+.trend-end{right:0;color:#a2a5ad}
+.trend-line{fill:none;stroke:#8b93a3;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.trend-area{fill:#8b93a3;opacity:.08;stroke:none}
+
+/* Diverging bars: issues first listed grow up from the zero line, issues documented as
+   fixed grow down from it. One column per release. Heights come from flex rather than
+   percentages, so nothing depends on a percentage resolving against a flexed parent. */
+.plot{position:relative;flex:1 1 auto;display:flex;align-items:stretch;min-height:0}
+/* The zero line is decoration. Without pointer-events:none it sits exactly on the centre
+   of every column -- which is where a click lands -- and swallows the click. */
+.plot::after{content:'';position:absolute;left:0;right:0;top:50%;height:1px;background:#3a3d43;pointer-events:none}
+.bar-wrap{flex:1;min-width:12px;position:relative;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start}
+.col{flex:1 1 auto;min-height:0;display:grid;grid-template-rows:1fr 1fr}
+.up,.down{display:flex;justify-content:center;min-height:0}
+.up{align-items:flex-end}
+.down{align-items:flex-start}
+.col .seg{width:min(18px,58%);flex:0 0 auto}
+.up .seg{border-radius:3px 3px 0 0}
+.down .seg{border-radius:0 0 3px 3px}
+.seg.introduced{background:var(--red)}
+.seg.closed{background:var(--green)}
+/* A real zero, drawn as a baseline tick rather than a phantom bar. */
+.seg[data-zero="true"]{height:2px!important;background:#3f4248;border-radius:2px}
+
 .bar-label{position:absolute;bottom:-26px;left:50%;transform:translateX(-50%);transform-origin:center;font-size:11px;color:#a2a5ad;white-space:nowrap}
 .axis{padding-top:6px}
 @media(max-width:700px){.bar-label{font-size:10px}}
-.bar-group{display:flex;align-items:flex-end;justify-content:center;gap:3px;height:100%;width:100%}
-.bar-group .bar{height:100%;width:min(16px,42%);background:transparent;display:flex;flex-direction:column;justify-content:flex-end;border-radius:3px 3px 0 0;overflow:hidden}
-.bar-group .bar.fixed{background:transparent}
-.bar .seg{width:100%;flex:0 0 auto}
-.seg.introduced{background:var(--red)}
-.seg.carried{background:#8a6a33}
-.seg.closed{background:var(--green)}
-/* A real zero, drawn as a baseline tick rather than a phantom bar. */
-.bar[data-zero="true"]{height:2px!important;background:#3f4248;border-radius:2px}
-.legend i.introduced{background:var(--red)}
-.legend i.carried{background:#8a6a33}
-.legend i.fixed{background:var(--green)}
+
 .legend{flex-wrap:wrap;row-gap:4px;justify-content:flex-end}
 .legend i{margin-left:10px}
 .legend i:first-child{margin-left:0}
+.legend i.introduced{background:var(--red)}
+.legend i.fixed{background:var(--green)}
+.legend i.backlog{background:#8b93a3;width:14px;height:3px;border-radius:2px}
 .chart-note{color:#858891;font-size:11px;line-height:1.65;margin:12px 0 0;max-width:88ch}
 
 /* filters ------------------------------------------------------------------ */
@@ -82,5 +114,5 @@ a.bug-id:hover{color:#ff777c}
 
 /* the chart is a control, not decoration: make that visible */
 .bar-wrap[data-driver]{cursor:pointer}
-.bar-wrap[data-driver]:hover .bar-group{filter:brightness(1.5)}
+.bar-wrap[data-driver]:hover .col{filter:brightness(1.5)}
 .bar-wrap[data-driver]:focus-visible{outline:2px solid var(--red);outline-offset:-2px;border-radius:4px}

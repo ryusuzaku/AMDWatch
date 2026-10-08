@@ -27,13 +27,15 @@ directly, the page now says so instead of rendering blank.
 - Search across issue text, game, GPU, driver version and tracker ID
 - Filters for status, driver, channel, and sort order — all reflected in the URL,
   so any view is shareable
-- Per-release chart of issues *still unfixed* at each release, split into new this
-  release and carried over, alongside the issues documented as fixed in it
+- A per-release chart on **two scales**, because one could not carry both quantities. Bars
+  diverge from a zero line — issues first listed above it, issues documented as fixed below
+  — and the unfixed backlog is a line above them, on its own axis. On a single axis the
+  backlog (105–119 in the default window) swallows the churn (0–11) and every release
+  renders as an identical full-height column, which is what it used to do
 - The chart shows a **window** of releases, not the whole archive — `Latest 20`
-  by default, plus `Most affected` and `All time`. 80 bars at once is unreadable,
+  by default, plus `Most affected` and `All time`. 80 columns at once is unreadable,
   and the window is what makes the trend legible. The choice is in the URL.
-- **Click any bar to filter the issue list to that release**, and a toggle to fold
-  carried-over issues into "new"
+- **Click any bar to filter the issue list to that release**
 - A **"Possibly fixed (no longer listed)"** status filter, and a tile counting them, so
   the issues that need a human to confirm are one click away
 - A fix-rate tile alongside the totals
