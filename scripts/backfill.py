@@ -189,8 +189,12 @@ class IssueIndex:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--manifest", default="cache/releases.json")
-    ap.add_argument("--archived", default="cache/archived.json",
-                    help="Wayback-recovered manifest for releases AMD no longer publishes")
+    ap.add_argument("--archived", default=None,
+                    help="Wayback-recovered manifest for releases AMD no longer publishes. "
+                         "Opt-in, and deliberately not the default: the shipped archive covers "
+                         "only what AMD still publishes, because the recovered range is gappy "
+                         "and cannot be judged. Passing this widens coverage back to 19.7.1. "
+                         "See 'Recovering releases AMD deleted' in the README.")
     ap.add_argument("--cache", default="cache")
     ap.add_argument("--out", default="data/tracker.json")
     ap.add_argument("--review-out", default="data/review.json")
@@ -259,11 +263,11 @@ def main():
             "sources": [ver(i) for i in sources],
         })
 
-    # Releases whose cached page is missing cannot be re-derived. The Wayback cache is
-    # gitignored, so CI has none of the 2019-2021 snapshots. Without this, running the
-    # pipeline there would silently delete every archived release *and* the issues it
-    # contributed -- a database that quietly shrinks is worse than one that fails.
-    # Carry forward what the existing database already says about those releases.
+    # A release in the manifest whose cached page is missing cannot be re-derived, so
+    # without this the run would delete that release *and* every issue it contributed.
+    # That happens on a partial discovery run, and in CI whenever the cache is cold.
+    # A database that quietly shrinks is worse than one that fails, so carry forward
+    # what the existing database already says about those releases.
     carried = []
     unparsed = {s["version"] for s in skipped}
     if unparsed:

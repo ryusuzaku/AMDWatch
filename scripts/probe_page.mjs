@@ -92,7 +92,7 @@ check('chart opens on a readable window, not the whole archive', bars === window
 
 const zeroBars = await page.locator('#chart .bar[data-zero="true"]').count();
 const chartNote = (await page.locator('#chart-note').textContent()) ?? '';
-check('chart explains its own semantics', chartNote.includes('still open'));
+check('chart explains its own semantics', chartNote.includes('still unfixed'));
 notes.push(`  info  ${zeroBars} zero-valued bar(s) drawn as a baseline tick`);
 
 const cards = await page.locator('#bugs .bug').count();
@@ -104,12 +104,14 @@ check('cards show first seen', metaText.includes('First seen'));
 check('cards show last seen or a possibly-fixed badge',
   metaText.includes('Last seen') || metaText.includes('Possibly fixed'));
 
-// Coverage has two tiers now: AMD's own site back to contiguous_from, then an
-// incomplete Internet Archive recovery behind it. The "possibly fixed" signal is only
-// valid inside the verified tier, so the page must not judge the gappy range.
+// Coverage is single-tier by default: every release from contiguous_from onward comes
+// from AMD's own site and was probed exhaustively. The Internet Archive recovery behind
+// it is opt-in (see the README). Both shapes are asserted, so neither can drift — a
+// gappy window must hedge, and a complete one must not.
 const contiguousFrom = expected.meta?.contiguous_from ?? null;
 const wholeWindowContiguous = expected.meta?.contiguous === true;
 const judgeable = Boolean(contiguousFrom);
+const coverageText = (await page.locator('#coverage').textContent()) ?? '';
 const staleBadges = await page.locator('.pill.stale').count();
 
 if (judgeable) {
@@ -121,10 +123,18 @@ if (judgeable) {
     `${staleBadges} badge(s) shown while contiguous_from is unset`);
 }
 
-if (judgeable && !wholeWindowContiguous) {
+if (wholeWindowContiguous) {
+  // Nothing is sampled, so the notice must not hedge — and the headline's claim that
+  // every published release is tracked has to be the data's claim too, not decoration.
+  check('a complete window does not hedge about incomplete coverage',
+    !/incomplete|partial|sampled/i.test(coverageText), coverageText.slice(0, 220));
+  check('a complete window claims full coverage',
+    /every release/i.test(coverageText), coverageText.slice(0, 220));
+  check('the chart does not warn about a gap that does not exist',
+    !/not yet contiguous/i.test(chartNote), chartNote.slice(0, 240));
+} else {
   check('the chart says issues before the verified window are excluded',
     chartNote.includes(contiguousFrom), chartNote.slice(0, 240));
-  const coverageText = (await page.locator('#coverage').textContent()) ?? '';
   check('the coverage notice names where completeness starts',
     coverageText.includes(contiguousFrom), coverageText.slice(0, 220));
   check('the coverage notice admits the earlier range is incomplete',

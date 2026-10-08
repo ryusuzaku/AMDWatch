@@ -162,7 +162,7 @@ function renderChart() {
     const fixedPct = (s.fixedHere / peak) * 100;
 
     const title = `${s.version} (${s.date}, ${s.channel})\n`
-      + `${s.open} open — ${s.open - carried} new this release, ${carried} carried over\n`
+      + `${s.open} unfixed — ${s.open - carried} new this release, ${carried} carried over\n`
       + `${s.fixedHere} documented as fixed in this release\n`
       + `Click to filter the list to this release`;
 
@@ -192,8 +192,8 @@ function renderChart() {
   const scrollHint = series.length > 12 && state.range === RANGE_ALL
     ? ` The plot scrolls sideways to fit ${series.length} releases.` : '';
   $('#chart-note').textContent = series.length
-    ? `Showing ${shown}. Left bar: issues still open at that release. Right bar: issues documented as fixed in it. `
-      + `Peak is ${worst.open} open at ${worst.version}; ${totalFixed} fixes are documented in this window. `
+    ? `Showing ${shown}. Left bar: issues still unfixed at that release. Right bar: issues documented as fixed in it. `
+      + `Peak is ${worst.open} unfixed at ${worst.version}; ${totalFixed} fixes are documented in this window. `
       + (state.carried ? '' : 'Carried-over issues are folded into "new". ')
       + (CAN_JUDGE_STALE
         ? `${possibly} of the ${pending} pending issues have stopped being listed altogether, so they are `

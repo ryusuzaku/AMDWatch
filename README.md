@@ -4,8 +4,10 @@ A static, client-side tracker for known issues in AMD Radeon driver release note
 Follow every issue from first appearance to a documented fix.
 
 No backend, no build step, no runtime dependencies. Three static files, one JSON
-database, and a set of Python scripts that turn AMD's release-note pages — including
-the ones AMD has deleted — into a reviewable issue history.
+database, and a set of Python scripts that turn AMD's release-note pages into a
+reviewable issue history. The scripts can also recover release notes AMD has deleted,
+from the Internet Archive — that range is deliberately **not** in the shipped archive,
+and the README says why.
 
 ## Run locally
 
@@ -25,7 +27,7 @@ directly, the page now says so instead of rendering blank.
 - Search across issue text, game, GPU, driver version and tracker ID
 - Filters for status, driver, channel, and sort order — all reflected in the URL,
   so any view is shareable
-- Per-release chart of issues *still open* at each release, split into new this
+- Per-release chart of issues *still unfixed* at each release, split into new this
   release and carried over, alongside the issues documented as fixed in it
 - The chart shows a **window** of releases, not the whole archive — `Latest 20`
   by default, plus `Most affected` and `All time`. 80 bars at once is unreadable,
@@ -48,45 +50,30 @@ directly, the page now says so instead of rendering blank.
   plus match hints against the existing database
 - `scripts/validate_tracker.py` — enforces the database invariants
 - `scripts/watch_releases.py` — probes for releases we have not logged yet
+- `scripts/discover_archived.py` — recovers release notes AMD has deleted, from the
+  Internet Archive. Opt-in, and **not** part of the shipped archive; see "Recovering
+  releases AMD deleted"
 - `schema/tracker.schema.json` — the record shape, for editors
 - `scripts/probe_page.mjs` — drives the real page in headless Chromium and asserts
   what a reader would actually see
 
 ## Data status
 
-787 issues across 113 releases, `19.7.1` → `26.9.2`. Coverage comes from two sources
-and they are **not equally trustworthy**:
+**456 issues across 80 releases, `22.1.1` → `26.9.2`.** That is every AMD Adrenalin
+release note AMD still publishes, and `meta.contiguous` is `true`: every version in the
+probed window was either found and included, or confirmed absent with an HTTP 404.
 
-| Window | Source | Completeness |
-|---|---|---|
-| `22.1.1` → `26.9.2` | amd.com | Complete. Every release either found or confirmed absent (HTTP 404). |
-| `19.7.1` → `21.12.1` | Internet Archive | **Partial.** 33 of the 63 archived releases survived; the rest were never captured. |
+The archive starts at `22.1.1` because that is where AMD's published notes start. AMD
+deleted everything older, and **that older range is deliberately not included** even
+though the tooling can recover most of it — see "Recovering releases AMD deleted" below.
 
-`meta.contiguous_from` is `22.1.1` and `meta.contiguous` is `false`. The UI uses
-`contiguous_from` — not the `contiguous` flag — to decide where it is allowed to judge an
-issue, so the verified window keeps working even though the window as a whole is now gappy.
+Five things to know before trusting a number on the page:
 
-**RDNA 1 is covered, from the Internet Archive.** AMD deleted every release note before
-2022 — `19.7.1`, `20.12.1` and `21.12.1` all return 404 on amd.com today, and the legacy
-`/support/kb/` path just redirects to a landing page. The archive still has them under the
-old `rn-rad-win-*` path, so those 33 releases were recovered from there. That covers
-RDNA 1's launch (July 2019) and RDNA 2's launch window (November 2020).
-
-Three things to know before trusting a number on the page:
-
-- **Anything last seen before `22.1.1` is deliberately not judged.** The Archive did not
-  capture every 2019-2021 release, so an issue could have been relisted and fixed in a
-  release this tracker never had. Those issues are left alone rather than counted as
-  "possibly fixed". This is the single most important consequence of the partial recovery.
-- **Dates before `25.9.2` are month-precision.** Those pages carry no release date at all,
-  and their JSON-LD `datePublished` is the *page migration* date, not the driver date —
-  `24.8.1` reports `2024-11-08` for a driver that shipped in August. Those dates are
-  derived from the version number, so the day is always `01`. See `meta.date_precision`.
-- **787 is an upper bound on distinct issues.** Two lines are merged automatically only
+- **456 is an upper bound on distinct issues.** Two lines are merged automatically only
   above a similarity of 0.95, which catches AMD's copy-paste and its typo fixes but
   deliberately leaves anything less certain as a separate record. `data/review.json`
-  lists every automatic merge, every reworded variant, and every near-miss that was *not*
-  merged. A duplicate is recoverable; a wrong merge invents a fix.
+  lists all 34 automatic merges, the 39 reworded variants, and the 172 near-misses that
+  were *not* merged. A duplicate is recoverable; a wrong merge invents a fix.
 - **An issue is `fixed` only where a release lists it under Fixed Issues.** AMD also
   silently drops issues from the notes without ever saying they were fixed. Those are
   labelled **"possibly fixed · not listed since X"**, and there is a filter for them.
@@ -96,6 +83,16 @@ Three things to know before trusting a number on the page:
 - **That is most of the archive.** 115 of the 119 pending issues are no longer listed by
   AMD at all. Read "still pending" as "no documented fix", not as "known to be broken" —
   AMD's newest release note lists only four known issues.
+- **Dates before `25.9.2` are month-precision** — 63 of the 80 releases. Those pages carry
+  no release date at all, and their JSON-LD `datePublished` is the *page migration* date,
+  not the driver date: `24.8.1` reports `2024-11-08` for a driver that shipped in August.
+  Those dates are derived from the version number, so the day is always `01`. See
+  `meta.date_precision`.
+- **The chart counts unfixed issues, not listed ones.** "Issues still unfixed at each
+  release" is cumulative: an issue counts from the release that introduced it until one
+  documents a fix. So the peak of 119 at `26.9.2` is not AMD's known-issue list, which
+  lists four. The bar measures "never documented as fixed" — a different and much larger
+  number — and the note under the chart says so.
 
 ## Importing more releases
 
@@ -158,33 +155,53 @@ It is also the only step that decides issue identity; read its output in
 ## Recovering releases AMD deleted
 
 AMD removed every release note before 2022, which took RDNA 1 and RDNA 2's launch with
-it. The Internet Archive still has them under the old path:
+it. The Internet Archive still has them under the old path, and the tooling recovers them:
 
 ```bash
 python scripts/discover_archived.py --floor 19.7 --below 22.1 \
   --out cache/archived.json
-```
 
-Then pass it to the backfill:
-
-```bash
 python scripts/backfill.py --manifest cache/releases.json \
   --archived cache/archived.json --out data/tracker.json
 ```
 
-Four things about this, all learned the hard way:
+**This is opt-in, and the shipped archive does not use it.** 55 of the 63 archived releases
+were recovered, `19.7.1` → `21.12.1` — RDNA 1's launch and RDNA 2's launch window. It was
+taken back out of the default build because it made the site's claims untrue rather than
+richer:
+
+- **The recovered range is gappy.** The Archive never captured every 2019-2021 release.
+  December 2020 is missing entirely, and so is `20.11.2` — the actual RDNA 2 launch driver,
+  the one that added RX 6800 / 6800 XT / 6900 XT support.
+- **So nothing in that range can be judged.** An issue last seen there may have been
+  relisted and fixed in a release the Archive never had, which turns the "possibly fixed"
+  signal from a finding into a guess.
+- **And its dates are month-precision**, like the rest of pre-`25.9.2`, so the extra
+  releases add bars whose x-positions are approximations.
+
+Widening coverage back to `19.7.1` therefore costs the site its simplest and strongest
+claim — that every release AMD publishes is tracked. That trade is deliberate, and one flag
+reverses it. `meta.contiguous_from` is what makes reversing it safe: it names the oldest
+release from which coverage is complete, and `isStale()` refuses to judge an issue whose
+`last_seen` predates it. The UI gates on `contiguous_from` rather than the `contiguous`
+flag, so the verified window keeps working even when the window as a whole is gappy.
+
+Four things about the crawl, all learned the hard way:
 
 - **The Archive rate-limits hard.** A full crawl will hit HTTP 429 repeatedly. The script
   fails fast on 429 and paces the whole crawl with an escalating cooldown rather than
   burning retries, but it still takes a while. Snapshots are cached, so a partial crawl
-  resumes for free — `--offline` finalises whatever has been collected so far.
+  resumes for free — `--offline` finalises whatever has been collected so far. **The cache
+  is gitignored**, so on a fresh clone this means a real crawl, not a re-parse.
 - **Wayback replays the stored bytes, including `Content-Encoding: gzip`.** Undecompressed,
   every page looks like a ~16 KB stub of binary noise that parses to zero issues. Both the
   fetch and the backfill decompress on the magic bytes, not the file extension.
-- **The result is partial.** 54 of the 63 archived releases were recoverable; the rest were
-  never captured. That is why `meta.contiguous_from` exists.
 - **The recovered pages use an older AMD template**, where `Fixed Issues` and `Known Issues`
   are real headings rather than bold list labels. The shared parser handles both.
+- **A crawler you think you killed may still be running.** Twice a surviving process
+  overwrote `cache/archived.json` mid-flight — once without the `cache_file` field, so the
+  next backfill silently skipped 52 releases. The tell was the merged count changing with
+  nothing else touching the manifest. Check the process list, not `pkill`'s exit code.
 
 ## Staying current
 
@@ -248,19 +265,19 @@ release the tracker has not logged, rather than pushing to `main`.
 
 ## Known limitations
 
-- **948 issues is an upper bound, not a count of distinct bugs.** 221 near-miss pairs are
+- **456 issues is an upper bound, not a count of distinct bugs.** 172 near-miss pairs are
   deliberately held apart. The clearest example is Cyberpunk 2077's "intermittent system or
   application crash", which appears as three records as AMD progressively widened the GPU
   scope from unqualified, to RX 7000, to RX 7000 and RX 9000. Whether those are one issue or
   three is a judgement call the threshold cannot make.
-- **The 2019-2021 window is partial and unjudged.** 54 of the 63 archived releases were
-  recoverable. Nothing in that range is counted as "possibly fixed", because an issue could
-  have been relisted and fixed in a release the Archive never captured. Coverage claims in
-  the UI are split accordingly.
-- Roughly half the issues have no game or GPU model in their text, so those fields are
+- **RDNA 1 and RDNA 2's launch are not covered.** AMD deleted the release notes. The
+  Internet Archive has most of them and the tooling recovers them, but the recovered range
+  is gappy and cannot be judged, so it is out of the shipped archive. See "Recovering
+  releases AMD deleted".
+- 237 of the 456 issues have no game in their text and 232 no GPU model, so those fields are
   `Not specified` and derived heuristically for filtering. The issue text is the source of
   truth.
-- Dates before `25.9.2` are month-precision. See `meta.date_precision`.
+- Dates before `25.9.2` are month-precision — 63 of 80 releases. See `meta.date_precision`.
 - The chart windows the archive to 20 releases and scrolls sideways in `All time`. A much
   deeper archive would want a coarser x-axis than "one bar per release" — quarterly buckets,
   say.
@@ -274,12 +291,11 @@ release the tracker has not logged, rather than pushing to `main`.
 
 ## Suggested next steps
 
-1. Finish the Internet Archive recovery: 9 of the 63 archived releases are still missing,
-   and the crawl is resumable from cache. Better coverage would let the 2019-2021 window be
-   judged too.
-2. Work through `data/review.json`: confirm or reject the automatic merges, and decide the
-   near-miss pairs. That is the single biggest quality lever left.
-3. Record aliases when an issue's wording changes, so identity survives rewording
+1. Work through `data/review.json`: confirm or reject the 34 automatic merges, and decide
+   the 172 near-miss pairs. That is the single biggest quality lever left.
+2. Record aliases when an issue's wording changes, so identity survives rewording
    without needing a similarity threshold at all.
-4. Decide the Cyberpunk-style "same bug, wider scope" question, and encode the rule.
-5. Add GPU launch-period bands once the launch dates are verified.
+3. Decide the Cyberpunk-style "same bug, wider scope" question, and encode the rule.
+4. Add GPU launch-period bands once the launch dates are verified.
+5. If the pre-2022 range is ever wanted back, finish the Archive crawl — 8 of the 63
+   archived releases were never captured — and re-enable it with `--archived`.

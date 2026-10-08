@@ -1,6 +1,6 @@
 # AMDWatch — gap analysis and completion plan
 
-> **Implementation status (2026-10-01).** This document is the audit of the starter as
+> **Implementation status (2026-10-08).** This document is the audit of the starter as
 > it was *before* the work landed. Everything below B1–B9 and the phases have since been
 > implemented and verified; the counts and bug descriptions here describe the original
 > state, not the current one. See `README.md` for the current state.
@@ -9,14 +9,15 @@
 >   normalized, the fetch has real error/loading/empty states, `last_seen` is shown, the
 >   chart models carried-over issues, and there is a validator gating CI.
 > - Phases 0, 1, 2, 3 and 5: done.
-> - Phase 4 (backfill): done, and bounded by what AMD still publishes. 80 releases and
->   456 issues, `22.1.1` → `26.9.2`. **The RDNA 1 goal turned out to be impossible** —
->   AMD has removed every release note before 2022, so RDNA 2's launch window is gone too.
->   See the data-status section of `README.md`.
+> - Phase 4 (backfill): done, covering every release note AMD still publishes,
+>   `22.1.1` → `26.9.2`. RDNA 1 and RDNA 2's launch were subsequently recovered from the
+>   Internet Archive, then **deliberately excluded from the shipped archive**: the
+>   recovered range is gappy, carries month-precision dates, and cannot be judged, so it
+>   made the site's claims untrue rather than richer. The recovery is opt-in and still
+>   works — see "Recovering releases AMD deleted" in `README.md`.
 > - Phase 5's "scheduled job" (the optional last step) is now built:
 >   `.github/workflows/watch.yml` plus `scripts/watch_releases.py`.
-> - Verification now in place: 51 Python tests (including 27 validator mutation tests),
->   21 model tests, 28 rendered-page checks, and a deploy-subpath simulation.
+> - Verification now in place: see the Tests section of `README.md`.
 
 Status: review of the starter as it stands on 2026-10-01. Everything below was verified against
 the files in this repo and against the live AMD release-note pages, not inferred from the README.
