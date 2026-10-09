@@ -53,6 +53,8 @@ directly, the page now says so instead of rendering blank.
   plus match hints against the existing database
 - `scripts/validate_tracker.py` — enforces the database invariants
 - `scripts/watch_releases.py` — probes for releases we have not logged yet
+- `scripts/check_rebuild.py` — the delta guard that decides whether a rebuild is ordinary
+  churn or needs a human
 - `scripts/discover_archived.py` — recovers release notes AMD has deleted, from the
   Internet Archive. Opt-in, and **not** part of the shipped archive; see "Recovering
   releases AMD deleted"
@@ -212,8 +214,25 @@ Four things about the crawl, all learned the hard way:
 
 `.github/workflows/watch.yml` runs `scripts/watch_releases.py` daily. It probes a
 narrow window around today — not the whole archive — and if AMD has published a release
-we have not logged, it rebuilds the database and opens a pull request rather than
-pushing to `main`. New releases change issue identity, so the diff wants eyes on it.
+we have not logged, it rebuilds the database, validates it, and **publishes it straight to
+`main`**, so the site stays current without anyone merging anything.
+
+Publishing unattended only works if something replaces the human check, so
+`scripts/check_rebuild.py` compares the rebuild against what is live and refuses anything
+that is *impossible* rather than merely uncertain:
+
+- a tracked release disappearing
+- an issue that was fixed going back to pending — a newer release note cannot un-document a fix
+- coverage flipping from contiguous to gappy
+- the issue count shrinking by more than the merges the rebuild recorded
+
+Ordinary churn — new issues, newly documented fixes, merges — passes, so this does not become
+a gate that needs babysitting. When the guard does trip, or when the push is rejected, the run
+falls back to a pull request, which is exactly the case that wants eyes on it.
+
+**A `GITHUB_TOKEN` push does not trigger other workflows**, so after publishing the run
+dispatches `pages.yml` by name. Without that the repository would update and the site would
+silently not — which is why `pages.yml` carries `workflow_dispatch`.
 
 ```bash
 python scripts/watch_releases.py --out .watch/new.json
