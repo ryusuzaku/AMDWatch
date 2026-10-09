@@ -27,11 +27,12 @@ directly, the page now says so instead of rendering blank.
 - Search across issue text, game, GPU, driver version and tracker ID
 - Filters for status, driver, channel, and sort order — all reflected in the URL,
   so any view is shareable
-- A per-release chart on **two scales**, because one could not carry both quantities. Bars
-  diverge from a zero line — issues first listed above it, issues documented as fixed below
-  — and the unfixed backlog is a line above them, on its own axis. On a single axis the
-  backlog (105–119 in the default window) swallows the churn (0–11) and every release
-  renders as an identical full-height column, which is what it used to do
+- A per-release chart on **two scales**. Bars diverge from a zero line — issues first listed
+  above it, issues documented as fixed below. Above them a line tracks the **backlog**, which
+  is only the issues AMD still lists; the ones it has stopped listing are reported separately
+  and never added to it. Each needs its own axis: the churn per release is 0–11 while the raw
+  unfixed pile reaches 119, and on a single axis the pile swallows the churn so every release
+  renders as an identical full-height column — which is what it used to do
 - The chart shows a **window** of releases, not the whole archive — `Latest 20`
   by default, plus `Most affected` and `All time`. 80 columns at once is unreadable,
   and the window is what makes the trend legible. The choice is in the URL.
@@ -82,9 +83,11 @@ Five things to know before trusting a number on the page:
   The label is deliberately two-sided: the issue may have been fixed without a note, or
   the notes may simply have stopped mentioning it. The release notes cannot tell those
   apart, so this tracker does not pretend to know.
-- **That is most of the archive.** 115 of the 119 pending issues are no longer listed by
-  AMD at all. Read "still pending" as "no documented fix", not as "known to be broken" —
-  AMD's newest release note lists only four known issues.
+- **The backlog is four issues, not 119.** AMD has not documented a fix for 119 of the 456,
+  but it only still *lists* 4 of them — its newest release note carries four known issues.
+  The other 115 stopped being listed and are reported separately as "possibly fixed", never
+  added to the backlog. The three counts partition the archive exactly: **337 documented
+  fixes + 4 still listed + 115 possibly fixed = 456**.
 - **Dates before `25.9.2` are month-precision** — 63 of the 80 releases. Those pages carry
   no release date at all, and their JSON-LD `datePublished` is the *page migration* date,
   not the driver date: `24.8.1` reports `2024-11-08` for a driver that shipped in August.

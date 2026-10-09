@@ -8,7 +8,7 @@ import { dirname, join } from 'node:path';
 import {
   indexDrivers, computeStats, openAt, buildSeries, isStale,
   filterBugs, channels, gpus, escapeHtml, validateDatabase, compareVersions,
-  selectSeries, rangeLabel, fixRate, possiblyFixedCount,
+  selectSeries, rangeLabel, fixRate, possiblyFixedCount, listedAt,
   RANGE_ALL, RANGE_RECENT, RANGE_WORST, RANGE_LIMIT, POSSIBLY_FIXED,
 } from '../lib/model.js';
 
@@ -343,4 +343,70 @@ test('the possibly-fixed filter honours the verified window too', () => {
   ];
   const rows = filterBugs(bugs, { status: POSSIBLY_FIXED, contiguousFrom: '22.1.1' }, drivers);
   assert.deepEqual(rows.map((b) => b.id), ['IN']);
+});
+
+test('listedAt reads the sources trail rather than last_seen', () => {
+  const bug = { sources: ['22.1.1', '22.5.1', '23.2.1'] };
+  assert.equal(listedAt(bug, '22.5.1'), true);
+  assert.equal(listedAt(bug, '23.2.1'), true);
+  assert.equal(listedAt(bug, '24.1.1'), false);
+  assert.equal(listedAt({}, '22.1.1'), false, 'no sources means listed nowhere');
+});
+
+test('buildSeries splits the unfixed count into still listed and vanished', () => {
+  // AMD lists A and B, then drops B while keeping A. At the second release the backlog is
+  // A alone: B has vanished, so counting it as backlog is exactly the double-count the
+  // split exists to remove.
+  const drivers = [
+    { version: '26.2.1', date: '2026-02-01', channel: 'Adrenalin' },
+    { version: '26.1.1', date: '2026-01-01', channel: 'Adrenalin' },
+  ];
+  const bugs = [
+    { id: 'A', status: 'pending', first: '26.1.1', last_seen: '26.2.1', fixed_in: null,
+      sources: ['26.1.1', '26.2.1'] },
+    { id: 'B', status: 'pending', first: '26.1.1', last_seen: '26.1.1', fixed_in: null,
+      sources: ['26.1.1'] },
+  ];
+  const [newest] = buildSeries(drivers, bugs);
+  assert.equal(newest.open, 2, 'both are unfixed');
+  assert.equal(newest.listed, 1, 'only A is still listed');
+  assert.equal(newest.vanished, 1, 'B has vanished');
+  assert.equal(newest.listed + newest.vanished, newest.open);
+});
+
+test('the shipped backlog is the still-listed count, not every unfixed issue', () => {
+  // The point of the split. If `listed` ever equals `open` the page is reporting the whole
+  // unfixed pile as backlog again, and counting the vanished issues a second time.
+  const series = buildSeries(DB.drivers, DB.bugs);
+  const newest = series[0];
+  assert.ok(newest.listed > 0, 'no backlog at all - is the sources trail empty?');
+  assert.ok(newest.listed < newest.open / 2,
+    `${newest.listed} of ${newest.open} unfixed are still listed; the backlog should be the minority`);
+  for (const s of series) {
+    assert.equal(s.listed + s.vanished, s.open, `${s.version}: listed + vanished != open`);
+    assert.ok(s.listed <= s.open, `${s.version}: more listed than unfixed`);
+  }
+});
+
+test('the three outcome counts partition the shipped archive', () => {
+  // Documented fixes + still listed + possibly fixed must account for every issue, or one
+  // of them is double-counting.
+  const series = buildSeries(DB.drivers, DB.bugs);
+  const newest = series[0];
+  const { order } = indexDrivers(DB.drivers);
+  const possibly = possiblyFixedCount(DB.bugs, newest.version, order,
+    DB.meta?.contiguous_from ?? null);
+  const fixed = DB.bugs.filter((b) => b.status === 'fixed').length;
+  assert.equal(fixed + newest.listed + possibly, DB.bugs.length,
+    `${fixed} fixed + ${newest.listed} listed + ${possibly} possibly = ${DB.bugs.length}?`);
+});
+
+test('still listed and possibly fixed are complementary at the newest release', () => {
+  const series = buildSeries(DB.drivers, DB.bugs);
+  const newest = series[0];
+  const { order } = indexDrivers(DB.drivers);
+  const possibly = possiblyFixedCount(DB.bugs, newest.version, order,
+    DB.meta?.contiguous_from ?? null);
+  const pending = DB.bugs.filter((b) => b.status === 'pending').length;
+  assert.equal(newest.listed + possibly, pending);
 });

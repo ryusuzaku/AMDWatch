@@ -119,18 +119,25 @@ function renderStats() {
   const rate = Math.round(fixRate(DB.bugs) * 100);
   const possibly = CAN_JUDGE_STALE
     ? possiblyFixedCount(DB.bugs, NEWEST, ORDER, CONTIGUOUS_FROM) : 0;
-  // "Still pending" counts everything AMD has not documented as fixed, which
-  // overstates how many are live: most of them stopped being listed entirely.
-  // Showing the split is the difference between a scary number and a real one.
+  // "Pending" is everything AMD never documented as fixed, and most of it stopped being
+  // listed years ago. Reporting it as one number overstates the backlog roughly thirtyfold,
+  // so it is split: `listed` is what AMD still stands behind today, `possibly` is what it
+  // quietly stopped mentioning. Documented fixes + still listed + possibly fixed partition
+  // the archive exactly.
+  const stillListed = buildSeries(DB.drivers, DB.bugs)[0]?.listed ?? 0;
   $('#stats').innerHTML = [
     ['DRIVERS TRACKED', s.drivers],
     ['BUGS LOGGED', s.bugs],
     ['DOCUMENTED FIXES', s.fixed],
-    ['STILL PENDING', s.pending],
+    ['STILL LISTED', stillListed,
+      'Issues the newest release note still lists as known issues, with no documented fix. '
+      + 'This is the backlog, and it is the only part of the pending count AMD still '
+      + 'stands behind.'],
     ['POSSIBLY FIXED', possibly,
-      'Pending issues AMD has stopped listing. They may have been fixed without a note, '
-      + 'or the notes may simply have stopped mentioning them. The tracker cannot tell '
-      + 'the two apart.'],
+      'Issues AMD used to list and no longer does, with no documented fix either. They may '
+      + 'have been fixed without a note, or the notes may simply have stopped mentioning '
+      + 'them. The tracker cannot tell the two apart, so they are reported separately and '
+      + 'never added to the backlog.'],
     ['FIX RATE', `${rate}%`],
   ].map(([label, value, title]) => `
     <div class="stat"${title ? ` title="${escapeHtml(title)}"` : ''}>
@@ -144,16 +151,19 @@ function renderChart() {
   // chart shows a window by default and `All time` is an explicit choice.
   const series = selectSeries(all, state.range).reverse(); // oldest on the left
 
-  // Two scales, because the two quantities differ by an order of magnitude and forcing
-  // them onto one axis is what made the old chart unreadable. In the default window the
-  // unfixed backlog only moves between 105 and 119 while new/fixed per release are 0-11,
-  // so a shared 0-119 axis drew every release as the same near-full-height column with a
-  // hairline cap on top: a wall of identical pylons that encoded almost nothing.
+  // Two scales. Forcing both quantities onto one axis is what made the old chart
+  // unreadable: the raw unfixed pile reaches 119 while new/fixed per release are 0-11, so a
+  // shared 0-119 axis drew every release as the same near-full-height column with a hairline
+  // cap on top -- a wall of identical pylons that encoded almost nothing.
   //
-  //   backlog -> a line, scaled 0..max(open), so its height never overstates the level
+  //   backlog -> a line, scaled 0..max(listed), so its height never overstates the level
   //   churn   -> diverging bars around a zero line, scaled to max(new, fixed)
   const churnPeak = Math.max(1, ...series.map((s) => Math.max(s.introduced, s.fixedHere)));
-  const maxOpen = Math.max(1, ...series.map((s) => s.open));
+  // The line is the backlog, and the backlog is only what AMD still lists. `open` would
+  // also carry the issues it has stopped mentioning, which are reported separately.
+  const listedMin = series.length ? Math.min(...series.map((s) => s.listed)) : 0;
+  const listedMax = series.length ? Math.max(...series.map((s) => s.listed)) : 0;
+  const maxListed = Math.max(1, listedMax);
   // Thin the labels out once releases get numerous, so they never collide. The
   // tooltip always carries the exact version.
   const labelStep = Math.max(1, Math.ceil(series.length / 12));
@@ -165,14 +175,16 @@ function renderChart() {
   // A point sits at i + 0.5 in a 0..n viewBox, which is the centre of flex column i, so
   // the line stays over its release however wide the plot is scrolled to. The 4/92 inset
   // keeps a full-height line off the strip's edges, where the stroke would be clipped.
-  const points = series.map((s, i) => [i + 0.5, 96 - (s.open / maxOpen) * 92]);
+  const points = series.map((s, i) => [i + 0.5, 96 - (s.listed / maxListed) * 92]);
   const line = points.map(([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`).join(' ');
   const area = `M${points[0][0]},100 L${line.replace(/ /g, ' L')} L${points.at(-1)[0]},100 Z`;
   const newestInWindow = series.at(-1);
 
-  $('#trend').innerHTML = `
-    <span class="trend-name">Unfixed backlog</span>
-    <span class="trend-end">${newestInWindow.open} at ${escapeHtml(newestInWindow.version)}</span>
+  $('#trend').innerHTML = !series.length ? '' : `
+    <div class="trend-head">
+      <span class="trend-name">Still listed, not fixed</span>
+      <span class="trend-end">${newestInWindow.listed} at ${escapeHtml(newestInWindow.version)}</span>
+    </div>
     <svg viewBox="0 0 ${series.length} 100" preserveAspectRatio="none" aria-hidden="true">
       <path class="trend-area" d="${area}"/>
       <polyline class="trend-line" points="${line}" vector-effect="non-scaling-stroke"/>
@@ -183,7 +195,8 @@ function renderChart() {
     const downPct = (s.fixedHere / churnPeak) * 100;
     const title = `${s.version} (${s.date}, ${s.channel})\n`
       + `${s.introduced} new this release, ${s.fixedHere} documented as fixed\n`
-      + `${s.open} unfixed at this release — ${s.carried} of them carried over from earlier releases\n`
+      + `${s.listed} still listed and unfixed — the backlog at this release\n`
+      + `${s.vanished} more had stopped being listed by now\n`
       + `Click to filter the list to this release`;
 
     return `
@@ -199,7 +212,6 @@ function renderChart() {
 
   const totalFixed = series.reduce((sum, s) => sum + s.fixedHere, 0);
   const totalNew = series.reduce((sum, s) => sum + s.introduced, 0);
-  const pending = computeStats(DB.drivers, DB.bugs).pending;
   const possibly = CAN_JUDGE_STALE
     ? possiblyFixedCount(DB.bugs, NEWEST, ORDER, CONTIGUOUS_FROM) : 0;
   const shown = state.range === RANGE_ALL
@@ -208,15 +220,16 @@ function renderChart() {
     ? ` The plot scrolls sideways to fit ${series.length} releases.` : '';
   $('#chart-note').textContent = series.length
     ? `Showing ${shown}. Above the line: issues first listed in that release. Below it: issues that release `
-      + `documented as fixed. The line is the unfixed backlog, on its own scale. `
-      + `Over this window ${totalNew} issues were added and ${totalFixed} documented as fixed, taking the `
-      + `backlog from ${series[0].open} to ${newestInWindow.open}. `
+      + `documented as fixed. The line is the backlog — issues AMD still lists and has not documented as `
+      + `fixed — on its own scale. Over this window ${totalNew} issues were added and ${totalFixed} documented `
+      + `as fixed. The backlog moved between ${listedMin} and ${listedMax}, ending at ${newestInWindow.listed}. `
       + (CAN_JUDGE_STALE
-        ? `${possibly} of the ${pending} pending issues have stopped being listed altogether, so they are `
-          + `"possibly fixed" rather than open — AMD drops issues from the notes without ever saying so.`
+        ? `A further ${possibly} issues have stopped being listed altogether. They are deliberately not in `
+          + `the backlog: they may have been fixed without a note, or the notes may simply have stopped `
+          + `mentioning them, and the release notes cannot tell the two apart.`
           + (CONTIGUOUS ? ''
-            : ` Issues last seen before ${CONTIGUOUS_FROM} are excluded, because the archive is`
-              + ` incomplete back there and their last appearance cannot be trusted.`)
+            : ` Issues last seen before ${CONTIGUOUS_FROM} are excluded from that count, because the archive`
+              + ` is incomplete back there and their last appearance cannot be trusted.`)
         : `Coverage is not contiguous, so an issue that disappears between two tracked releases may have been `
           + `fixed in a release this tracker does not have. Treat "open" here as "not yet documented as fixed".`)
       + scrollHint

@@ -37,14 +37,17 @@
    as a bar sharing the churn axis. See the comment in app.js: on a single axis the level
    (105-119) swallows the churn (0-11) and every release renders identically. */
 /* The strip carries a caption row so the value labels sit above the plot instead of on
-   top of it. It is deliberately short: the scale is 0-based, so in a 20-release window
-   the line is near-flat and a tall strip would be mostly empty. It earns its height in
-   `All time`, where the backlog climbs from 3 to 119. */
-.trend{position:relative;flex:0 0 46px;height:46px;min-height:0;padding-top:12px;overflow:hidden}
+   top of it. It is deliberately short: the scale is 0-based, so a quiet window leaves a
+   tall strip mostly empty. */
+.trend{position:relative;flex:0 0 46px;height:46px;display:flex;flex-direction:column}
+/* Both labels are sticky because the strip scrolls with the plot. In `All time` the
+   newest release is ~1760px to the right, and a plain right-aligned label would sit off
+   screen -- so the number the caption exists to report would be the one you cannot see. */
+.trend-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;height:12px;
+  font-size:10px;letter-spacing:.4px;color:#7f828b;white-space:nowrap}
+.trend-name{text-transform:uppercase;font-weight:700;position:sticky;left:0}
+.trend-end{color:#a2a5ad;position:sticky;right:0}
 .trend svg{display:block;width:100%;height:34px}
-.trend-name,.trend-end{position:absolute;top:0;font-size:10px;letter-spacing:.4px;color:#7f828b}
-.trend-name{left:0;text-transform:uppercase;font-weight:700}
-.trend-end{right:0;color:#a2a5ad}
 .trend-line{fill:none;stroke:#8b93a3;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
 .trend-area{fill:#8b93a3;opacity:.08;stroke:none}
 

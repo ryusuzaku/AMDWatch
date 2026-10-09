@@ -59,8 +59,16 @@ check('bugs logged matches the database', stats[1] === String(expected.bugs.leng
   `page ${stats[1]} vs file ${expected.bugs.length}`);
 check('documented fixes matches the database', stats[2] === String(fixedCount),
   `page ${stats[2]} vs file ${fixedCount}`);
-check('pending count matches the database',
-  stats[3] === String(expected.bugs.length - fixedCount));
+// The backlog is the part of the pending count AMD still lists. Computing it the way
+// lib/model.js does -- pending, and the newest release still mentions it.
+const newestVer = expected.drivers[0].version;
+const expectedListed = expected.bugs.filter((b) => b.status === 'pending'
+  && (b.sources || []).includes(newestVer)).length;
+check('still-listed count matches the database', stats[3] === String(expectedListed),
+  `page ${stats[3]} vs file ${expectedListed}`);
+check('the backlog is a small fraction of pending, not the whole of it',
+  expectedListed < expected.bugs.length - fixedCount,
+  `${expectedListed} of ${expected.bugs.length - fixedCount} pending`);
 check('fix rate matches the database',
   stats[5] === `${Math.round((fixedCount / expected.bugs.length) * 100)}%`,
   `page ${stats[5]}`);
@@ -80,7 +88,12 @@ const expectedPossibly = expected.bugs.filter((b) => {
 }).length;
 check('possibly-fixed count matches the database',
   stats[4] === String(expectedPossibly), `page ${stats[4]} vs file ${expectedPossibly}`);
-notes.push(`  info  ${stats[4]} of ${stats[3]} pending issues are no longer listed by AMD at all`);
+// The three counts have to partition the archive -- documented fixes, still listed,
+// possibly fixed. If they ever stop adding up, one of them is double-counting.
+check('the three counts partition the archive',
+  Number(stats[2]) + Number(stats[3]) + Number(stats[4]) === expected.bugs.length,
+  `${stats[2]} + ${stats[3]} + ${stats[4]} vs ${expected.bugs.length}`);
+notes.push(`  info  backlog ${stats[3]}, possibly fixed ${stats[4]}, documented fixed ${stats[2]}`);
 
 // The archive is ~80 releases, which is unreadable as 80 bars, so the chart opens
 // on a window. `All time` is the escape hatch and must reach every release.
@@ -103,7 +116,14 @@ check('every release has a bar above and below the zero line',
 
 const zeroBars = await page.locator('#chart .seg[data-zero="true"]').count();
 const chartNote = (await page.locator('#chart-note').textContent()) ?? '';
-check('chart explains its own semantics', chartNote.includes('unfixed backlog'));
+check('chart explains its own semantics', chartNote.includes('The line is the backlog'));
+check('the chart says the vanished issues are kept out of the backlog',
+  chartNote.includes('deliberately not in'), chartNote.slice(0, 200));
+// The line must plot the still-listed count. Plotting `open` would put 119 there instead
+// of 4 -- the exact double-count this split exists to remove.
+check('the backlog line shows the still-listed count, not the unfixed count',
+  ((await page.locator('#trend .trend-end').textContent()) ?? '').startsWith(String(expectedListed)),
+  await page.locator('#trend .trend-end').textContent());
 notes.push(`  info  ${zeroBars} zero-valued bar(s) drawn as a baseline tick`);
 
 const cards = await page.locator('#bugs .bug').count();
