@@ -221,6 +221,12 @@ python scripts/watch_releases.py --out .watch/new.json
 # exit 10 = new releases found
 ```
 
+The window is anchored to the newest tracked release but is always extended far enough to
+reach the current month. Anchoring it to the newest release alone meant a tracker that fell
+more than a couple of months behind never probed the present again — it would report "up to
+date" forever while the archive quietly froze. `tests/test_watcher.py` pins that, including
+that a catch-up window covers every month it spans rather than just the current one.
+
 ## Validating
 
 ```bash

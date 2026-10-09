@@ -38,11 +38,22 @@ def newest_tracked(path):
 
 
 def window(start_version, now, lookahead_months, patches):
-    """Candidate versions from the newest tracked release through the near future."""
+    """Candidate versions from the newest tracked release through the near future.
+
+    The window must reach the current month even when the tracker is stale. Anchoring it
+    to `start_version + lookahead_months` alone means a tracker that falls further behind
+    than that never probes the present again: the watcher reports "up to date" forever,
+    which is the one failure an automated watcher must never have. Being stale is exactly
+    when it needs to work.
+    """
     year, month, _ = (int(p) for p in start_version.split("."))
-    yy = year % 100
+    span = lookahead_months
+    if now is not None:
+        # `year` is the two-digit year parsed from the version, so compare like with like.
+        months_behind = (now.year % 100 - year) * 12 + (now.month - month)
+        span = max(span, months_behind + 1)
     out = []
-    for step in range(-1, lookahead_months + 1):
+    for step in range(-1, span + 1):
         m = month + step
         y = year + (m - 1) // 12
         m = (m - 1) % 12 + 1
