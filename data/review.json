@@ -1,18 +1,18 @@
 {
-  "generated": "2026-10-08",
+  "generated": "2026-10-21",
   "thresholds": {
     "merge": 0.95,
     "report": 0.72
   },
   "summary": {
-    "releases": 80,
-    "candidates_parsed": 815,
-    "issues": 456,
-    "pending": 119,
-    "fixed": 337,
+    "releases": 81,
+    "candidates_parsed": 828,
+    "issues": 465,
+    "pending": 127,
+    "fixed": 338,
     "fuzzy_merges": 34,
-    "near_misses_not_merged": 172,
-    "issues_with_reworded_variants": 39
+    "near_misses_not_merged": 177,
+    "issues_with_reworded_variants": 40
   },
   "fuzzy_merges": [
     {
@@ -1252,6 +1252,36 @@
       "closest": "Intermittent driver timeout may be observed while playing Final Fantasy VII Rebirth on Radeon RX 7000 series graphics products.",
       "similarity": 0.874,
       "version": "26.9.2"
+    },
+    {
+      "new": "Stuttering may be observed while playing the Call of Duty: Modern Warfare 4 on Radeon RX 6000 series graphics products and above.",
+      "closest": "Stuttering may be observed while playing Call of Duty: Modern Warfare II with Radeon Anti-Lag enabled.",
+      "similarity": 0.74,
+      "version": "26.10.1"
+    },
+    {
+      "new": "Intermittent system shutdown may be observed while playing Valor Mortis on Radeon RX 7600 series graphics products.",
+      "closest": "Intermittent game crash may be observed while playing Starfield on Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.7.1.",
+      "similarity": 0.827,
+      "version": "26.10.1"
+    },
+    {
+      "new": "Intermittent driver timeout may be observed while playing Valor Mortis on Radeon RX 7000 series graphics products.",
+      "closest": "Intermittent driver timeout may be observed while playing War Thunder on Radeon RX 5000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.9.1.",
+      "similarity": 0.924,
+      "version": "26.10.1"
+    },
+    {
+      "new": "Intermittent system shutdown may be observed while playing FINAL FANTASY RESONANCE on Ryzen AI MAX PRO 400 Series processors.",
+      "closest": "Intermittent system shutdown may be observed while playing Valor Mortis on Radeon RX 7600 series graphics products.",
+      "similarity": 0.748,
+      "version": "26.10.1"
+    },
+    {
+      "new": "Intermittent application hang may be observed while playing Death Stranding 2: On the Beach with AMD FSR enabled on Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to disable AMD FSR.",
+      "closest": "Intermittent application crash may be observed while playing Cronos: The New Dawn with Ray Tracing enabled on Radeon RX 9070 series graphics products.",
+      "similarity": 0.834,
+      "version": "26.10.1"
     }
   ],
   "reworded": [
@@ -1530,6 +1560,13 @@
       "variants": [
         "Model flickering or rendering failure may be observed in Maxon Cinema 4D and Blender on Radeon RX 7000 series and above graphics products.",
         "Model flickering or rendering failure may be observed in Maxon Cinema 4D and Blender on Radeon RX 7000 series and above graphics products. Users experiencing this issue are recommended to install AMD Software 26.3.1."
+      ]
+    },
+    {
+      "text": "Intermittent driver timeout may be observed while playing War Thunder on Radeon RX 5000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.9.1.",
+      "variants": [
+        "Intermittent driver timeout may be observed while playing War Thunder on Radeon RX 5000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.9.1.",
+        "Intermittent driver timeout may be observed while playing War Thunder on Radeon RX 5000 series graphics products. Users experiencing this issue are recommended to use AMD Software 26.9.1."
       ]
     }
   ],
