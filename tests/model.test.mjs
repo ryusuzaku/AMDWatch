@@ -8,7 +8,7 @@ import { dirname, join } from 'node:path';
 import {
   indexDrivers, computeStats, openAt, buildSeries, isStale,
   filterBugs, channels, gpus, escapeHtml, validateDatabase, compareVersions,
-  selectSeries, rangeLabel, fixRate, possiblyFixedCount, listedAt,
+  selectSeries, rangeLabel, fixRate, possiblyFixedCount, listedAt, haystack,
   RANGE_ALL, RANGE_RECENT, RANGE_WORST, RANGE_LIMIT, POSSIBLY_FIXED,
 } from '../lib/model.js';
 
@@ -409,4 +409,33 @@ test('still listed and possibly fixed are complementary at the newest release', 
     DB.meta?.contiguous_from ?? null);
   const pending = DB.bugs.filter((b) => b.status === 'pending').length;
   assert.equal(newest.listed + possibly, pending);
+});
+
+test('haystack builds the search string from every searchable field', () => {
+  const bug = {
+    id: 'AMD-0042', text: 'Stutter in menus', game: 'Hogwarts Legacy',
+    gpu: 'RX 9060 XT', first: '26.1.1', last_seen: '26.9.2', fixed_in: null,
+    sources: ['26.1.1', '26.9.2'],
+  };
+  assert.equal(haystack(bug),
+    'amd-0042 stutter in menus hogwarts legacy rx 9060 xt 26.1.1 26.9.2 26.1.1 26.9.2');
+});
+
+test('haystack skips empty fields and tolerates missing sources', () => {
+  assert.equal(haystack({ id: 'AMD-1', game: null, gpu: '', sources: [] }), 'amd-1');
+  assert.equal(haystack({}), '', 'a bare bug has an empty haystack, not a crash');
+});
+
+test('compareVersions pads short versions with zeros', () => {
+  assert.equal(compareVersions('26.9', '26.9.0'), 0, 'missing parts are zero');
+  assert.ok(compareVersions('26.9', '26.10') < 0, '9 < 10 numerically, not string order');
+  assert.equal(compareVersions(null, '0.0.0'), 0, 'null is an empty tuple, not a crash');
+});
+
+test('validateDatabase handles missing or empty data', () => {
+  assert.deepEqual(validateDatabase(null), ['data is not an object']);
+  assert.deepEqual(validateDatabase({ drivers: [], bugs: [] }), ['no drivers', 'no bugs']);
+  assert.deepEqual(
+    validateDatabase({ drivers: DRIVERS, bugs: [{ id: 'AMD-0001', first: '26.9.2' }] }),
+    [], 'a well-formed minimal database has no problems');
 });
