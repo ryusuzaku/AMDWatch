@@ -160,6 +160,26 @@ test('validateDatabase rejects duplicate ids and unknown versions', () => {
   assert.ok(validateDatabase(bad).some((p) => p.includes('unknown first')));
 });
 
+test('validateDatabase rejects a malformed driver version', () => {
+  // Same rule as the Python validator: the version must be N.N.N with a two-digit year.
+  const bad = {
+    drivers: [{ version: '26.9', date: '2026-09-29', channel: 'Adrenalin' }],
+    bugs: [{ id: 'AMD-0001' }],
+  };
+  assert.ok(validateDatabase(bad).some((p) => p.includes('is not N.N.N')));
+});
+
+test('validateDatabase rejects a duplicated driver version', () => {
+  const dup = {
+    drivers: [
+      { version: '26.9.2', date: '2026-09-29', channel: 'Adrenalin' },
+      { version: '26.9.2', date: '2026-09-30', channel: 'Optional' },
+    ],
+    bugs: [{ id: 'AMD-0001' }],
+  };
+  assert.ok(validateDatabase(dup).some((p) => p.includes('duplicate version')));
+});
+
 test('every shipped issue has a source trail back to a tracked driver', () => {
   const versions = new Set(DB.drivers.map((d) => d.version));
   for (const b of DB.bugs) {
