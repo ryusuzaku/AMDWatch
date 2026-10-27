@@ -21,6 +21,20 @@ Do not open `index.html` directly. The page fetches `data/tracker.json` and load
 `app.js` as an ES module, and browsers block both over `file://`. If you do open it
 directly, the page now says so instead of rendering blank.
 
+## Development
+
+- **Run the site locally:** `npm run serve` — Python's `http.server` on port 8000, no build
+  step and no runtime dependencies; open the URL it prints. The site is just `index.html`,
+  `app.js`, `lib/model.js` and `style.css` fetching `data/tracker.json`.
+- **Run the tests:** `npm test` — Node's built-in test runner (`node --test`), so no extra
+  dependencies to install; it runs the chart, filter and model logic in `tests/model.test.mjs`.
+  (The page probe `npm run test:page` and the Python suite in the "Tests" section need more.)
+- **Where the data lives:** `data/tracker.json` is the single database the page fetches;
+  `data/review.json` is the backfill's merge/review artifact.
+- **Where the importer lives:** `scripts/import_release_notes.py` (one release-note page in,
+  a candidate draft out); see "Importing more releases" and "Rebuilding the archive" for the
+  rest of `scripts/`.
+
 ## What's here
 
 **The site**
