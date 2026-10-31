@@ -1,6 +1,12 @@
 {
   "drivers": [
     {
+      "version": "26.10.2",
+      "date": "2026-10-30",
+      "channel": "Optional",
+      "url": "https://www.amd.com/en/resources/support-articles/release-notes/RN-RAD-WIN-26-10-2.html"
+    },
+    {
       "version": "26.10.1",
       "date": "2026-10-20",
       "channel": "Adrenalin",
@@ -6461,7 +6467,7 @@
     {
       "text": "Failure to install may be observed while installing AI Bundle components in some regions with limited access to HuggingFace and GitHub.",
       "first": "26.6.1",
-      "last_seen": "26.10.1",
+      "last_seen": "26.10.2",
       "status": "pending",
       "fixed_in": null,
       "game": "some regions",
@@ -6474,7 +6480,8 @@
         "26.8.1",
         "26.9.1",
         "26.9.2",
-        "26.10.1"
+        "26.10.1",
+        "26.10.2"
       ],
       "id": "AMD-0434"
     },
@@ -6564,7 +6571,7 @@
     {
       "text": "AMD Smart Access Memory may become disabled after driver installation on Windows 10 systems.",
       "first": "26.7.1",
-      "last_seen": "26.10.1",
+      "last_seen": "26.10.2",
       "status": "pending",
       "fixed_in": null,
       "game": "Not specified",
@@ -6574,7 +6581,8 @@
         "26.8.1",
         "26.9.1",
         "26.9.2",
-        "26.10.1"
+        "26.10.1",
+        "26.10.2"
       ],
       "id": "AMD-0441"
     },
@@ -6714,14 +6722,15 @@
     {
       "text": "Intermittent application crash or driver timeout may be observed while playing Assassin's Creed Black Flag Resynced on Radeon RX 7000 series graphics products.",
       "first": "26.9.2",
-      "last_seen": "26.10.1",
+      "last_seen": "26.10.2",
       "status": "pending",
       "fixed_in": null,
       "game": "Assassin's Creed Black Flag Resynced",
       "gpu": "RX 7000",
       "sources": [
         "26.9.2",
-        "26.10.1"
+        "26.10.1",
+        "26.10.2"
       ],
       "id": "AMD-0452"
     },
@@ -6754,14 +6763,15 @@
     {
       "text": "Intermittent driver timeout may be observed while playing War Thunder on Radeon RX 5000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.9.1.",
       "first": "26.9.2",
-      "last_seen": "26.10.1",
+      "last_seen": "26.10.2",
       "status": "pending",
       "fixed_in": null,
       "game": "War Thunder",
       "gpu": "RX 5000",
       "sources": [
         "26.9.2",
-        "26.10.1"
+        "26.10.1",
+        "26.10.2"
       ],
       "id": "AMD-0455"
     },
@@ -6794,91 +6804,98 @@
     {
       "text": "Intermittent application crash or driver timeout may be observed in some games when opening or closing other overlays, such as Xbox Game Bar, while the AMD Software Performance Metrics Overlay is enabled on Radeon graphics products. Users experiencing this issue are recommended to temporarily disable the Performance Metrics Overlay before opening or closing other overlays.",
       "first": "26.10.1",
-      "last_seen": "26.10.1",
-      "status": "pending",
-      "fixed_in": null,
+      "last_seen": "26.10.2",
+      "status": "fixed",
+      "fixed_in": "26.10.2",
       "game": "some games",
       "gpu": "Not specified",
       "sources": [
-        "26.10.1"
+        "26.10.1",
+        "26.10.2"
       ],
       "id": "AMD-0458"
     },
     {
       "text": "Intermittent application crash or driver timeout may be observed while playing Cyberpunk 2077 with AMD FSR Upscaling, AMD Radeon Anti-Lag and in-game frame generation enabled during video playback on a secondary display on some Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to disable in-game frame generation.",
       "first": "26.10.1",
-      "last_seen": "26.10.1",
+      "last_seen": "26.10.2",
       "status": "pending",
       "fixed_in": null,
       "game": "Cyberpunk 2077",
       "gpu": "RX 9000",
       "sources": [
-        "26.10.1"
+        "26.10.1",
+        "26.10.2"
       ],
       "id": "AMD-0459"
     },
     {
       "text": "Intermittent application hang may be observed while playing Death Stranding 2: On the Beach with AMD FSR enabled on Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to disable AMD FSR.",
       "first": "26.10.1",
-      "last_seen": "26.10.1",
-      "status": "pending",
-      "fixed_in": null,
+      "last_seen": "26.10.2",
+      "status": "fixed",
+      "fixed_in": "26.10.2",
       "game": "Death Stranding 2",
       "gpu": "RX 9000",
       "sources": [
-        "26.10.1"
+        "26.10.1",
+        "26.10.2"
       ],
       "id": "AMD-0460"
     },
     {
       "text": "Intermittent driver timeout may be observed while playing Valor Mortis on Radeon RX 7000 series graphics products.",
       "first": "26.10.1",
-      "last_seen": "26.10.1",
-      "status": "pending",
-      "fixed_in": null,
+      "last_seen": "26.10.2",
+      "status": "fixed",
+      "fixed_in": "26.10.2",
       "game": "Valor Mortis",
       "gpu": "RX 7000",
       "sources": [
-        "26.10.1"
+        "26.10.1",
+        "26.10.2"
       ],
       "id": "AMD-0461"
     },
     {
       "text": "Intermittent system crash or hang may be observed when switching between applications or toggling overlays while playing games with in-game AMD FSR Frame Generation enabled on Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to enable V-Sync in game settings.",
       "first": "26.10.1",
-      "last_seen": "26.10.1",
-      "status": "pending",
-      "fixed_in": null,
+      "last_seen": "26.10.2",
+      "status": "fixed",
+      "fixed_in": "26.10.2",
       "game": "games",
       "gpu": "RX 9000",
       "sources": [
-        "26.10.1"
+        "26.10.1",
+        "26.10.2"
       ],
       "id": "AMD-0462"
     },
     {
       "text": "Intermittent system shutdown may be observed while playing FINAL FANTASY RESONANCE on Ryzen AI MAX PRO 400 Series processors.",
       "first": "26.10.1",
-      "last_seen": "26.10.1",
-      "status": "pending",
-      "fixed_in": null,
+      "last_seen": "26.10.2",
+      "status": "fixed",
+      "fixed_in": "26.10.2",
       "game": "FINAL FANTASY RESONANCE",
       "gpu": "Not specified",
       "sources": [
-        "26.10.1"
+        "26.10.1",
+        "26.10.2"
       ],
       "id": "AMD-0463"
     },
     {
       "text": "Intermittent system shutdown may be observed while playing Valor Mortis on Radeon RX 7600 series graphics products.",
       "first": "26.10.1",
-      "last_seen": "26.10.1",
-      "status": "pending",
-      "fixed_in": null,
+      "last_seen": "26.10.2",
+      "status": "fixed",
+      "fixed_in": "26.10.2",
       "game": "Valor Mortis",
       "gpu": "RX 7600",
       "sources": [
-        "26.10.1"
+        "26.10.1",
+        "26.10.2"
       ],
       "id": "AMD-0464"
     },
@@ -6894,19 +6911,123 @@
         "26.10.1"
       ],
       "id": "AMD-0465"
+    },
+    {
+      "text": "AMD Install Manager fails to locate optional drivers for AMD Software when Recommended + Optional is selected.",
+      "first": "26.10.2",
+      "last_seen": "26.10.2",
+      "status": "fixed",
+      "fixed_in": "26.10.2",
+      "game": "Not specified",
+      "gpu": "Not specified",
+      "sources": [
+        "26.10.2"
+      ],
+      "id": "AMD-0466"
+    },
+    {
+      "text": "Application crash may be observed while playing games on Windows 10 systems with Radeon RX 9000 series graphics products after uninstalling AMD Software with the AMD Cleanup Utility.",
+      "first": "26.10.2",
+      "last_seen": "26.10.2",
+      "status": "fixed",
+      "fixed_in": "26.10.2",
+      "game": "games",
+      "gpu": "RX 9000",
+      "sources": [
+        "26.10.2"
+      ],
+      "id": "AMD-0467"
+    },
+    {
+      "text": "Black corruption may be observed while playing Call of Duty: Modern Warfare Remastered on Radeon RX 9000 series graphics products.",
+      "first": "26.10.2",
+      "last_seen": "26.10.2",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "Call of Duty: Modern Warfare Remastered",
+      "gpu": "RX 9000",
+      "sources": [
+        "26.10.2"
+      ],
+      "id": "AMD-0468"
+    },
+    {
+      "text": "Black screen may be observed when launching Gears of War: Reloaded on AMD Ryzen AI 9 400 Series processors. Users experiencing this issue are recommended to switch the in-game display mode to Windowed and then back to Fullscreen.",
+      "first": "26.10.2",
+      "last_seen": "26.10.2",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "Not specified",
+      "gpu": "Ryzen AI 9 400",
+      "sources": [
+        "26.10.2"
+      ],
+      "id": "AMD-0469"
+    },
+    {
+      "text": "Call of Duty: Modern Warfare Remastered may become unresponsive while using Alt+Tab during gameplay on Ryzen AI Max PRO 400 Series processors.",
+      "first": "26.10.2",
+      "last_seen": "26.10.2",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "Not specified",
+      "gpu": "Not specified",
+      "sources": [
+        "26.10.2"
+      ],
+      "id": "AMD-0470"
+    },
+    {
+      "text": "Intermittent application crash may be observed while launching the Steam launcher on AMD Radeon graphics products.",
+      "first": "26.10.2",
+      "last_seen": "26.10.2",
+      "status": "fixed",
+      "fixed_in": "26.10.2",
+      "game": "the Steam launcher",
+      "gpu": "Not specified",
+      "sources": [
+        "26.10.2"
+      ],
+      "id": "AMD-0471"
+    },
+    {
+      "text": "Intermittent driver timeout may be observed while playing video on Windows 11 with Hardware-Accelerated GPU Scheduling (HAGS) enabled on Radeon RX 7000 series graphics products.",
+      "first": "26.10.2",
+      "last_seen": "26.10.2",
+      "status": "fixed",
+      "fixed_in": "26.10.2",
+      "game": "Not specified",
+      "gpu": "RX 7000",
+      "sources": [
+        "26.10.2"
+      ],
+      "id": "AMD-0472"
+    },
+    {
+      "text": "Visual corruption may appear in the sky and on character hair while playing Phantom Blade Zero on Radeon RX 9000 series graphics products. Users experiencing character hair corruption are recommended to disable the High-Quality Hair setting in the game.",
+      "first": "26.10.2",
+      "last_seen": "26.10.2",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "Phantom Blade Zero",
+      "gpu": "RX 9000",
+      "sources": [
+        "26.10.2"
+      ],
+      "id": "AMD-0473"
     }
   ],
   "meta": {
-    "generated": "2026-10-21",
-    "last_checked": "2026-10-21T11:49:27Z",
-    "coverage": "Every AMD Adrenalin release note still published by AMD, 22.1.1 to 26.10.1.",
+    "generated": "2026-10-31",
+    "last_checked": "2026-10-31T12:26:11Z",
+    "coverage": "Every AMD Adrenalin release note still published by AMD, 22.1.1 to 26.10.2.",
     "coverage_from": "22.1.1",
-    "coverage_to": "26.10.1",
+    "coverage_to": "26.10.2",
     "contiguous_from": "22.1.1",
     "contiguous": true,
     "contiguity_basis": "Every version in the probed window was either found and included, or confirmed absent (HTTP 404) by scripts/discover_releases.py.",
     "date_precision": {
-      "exact": 18,
+      "exact": 19,
       "month": 63,
       "note": "Pages from 25.9.2 onward state a release date. Older pages carry no date, and their JSON-LD datePublished is the page migration date rather than the driver date, so those dates are derived from the version number and are month-accurate only (day is set to 01)."
     },

@@ -1,18 +1,18 @@
 {
-  "generated": "2026-10-21",
+  "generated": "2026-10-31",
   "thresholds": {
     "merge": 0.95,
     "report": 0.72
   },
   "summary": {
-    "releases": 81,
-    "candidates_parsed": 828,
-    "issues": 465,
-    "pending": 127,
-    "fixed": 338,
+    "releases": 82,
+    "candidates_parsed": 847,
+    "issues": 473,
+    "pending": 125,
+    "fixed": 348,
     "fuzzy_merges": 34,
-    "near_misses_not_merged": 177,
-    "issues_with_reworded_variants": 40
+    "near_misses_not_merged": 181,
+    "issues_with_reworded_variants": 42
   },
   "fuzzy_merges": [
     {
@@ -1282,6 +1282,30 @@
       "closest": "Intermittent application crash may be observed while playing Cronos: The New Dawn with Ray Tracing enabled on Radeon RX 9070 series graphics products.",
       "similarity": 0.834,
       "version": "26.10.1"
+    },
+    {
+      "new": "Intermittent application crash may be observed while launching the Steam launcher on AMD Radeon graphics products.",
+      "closest": "Intermittent application crash may be observed when first launching The Last of Us Part 1 on Radeon RX 9060 XT graphics products.",
+      "similarity": 0.805,
+      "version": "26.10.2"
+    },
+    {
+      "new": "Intermittent driver timeout may be observed while playing video on Windows 11 with Hardware-Accelerated GPU Scheduling (HAGS) enabled on Radeon RX 7000 series graphics products.",
+      "closest": "Intermittent driver timeout may be observed while playing War Thunder on Radeon RX 5000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.9.1.",
+      "similarity": 0.741,
+      "version": "26.10.2"
+    },
+    {
+      "new": "Black screen may be observed when launching Gears of War: Reloaded on AMD Ryzen AI 9 400 Series processors. Users experiencing this issue are recommended to switch the in-game display mode to Windowed and then back to Fullscreen.",
+      "closest": "Black screen may be observed when launching Fallout 76 on Ryzen AI Max PRO 400 Series processors.",
+      "similarity": 0.816,
+      "version": "26.10.2"
+    },
+    {
+      "new": "Black corruption may be observed while playing Call of Duty: Modern Warfare Remastered on Radeon RX 9000 series graphics products.",
+      "closest": "Stuttering may be observed while playing the Call of Duty: Modern Warfare 4 on Radeon RX 6000 series graphics products and above.",
+      "similarity": 0.816,
+      "version": "26.10.2"
     }
   ],
   "reworded": [
@@ -1567,6 +1591,20 @@
       "variants": [
         "Intermittent driver timeout may be observed while playing War Thunder on Radeon RX 5000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.9.1.",
         "Intermittent driver timeout may be observed while playing War Thunder on Radeon RX 5000 series graphics products. Users experiencing this issue are recommended to use AMD Software 26.9.1."
+      ]
+    },
+    {
+      "text": "Intermittent application crash or driver timeout may be observed in some games when opening or closing other overlays, such as Xbox Game Bar, while the AMD Software Performance Metrics Overlay is enabled on Radeon graphics products. Users experiencing this issue are recommended to temporarily disable the Performance Metrics Overlay before opening or closing other overlays.",
+      "variants": [
+        "Intermittent application crash or driver timeout may be observed in some games when opening or closing other overlays, such as Xbox Game Bar, while the AMD Software Performance Metrics Overlay is enabled on Radeon graphics products.",
+        "Intermittent application crash or driver timeout may be observed in some games when opening or closing other overlays, such as Xbox Game Bar, while the AMD Software Performance Metrics Overlay is enabled on Radeon graphics products. Users experiencing this issue are recommended to temporarily disable the Performance Metrics Overlay before opening or closing other overlays."
+      ]
+    },
+    {
+      "text": "Intermittent system crash or hang may be observed when switching between applications or toggling overlays while playing games with in-game AMD FSR Frame Generation enabled on Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to enable V-Sync in game settings.",
+      "variants": [
+        "Intermittent system crash or hang may be observed when switching between applications or toggling overlays while playing games with in-game AMD FSR Frame Generation enabled on Radeon RX 9000 series graphics products.",
+        "Intermittent system crash or hang may be observed when switching between applications or toggling overlays while playing games with in-game AMD FSR Frame Generation enabled on Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to enable V-Sync in game settings."
       ]
     }
   ],
