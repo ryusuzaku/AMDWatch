@@ -1,17 +1,17 @@
 {
-  "generated": "2026-10-31",
+  "generated": "2026-11-13",
   "thresholds": {
     "merge": 0.95,
     "report": 0.72
   },
   "summary": {
-    "releases": 82,
-    "candidates_parsed": 847,
-    "issues": 473,
-    "pending": 125,
-    "fixed": 348,
+    "releases": 83,
+    "candidates_parsed": 858,
+    "issues": 476,
+    "pending": 126,
+    "fixed": 350,
     "fuzzy_merges": 34,
-    "near_misses_not_merged": 181,
+    "near_misses_not_merged": 182,
     "issues_with_reworded_variants": 42
   },
   "fuzzy_merges": [
@@ -1306,6 +1306,12 @@
       "closest": "Stuttering may be observed while playing the Call of Duty: Modern Warfare 4 on Radeon RX 6000 series graphics products and above.",
       "similarity": 0.816,
       "version": "26.10.2"
+    },
+    {
+      "new": "Visual corruption may appear on character hair while playing Phantom Blade Zero on Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to disable the High-Quality Hair setting in the game.",
+      "closest": "Corruption may appear while playing Satisfactory on Radeon RX 9000 series graphics products.",
+      "similarity": 0.779,
+      "version": "26.11.1"
     }
   ],
   "reworded": [
