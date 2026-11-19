@@ -1,6 +1,12 @@
 {
   "drivers": [
     {
+      "version": "26.11.2",
+      "date": "2026-11-18",
+      "channel": "Adrenalin",
+      "url": "https://www.amd.com/en/resources/support-articles/release-notes/RN-RAD-WIN-26-11-2.html"
+    },
+    {
       "version": "26.11.1",
       "date": "2026-11-12",
       "channel": "Optional",
@@ -6473,7 +6479,7 @@
     {
       "text": "Failure to install may be observed while installing AI Bundle components in some regions with limited access to HuggingFace and GitHub.",
       "first": "26.6.1",
-      "last_seen": "26.11.1",
+      "last_seen": "26.11.2",
       "status": "pending",
       "fixed_in": null,
       "game": "some regions",
@@ -6488,7 +6494,8 @@
         "26.9.2",
         "26.10.1",
         "26.10.2",
-        "26.11.1"
+        "26.11.1",
+        "26.11.2"
       ],
       "id": "AMD-0434"
     },
@@ -6578,9 +6585,9 @@
     {
       "text": "AMD Smart Access Memory may become disabled after driver installation on Windows 10 systems.",
       "first": "26.7.1",
-      "last_seen": "26.11.1",
-      "status": "pending",
-      "fixed_in": null,
+      "last_seen": "26.11.2",
+      "status": "fixed",
+      "fixed_in": "26.11.2",
       "game": "Not specified",
       "gpu": "Not specified",
       "sources": [
@@ -6590,7 +6597,8 @@
         "26.9.2",
         "26.10.1",
         "26.10.2",
-        "26.11.1"
+        "26.11.1",
+        "26.11.2"
       ],
       "id": "AMD-0441"
     },
@@ -6730,7 +6738,7 @@
     {
       "text": "Intermittent application crash or driver timeout may be observed while playing Assassin's Creed Black Flag Resynced on Radeon RX 7000 series graphics products.",
       "first": "26.9.2",
-      "last_seen": "26.11.1",
+      "last_seen": "26.11.2",
       "status": "pending",
       "fixed_in": null,
       "game": "Assassin's Creed Black Flag Resynced",
@@ -6739,7 +6747,8 @@
         "26.9.2",
         "26.10.1",
         "26.10.2",
-        "26.11.1"
+        "26.11.1",
+        "26.11.2"
       ],
       "id": "AMD-0452"
     },
@@ -6772,16 +6781,17 @@
     {
       "text": "Intermittent driver timeout may be observed while playing War Thunder on Radeon RX 5000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.9.1.",
       "first": "26.9.2",
-      "last_seen": "26.11.1",
-      "status": "pending",
-      "fixed_in": null,
+      "last_seen": "26.11.2",
+      "status": "fixed",
+      "fixed_in": "26.11.2",
       "game": "War Thunder",
       "gpu": "RX 5000",
       "sources": [
         "26.9.2",
         "26.10.1",
         "26.10.2",
-        "26.11.1"
+        "26.11.1",
+        "26.11.2"
       ],
       "id": "AMD-0455"
     },
@@ -6828,7 +6838,7 @@
     {
       "text": "Intermittent application crash or driver timeout may be observed while playing Cyberpunk 2077 with AMD FSR Upscaling, AMD Radeon Anti-Lag and in-game frame generation enabled during video playback on a secondary display on some Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to disable in-game frame generation.",
       "first": "26.10.1",
-      "last_seen": "26.11.1",
+      "last_seen": "26.11.2",
       "status": "pending",
       "fixed_in": null,
       "game": "Cyberpunk 2077",
@@ -6836,7 +6846,8 @@
       "sources": [
         "26.10.1",
         "26.10.2",
-        "26.11.1"
+        "26.11.1",
+        "26.11.2"
       ],
       "id": "AMD-0459"
     },
@@ -6952,42 +6963,45 @@
     {
       "text": "Black corruption may be observed while playing Call of Duty: Modern Warfare Remastered on Radeon RX 9000 series graphics products.",
       "first": "26.10.2",
-      "last_seen": "26.11.1",
+      "last_seen": "26.11.2",
       "status": "pending",
       "fixed_in": null,
       "game": "Call of Duty: Modern Warfare Remastered",
       "gpu": "RX 9000",
       "sources": [
         "26.10.2",
-        "26.11.1"
+        "26.11.1",
+        "26.11.2"
       ],
       "id": "AMD-0468"
     },
     {
       "text": "Black screen may be observed when launching Gears of War: Reloaded on AMD Ryzen AI 9 400 Series processors. Users experiencing this issue are recommended to switch the in-game display mode to Windowed and then back to Fullscreen.",
       "first": "26.10.2",
-      "last_seen": "26.11.1",
+      "last_seen": "26.11.2",
       "status": "pending",
       "fixed_in": null,
       "game": "Not specified",
       "gpu": "Ryzen AI 9 400",
       "sources": [
         "26.10.2",
-        "26.11.1"
+        "26.11.1",
+        "26.11.2"
       ],
       "id": "AMD-0469"
     },
     {
       "text": "Call of Duty: Modern Warfare Remastered may become unresponsive while using Alt+Tab during gameplay on Ryzen AI Max PRO 400 Series processors.",
       "first": "26.10.2",
-      "last_seen": "26.11.1",
+      "last_seen": "26.11.2",
       "status": "pending",
       "fixed_in": null,
       "game": "Not specified",
       "gpu": "Not specified",
       "sources": [
         "26.10.2",
-        "26.11.1"
+        "26.11.1",
+        "26.11.2"
       ],
       "id": "AMD-0470"
     },
@@ -7059,28 +7073,146 @@
     {
       "text": "Visual corruption may appear on character hair while playing Phantom Blade Zero on Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to disable the High-Quality Hair setting in the game.",
       "first": "26.11.1",
-      "last_seen": "26.11.1",
-      "status": "pending",
-      "fixed_in": null,
+      "last_seen": "26.11.2",
+      "status": "fixed",
+      "fixed_in": "26.11.2",
       "game": "Phantom Blade Zero",
       "gpu": "RX 9000",
       "sources": [
-        "26.11.1"
+        "26.11.1",
+        "26.11.2"
       ],
       "id": "AMD-0476"
+    },
+    {
+      "text": "A memory leak may be observed over time, with applications taking progressively longer to launch, on Radeon RX 5000 series graphics products and above.",
+      "first": "26.11.2",
+      "last_seen": "26.11.2",
+      "status": "fixed",
+      "fixed_in": "26.11.2",
+      "game": "Not specified",
+      "gpu": "RX 5000",
+      "sources": [
+        "26.11.2"
+      ],
+      "id": "AMD-0477"
+    },
+    {
+      "text": "Application crash may be observed in some games after using the AMD Cleanup Utility on Windows 10 systems with Radeon RX 9000 series graphics products.",
+      "first": "26.11.2",
+      "last_seen": "26.11.2",
+      "status": "fixed",
+      "fixed_in": "26.11.2",
+      "game": "some games after using the AMD Cleanup Utility",
+      "gpu": "RX 9000",
+      "sources": [
+        "26.11.2"
+      ],
+      "id": "AMD-0478"
+    },
+    {
+      "text": "Application crash may be observed on first launch of Resident Evil Requiem after resetting the shader cache on Radeon RX 7000 series graphics products and above.",
+      "first": "26.11.2",
+      "last_seen": "26.11.2",
+      "status": "fixed",
+      "fixed_in": "26.11.2",
+      "game": "Not specified",
+      "gpu": "RX 7000",
+      "sources": [
+        "26.11.2"
+      ],
+      "id": "AMD-0479"
+    },
+    {
+      "text": "Excessive writes to the system drive may be observed while the system is idle on Radeon RX 5000 and RX 6000 series graphics products when using Windows 10.",
+      "first": "26.11.2",
+      "last_seen": "26.11.2",
+      "status": "fixed",
+      "fixed_in": "26.11.2",
+      "game": "Not specified",
+      "gpu": "RX 5000 / RX 6000",
+      "sources": [
+        "26.11.2"
+      ],
+      "id": "AMD-0480"
+    },
+    {
+      "text": "Failure to launch Crimson Desert may be observed on Radeon RX 6000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.11.1.",
+      "first": "26.11.2",
+      "last_seen": "26.11.2",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "Not specified",
+      "gpu": "RX 6000",
+      "sources": [
+        "26.11.2"
+      ],
+      "id": "AMD-0481"
+    },
+    {
+      "text": "Failure to launch PETAFAB: Bot Invasion may be observed on Radeon RX 6000 series graphics products.",
+      "first": "26.11.2",
+      "last_seen": "26.11.2",
+      "status": "fixed",
+      "fixed_in": "26.11.2",
+      "game": "Not specified",
+      "gpu": "RX 6000",
+      "sources": [
+        "26.11.2"
+      ],
+      "id": "AMD-0482"
+    },
+    {
+      "text": "Intermittent application crash or driver timeout may be observed while streaming with OBS Studio on Radeon RX 9000 series graphics products.",
+      "first": "26.11.2",
+      "last_seen": "26.11.2",
+      "status": "fixed",
+      "fixed_in": "26.11.2",
+      "game": "Not specified",
+      "gpu": "RX 9000",
+      "sources": [
+        "26.11.2"
+      ],
+      "id": "AMD-0483"
+    },
+    {
+      "text": "Intermittent blank or empty content may be observed in the tabs of AMD Software.",
+      "first": "26.11.2",
+      "last_seen": "26.11.2",
+      "status": "pending",
+      "fixed_in": null,
+      "game": "Not specified",
+      "gpu": "Not specified",
+      "sources": [
+        "26.11.2"
+      ],
+      "id": "AMD-0484"
+    },
+    {
+      "text": "System crash may be observed when launching an application from a long file path on Radeon RX 7000 series graphics products.",
+      "first": "26.11.2",
+      "last_seen": "26.11.2",
+      "status": "fixed",
+      "fixed_in": "26.11.2",
+      "game": "Not specified",
+      "gpu": "RX 7000",
+      "sources": [
+        "26.11.2"
+      ],
+      "id": "AMD-0485"
     }
   ],
   "meta": {
-    "generated": "2026-11-13",
-    "last_checked": "2026-11-13T14:35:13Z",
-    "coverage": "Every AMD Adrenalin release note still published by AMD, 22.1.1 to 26.11.1.",
+    "generated": "2026-11-19",
+    "last_checked": "2026-11-19T15:45:48Z",
+    "coverage": "Every AMD Adrenalin release note still published by AMD, 22.1.1 to 26.11.2.",
     "coverage_from": "22.1.1",
-    "coverage_to": "26.11.1",
+    "coverage_to": "26.11.2",
     "contiguous_from": "22.1.1",
     "contiguous": true,
     "contiguity_basis": "Every version in the probed window was either found and included, or confirmed absent (HTTP 404) by scripts/discover_releases.py.",
     "date_precision": {
-      "exact": 20,
+      "exact": 21,
       "month": 63,
       "note": "Pages from 25.9.2 onward state a release date. Older pages carry no date, and their JSON-LD datePublished is the page migration date rather than the driver date, so those dates are derived from the version number and are month-accurate only (day is set to 01)."
     },

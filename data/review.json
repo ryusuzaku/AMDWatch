@@ -1,18 +1,18 @@
 {
-  "generated": "2026-11-13",
+  "generated": "2026-11-19",
   "thresholds": {
     "merge": 0.95,
     "report": 0.72
   },
   "summary": {
-    "releases": 83,
-    "candidates_parsed": 858,
-    "issues": 476,
-    "pending": 126,
-    "fixed": 350,
+    "releases": 84,
+    "candidates_parsed": 876,
+    "issues": 485,
+    "pending": 125,
+    "fixed": 360,
     "fuzzy_merges": 34,
-    "near_misses_not_merged": 182,
-    "issues_with_reworded_variants": 42
+    "near_misses_not_merged": 187,
+    "issues_with_reworded_variants": 43
   },
   "fuzzy_merges": [
     {
@@ -1312,6 +1312,36 @@
       "closest": "Corruption may appear while playing Satisfactory on Radeon RX 9000 series graphics products.",
       "similarity": 0.779,
       "version": "26.11.1"
+    },
+    {
+      "new": "Excessive writes to the system drive may be observed while the system is idle on Radeon RX 5000 and RX 6000 series graphics products when using Windows 10.",
+      "closest": "Excessive writes to the system drive may be observed while the system is idle on Radeon RX 7000 series graphics products and above.",
+      "similarity": 0.866,
+      "version": "26.11.2"
+    },
+    {
+      "new": "Application crash may be observed in some games after using the AMD Cleanup Utility on Windows 10 systems with Radeon RX 9000 series graphics products.",
+      "closest": "Intermittent application crash may be observed in some games with AMD FSR Upscaling 4.1 enabled on Windows 10 systems for Radeon RX 7000 series graphics products.",
+      "similarity": 0.778,
+      "version": "26.11.2"
+    },
+    {
+      "new": "System crash may be observed when launching an application from a long file path on Radeon RX 7000 series graphics products.",
+      "closest": "System crash may be observed when first launching SteamVR while using Valve Index at 144Hz on Radeon RX 6000 series graphics products.",
+      "similarity": 0.742,
+      "version": "26.11.2"
+    },
+    {
+      "new": "Intermittent application crash or driver timeout may be observed while streaming with OBS Studio on Radeon RX 9000 series graphics products.",
+      "closest": "Intermittent application crash or driver timeout may be observed while playing Overwatch 2 on Radeon RX 5000 series graphics products.",
+      "similarity": 0.897,
+      "version": "26.11.2"
+    },
+    {
+      "new": "Failure to launch Crimson Desert may be observed on Radeon RX 6000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.11.1.",
+      "closest": "Failure to launch PETAFAB: Bot Invasion may be observed on Radeon RX 6000 series graphics products.",
+      "similarity": 0.862,
+      "version": "26.11.2"
     }
   ],
   "reworded": [
@@ -1595,6 +1625,7 @@
     {
       "text": "Intermittent driver timeout may be observed while playing War Thunder on Radeon RX 5000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.9.1.",
       "variants": [
+        "Intermittent driver timeout may be observed while playing War Thunder on Radeon RX 5000 series graphics products.",
         "Intermittent driver timeout may be observed while playing War Thunder on Radeon RX 5000 series graphics products. Users experiencing this issue are recommended to install AMD Software 26.9.1.",
         "Intermittent driver timeout may be observed while playing War Thunder on Radeon RX 5000 series graphics products. Users experiencing this issue are recommended to use AMD Software 26.9.1."
       ]
@@ -1611,6 +1642,13 @@
       "variants": [
         "Intermittent system crash or hang may be observed when switching between applications or toggling overlays while playing games with in-game AMD FSR Frame Generation enabled on Radeon RX 9000 series graphics products.",
         "Intermittent system crash or hang may be observed when switching between applications or toggling overlays while playing games with in-game AMD FSR Frame Generation enabled on Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to enable V-Sync in game settings."
+      ]
+    },
+    {
+      "text": "Visual corruption may appear on character hair while playing Phantom Blade Zero on Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to disable the High-Quality Hair setting in the game.",
+      "variants": [
+        "Visual corruption may appear on character hair while playing Phantom Blade Zero on Radeon RX 9000 series graphics products.",
+        "Visual corruption may appear on character hair while playing Phantom Blade Zero on Radeon RX 9000 series graphics products. Users experiencing this issue are recommended to disable the High-Quality Hair setting in the game."
       ]
     }
   ],
